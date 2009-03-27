@@ -18,7 +18,7 @@ The user must no longer fill out any additional fields in the comment form, and 
 
 * Easy installation (just activate the plugin!)
 * Does not require any modification on your comment template
-* Does not change any of your comment formfields (full compatibility with other plugins!)
+* Does not change any of your comment formfields (giving you full compatibility with other plugins!)
 * Does not require JavaScript, Cookies or Sessions
 * No extra field for user input (e.g. Captcha) required
 * False-positives are nearly impossible
