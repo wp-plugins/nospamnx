@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.0
+Stable tag: 1.1
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -60,5 +60,11 @@ Due to the core functionality of NoSpamNX false-postives are nearly impossible. 
 
 == Version History ==
 
-* Version 1.0
+* Version 1.1 (29-03-09)
+	* Optimized function that adds the hidden fields
+    * Removed all serialize/unserialize functions
+    * Changed activate/deactivate to wp-hooks 
+    * Completly changed handling of options
+    * Updated language file
+* Version 1.0 (27-03-09)
     * Initial release
