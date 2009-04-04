@@ -63,7 +63,7 @@ Due to the core functionality of NoSpamNX false-postives are nearly impossible. 
 
 == Version History ==
 
-* Version 1.0 (tbd)
+* Version 1.2 (04-04-09)
     * Added French translation
     * Added Italian translation
     * Minor code optimization
