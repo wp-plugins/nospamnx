@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.1
+Stable tag: 1.2
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -18,16 +18,19 @@ The user must no longer fill out any additional fields in the comment form, and 
 
 * Easy installation (just activate the plugin!)
 * Does not require any modification on your comment template
-* Does not change any of your comment formfields (giving you full compatibility with other plugins!)
+* Does not change any of your comment formfields (giving you full compatibility with other plugins or templates!)
 * Does not require JavaScript, Cookies or Sessions
 * No extra field for user input (e.g. Captcha) required
-* False-positives are nearly impossible
 * No need to manage spambot comments anymore 
+* False-positives are nearly impossible
+
 
 = Available Languages  =
 
 * German
 * English
+* French
+* Italian
 
 == Installation ==
 
@@ -60,6 +63,11 @@ Due to the core functionality of NoSpamNX false-postives are nearly impossible. 
 
 == Version History ==
 
+* Version 1.0 (tbd)
+    * Added French translation
+    * Added Italian translation
+    * Minor code optimization
+    * Default blocktime for ip address set to 1 hour
 * Version 1.1 (29-03-09)
 	* Optimized function that adds the hidden fields
     * Removed all serialize/unserialize functions

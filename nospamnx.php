@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds automaticly additional formfields (hidden to a real user) to your comment template, which are checked every time a comment is posted. 
-Version: 1.1
+Version: 1.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -24,7 +24,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
-define('NOSPAMNXISWP26', version_compare($wp_version, '2.6', '>='));
+define('NOSPAMNXREQWP26', version_compare($wp_version, '2.6', '>='));
 
 Class NoSpamNX
 {	
@@ -38,14 +38,14 @@ Class NoSpamNX
 	
 	function nospamnx()
 	{
-		//load language
+		//load language strings
 		if (function_exists('load_plugin_textdomain'))
 			load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
 			
 		//check if wordpress is at least 2.6
-		if (NOSPAMNXISWP26 != true){
-			add_action('admin_notices', array(&$this, 'wpOld'));
-			return false;
+		if (NOSPAMNXREQWP26 != true){
+			add_action('admin_notices', array(&$this, 'wpVersionNotice'));
+			return;
 		}
 		
 		//add nospamnx wordpress actions	
@@ -63,7 +63,7 @@ Class NoSpamNX
 		$this->loadOptions();
 	}
 
-	function wpOld()
+	function wpVersionNotice()
 	{
 		echo "<div id='message' class='error fade'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!','nospamnx')."</p></div>";
 	}	
@@ -73,15 +73,17 @@ Class NoSpamNX
 		//check if we only display the page/post
 		if (is_singular())
 		{
-			ob_start(array(&$this, 'addFields'));
+			//start output buffer and add callback function
+			ob_start(array(&$this, 'addHiddenFields'));
 		}
 	}
 
-	function addFields($template)
+	function addHiddenFields($template)
 	{	
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
 		
+		//replace the textfields within the ouput buffer
 		if (rand(1,2) == 1)
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
 		else
@@ -124,7 +126,7 @@ Class NoSpamNX
 	function birdbrained($catched)
 	{
 		//lets cleanup some old blocked ips, the spambot has enoguh time
-		$this->cleanup();
+		($this->nospamnx_checkip == 1) ? $this->cleanup() : false;
 		
 		//check if we already catched the spambot (based on ip adress) or not
 		if ($catched == false)
@@ -168,7 +170,7 @@ Class NoSpamNX
 	
 	function saveIp()
 	{	
-		//ip will be blocked occording to blocktime settings
+		//get the curren time
 		$currentime = time();
 		
 		//get current list of blocked ips
@@ -179,7 +181,7 @@ Class NoSpamNX
 			return;		
 		
 		//set the time the ip will be blocked
-		switch ($this->blocktime)
+		switch ($this->nospamnx_blocktime)
 		{
 			case 0:
 				$until = 2147483647;
@@ -200,7 +202,7 @@ Class NoSpamNX
 			'until' 	=> $until
 		);
 		
-		//add the new entry to out list
+		//add the new entry to our list
 		$blockips [] = $newentry;
 		
 		//now save the new entry
@@ -224,7 +226,7 @@ Class NoSpamNX
 		//loop through all entries and check if the entry is already in our list
 		for ($i = 0; $i <= count($blockips); $i++)
 		{
-			//check agent and ip against database
+			//check ip against entries
 			if ($_SERVER['REMOTE_ADDR'] == $blockips [$i]['remoteip'])
 			{
 				//found the entry, but do we still block it?
@@ -292,20 +294,23 @@ Class NoSpamNX
 					$this->nospamnx_operate = 'block';		
 			}
 			
-			//how long will the ips be blocked?
-			switch($_POST['nospamnx_blocktime'])
+			if (!empty($_POST['nospamnx_blocktime']))
 			{
-				case 0:
-					$this->nospamnx_blocktime = 0;
-				break;
-				case 1:
-					$this->nospamnx_blocktime = 1;
-				break;
-				case 24;
-					$this->nospamnx_blocktime = 24;
-				break;
-				default:				 	
-					$this->nospamnx_blocktime = 0;
+				//how long will the ips be blocked?
+				switch($_POST['nospamnx_blocktime'])
+				{
+					case 0:
+						$this->nospamnx_blocktime = 0;
+					break;
+					case 1:
+						$this->nospamnx_blocktime = 1;
+					break;
+					case 24;
+						$this->nospamnx_blocktime = 24;
+					break;
+					default:				 	
+						$this->nospamnx_blocktime = 1;
+				}
 			}
 
 			//do we have to check logged in users?
@@ -320,6 +325,7 @@ Class NoSpamNX
 		}
 		else if ($_POST['reset_counter'])
 		{
+			//reset counter
 			$this->nospamnx_count = 0;
 			
 			//save options and display message
@@ -426,6 +432,9 @@ Class NoSpamNX
 										<input type="radio" name="nospamnx_ip" <?php echo $ipyes; ?> value="1"> <?php echo __('Yes','nospamnx'); ?> <input type="radio" <?php echo $ipno; ?> name="nospamnx_ip" value="0"> <?php echo __('No','nospamnx'); ?>
 										</td>									
 									</tr>
+									
+									<?php if ($this->nospamnx_checkip == 1){ ?>
+									
 						    		<tr>
 										<th scope="row" valign="top"><b><?php echo __('Block time','nospamnx'); ?></b></th>
 										<td>
@@ -445,7 +454,10 @@ Class NoSpamNX
 											$entries, 'nospamnx'), $entries);
 										?>	
 										</td>									
-									</tr>			
+									</tr>
+									
+									<?php } ?>	
+											
 							</table>
 							<input type="hidden" value="1" name="save_settings">
 							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
@@ -493,7 +505,7 @@ Class NoSpamNX
 			'nospamnx_checkip'		=> 0,
 			'nospamnx_count'		=> 0,
 			'nospamnx_operate'		=> 'block',
-			'nospamnx_blocktime'	=> 0,
+			'nospamnx_blocktime'	=> 1,
 			'nospamnx_checkuser'	=> 1,
 			'nospamnx_blockips'		=> array()
 		);
