@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: NoSpamNX
-Plugin URI: http://www.svenkubiak.de/nospamnx
-Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds automaticly additional formfields (hidden to a real user) to your comment template, which are checked every time a comment is posted. 
-Version: 1.2
+Plugin URI: http://www.svenkubiak.de/nospamnx-en
+Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds automaticly additional formfields (hidden to a real user) to your comment template. These formfields are checked every time a comment is posted. 
+Version: 1.3
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -55,7 +55,7 @@ Class NoSpamNX
 		add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 		add_action('rightnow_end', array(&$this, 'nospamnxStats'));
 		
-		//tell wp what to do when activated and deactivated
+		//tell wp what to do when plugin is activated and deactivated
 		register_activation_hook(__FILE__, array(&$this, 'activate'));
 		register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));		
 
@@ -72,13 +72,14 @@ Class NoSpamNX
 	{
 		//check if we only display the page/post
 		if (is_singular())
-		{
-			//start output buffer and add callback function
-			ob_start(array(&$this, 'addHiddenFields'));
-		}
+			//start output buffer and add callback function for comment template
+			ob_start(array(&$this, 'addHidden'));
+		else if (is_comments_popup())
+			//start output buffer and add callback function for comment popup template		
+			ob_start(array(&$this, 'addHiddenPopup'));
 	}
 
-	function addHiddenFields($template)
+	function addHidden($template)
 	{	
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
@@ -89,6 +90,18 @@ Class NoSpamNX
 		else
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
 	}
+	
+	function addHiddenPopup($template)
+	{	
+		//get the formfields names and value from wp options
+		$nospamnx = $this->nospamnx_names;
+		
+		//replace the textfields within the ouput buffer
+		if (rand(1,2) == 1)
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" />', $template);
+		else
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" />', $template);
+	}	
 	
 	function checkCommentForm()
 	{													
@@ -101,7 +114,7 @@ Class NoSpamNX
 			if (basename($_SERVER['PHP_SELF']) == 'wp-comments-post.php')
 			{
 				//if ip lock is enabled, check if we have the spambot already catched
-				if ($this->nospamnx_checkip == 1 && $this->checkIp() === true)
+				if ($this->nospamnx_checkip == 1 && $this->checkIp() == true)
 					$this->birdbrained(true);
 				
 				//get current formfield names from wp options
@@ -411,7 +424,7 @@ Class NoSpamNX
 										<input type="hidden" value="true" name="nospamnx_mode">
 										<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
 										<br />
-										<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam (Requires Akismet or similar plugin)','nospamnx'); ?>
+										<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
 										<br />
 										<input type="radio" <?php echo $moderate; ?> name="nospamnx_operate" value="moderate"> <?php echo __('Moderate','nospamnx'); ?>
 										</td>									
@@ -557,10 +570,10 @@ Class NoSpamNX
 		$counter = number_format_i18n($this->nospamnx_count);
 
 		if ($dashboard === true){echo "<p>";}
-		echo '<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>';
+		echo '<a href="http://www.svenkubiak.de/nospamnx-en">NoSpamNX</a>';
 		printf(__ngettext(
-			" has stopped %s birdbrained Spambot.",
-			" has stopped %s birdbrained Spambots.",
+			" has stopped %s birdbrained Spambot since it last activation.",
+			" has stopped %s birdbrained Spambots since it last activation.",
 			$counter, 'nospamnx'), $counter);
 		if ($dashboard === true){echo "</p>";}			
 	}

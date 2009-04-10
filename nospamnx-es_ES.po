@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mail On Update v2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-10 18:08+0100\n"
-"PO-Revision-Date: 2009-04-10 18:09+0100\n"
+"POT-Creation-Date: 2009-04-10 18:07+0100\n"
+"PO-Revision-Date: 2009-04-10 18:08+0100\n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,135 +18,135 @@ msgstr ""
 
 #: nospamnx.php:68
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "Votre version de Wordpress est trop vieille. NoSpamNX nécessite au moins la version 2.6 de Wordpress."
+msgstr "WordPress es su edad. NoSpamNX requiere al menos WordPress 2.6!"
 
 #: nospamnx.php:156
 #: nospamnx.php:164
 msgid "Sorry, but it seems you are a Spambot."
-msgstr "Désolé, mais il semble que vous êtes un Spambot."
+msgstr "Lo sentimos, pero parece que está un spambot."
 
 #: nospamnx.php:279
 msgid "Sorry, but you have no permissions to change settings."
-msgstr "Désolé mais vous n'avez pas l'autorisation de modifier ces réglages."
+msgstr "Lo sentimos, pero usted no tiene permisos para cambiar los ajustes."
 
 #: nospamnx.php:337
 msgid "NoSpamNX settings were saved successfully."
-msgstr "NoSpamNX paramètres ont été sauvegardés avec succès."
+msgstr "NoSpamNX ajustes se han guardado correctamente."
 
 #: nospamnx.php:346
 msgid "NoSpamNX Counter was reseted successfully."
-msgstr "Counter NoSpamNX était reseted avec succès."
+msgstr "NoSpamNX contra fue reseted éxito."
 
 #: nospamnx.php:385
 msgid "Are you sure you want to reset the counter?"
-msgstr "Êtes-vous sûr de vouloir remettre le compteur à zéro?"
+msgstr "¿Estás seguro de que desea restablecer el contador?"
 
 #: nospamnx.php:391
 msgid "NoSpamNX Settings"
-msgstr "NoSpamNX Paramètres"
+msgstr "Ajustes NoSpamNX"
 
 #: nospamnx.php:395
 msgid "Statistic"
-msgstr "Statistique"
+msgstr "Estadística"
 
 #: nospamnx.php:400
 msgid "Stopped Spambots"
-msgstr "Arrêté spambots"
+msgstr "Detenido spambots"
 
 #: nospamnx.php:407
 msgid "Reset"
-msgstr "Remise"
+msgstr "Restablecer"
 
 #: nospamnx.php:415
 msgid "Operating mode"
-msgstr "Mode de fonctionnement"
+msgstr "Modo de funcionamiento"
 
 #: nospamnx.php:418
 msgid "By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in."
-msgstr "Par défaut, tous les robots spammers sera bloqué. Si vous voulez voir ce qui est bloqué, sélectionnez modérée ou d'une marque comme spam. Catched spambots nous serons marqués comme spam ou de mettre en file d'attente de modération. De plus, vous pouvez activer ou désactiver si NoSpamNX devrait effectuer ses contrôles, si un utilisateur est connecté po."
+msgstr "Por defecto, todos los spambots será bloqueado. Si desea ver lo que está bloqueado, seleccione moderada o marca como spam. Atrapado spambots vamos a ser marcado como spam o poner en cola de moderación. Además, puede habilitar o deshabilitar si NoSpamNX debe perfom sus controles, si un usuario está conectado."
 
 #: nospamnx.php:422
 msgid "Mode"
-msgstr "Mode"
+msgstr "Modo"
 
 #: nospamnx.php:425
 msgid "Block (recommended)"
-msgstr "Block (recommandé)"
+msgstr "Bloque (recomendado)"
 
 #: nospamnx.php:427
 msgid "Mark as Spam"
-msgstr "Marquer comme spam"
+msgstr "Marcar como spam"
 
 #: nospamnx.php:429
 msgid "Moderate"
-msgstr "Modéré"
+msgstr "Moderado"
 
 #: nospamnx.php:433
 msgid "Check logged in User"
-msgstr "Arrivée à l'utilisateur connecté"
+msgstr "Compruebe iniciar sesión de usuario"
 
 #: nospamnx.php:435
 #: nospamnx.php:445
 msgid "Yes"
-msgstr "Oui"
+msgstr "Sí"
 
 #: nospamnx.php:435
 #: nospamnx.php:445
 msgid "No"
-msgstr "Non"
+msgstr "No"
 
 #: nospamnx.php:439
 msgid "IP-Address Lockout"
-msgstr "IP-Adresse Lockout"
+msgstr "Bloqueo de direcciones IP"
 
 #: nospamnx.php:440
 msgid "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or indefinitely. This IP-Address can not post any comments during this time."
-msgstr "Vous pouvez bloquer une adresse IP d'un catched Spambot pour 1 heure, 24 heures ou de durée. Cette adresse IP ne pouvez pas poster des commentaires pendant ce temps."
+msgstr "Usted puede bloquear una dirección IP de un atrapado spambot de 1 hora, 24 horas o indefinido. Esta dirección IP no puede publicar todas las observaciones durante este tiempo."
 
 #: nospamnx.php:443
 msgid "Block IP-Address"
-msgstr "Block IP-Adresse"
+msgstr "Bloque de direcciones IP"
 
 #: nospamnx.php:452
 msgid "Block time"
-msgstr "Bloc de temps"
+msgstr "Bloque de tiempo"
 
 #: nospamnx.php:454
 msgid "1 hour"
-msgstr "1 heure"
+msgstr "1 hora"
 
 #: nospamnx.php:456
 msgid "24 hours"
-msgstr "24 heures"
+msgstr "24 horas"
 
 #: nospamnx.php:458
 msgid "Indefinitely"
-msgstr "Indéfiniment"
+msgstr "Indefinidamente"
 
 #: nospamnx.php:462
 msgid "Entries"
-msgstr "Entries"
+msgstr "Entradas"
 
 #: nospamnx.php:465
 #, php-format
 msgid " Currently %s out of 100 entries is stored."
 msgid_plural " Currently %s out of 100 entries are stored."
-msgstr[0] " Actuellement %s de 100 entrées sont enregistrées."
-msgstr[1] "Actuellement %s de 100 entrées sont enregistrés."
+msgstr[0] " Actualmente %s de 100 entradas se almacena."
+msgstr[1] " Actualmente %s de 100 entradas se almacenan."
 
 #: nospamnx.php:476
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Salvar"
 
 #: nospamnx.php:575
 #, php-format
 msgid " has stopped %s birdbrained Spambot since it last activation."
 msgid_plural " has stopped %s birdbrained Spambots since it last activation."
-msgstr[0] " a cessé de s birdbrained Spambot %s depuis la dernière activation."
-msgstr[1] " a cessé de s birdbrained spambots %s depuis la dernière activation."
+msgstr[0] " %s se ha detenido birdbrained spambot desde la última activación."
+msgstr[1] " %s se ha detenido birdbrained spambots desde la última activación."
 
 #~ msgid "Mark as Spam (Requires Akismet or similar plugin)"
-#~ msgstr "Marquer comme spam (Nécessite le plugin Akismet ou similaire)"
+#~ msgstr "Marcar como Spam (Requiere plugin de Akismet o similar)"
 #~ msgid "A new version of %1$s is available."
 #~ msgstr "Il y a une nouvelle version de %1$s disponible."
 #~ msgid "- Installed: %1$s, Current: %2$s"

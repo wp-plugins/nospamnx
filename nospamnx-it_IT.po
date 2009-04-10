@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp in Italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-30 15:18+0100\n"
+"POT-Creation-Date: 2009-04-10 18:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -21,131 +21,139 @@ msgstr ""
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
 msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.6 o superiore."
 
-#: nospamnx.php:143
-#: nospamnx.php:151
+#: nospamnx.php:156
+#: nospamnx.php:164
 msgid "Sorry, but it seems you are a Spambot."
 msgstr "Pare che tu sia uno Spambot."
 
-#: nospamnx.php:266
+#: nospamnx.php:279
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Non hai i permessi per poter modificare le impostazioni."
 
-#: nospamnx.php:321
+#: nospamnx.php:337
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Le impostazioni di NoSpamNX sono state salvate con successo."
 
-#: nospamnx.php:330
+#: nospamnx.php:346
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Il contatore di NoSpamNX é stato azzerato con successo."
 
-#: nospamnx.php:369
+#: nospamnx.php:385
 msgid "Are you sure you want to reset the counter?"
 msgstr "Sei certo di voler azzerare il contatore?"
 
-#: nospamnx.php:375
+#: nospamnx.php:391
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX Preferenze"
 
-#: nospamnx.php:379
+#: nospamnx.php:395
 msgid "Statistic"
 msgstr "Statistica"
 
-#: nospamnx.php:384
+#: nospamnx.php:400
 msgid "Stopped Spambots"
 msgstr "Arrestato pubblicitari"
 
-#: nospamnx.php:391
+#: nospamnx.php:407
 msgid "Reset"
 msgstr "Reset"
 
-#: nospamnx.php:399
+#: nospamnx.php:415
 msgid "Operating mode"
 msgstr "Modo operativo"
 
-#: nospamnx.php:402
+#: nospamnx.php:418
 msgid "By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in."
 msgstr "Per impostazione predefinita tutte pubblicitari saranno bloccati. Se volete vedere ciò che è bloccato, selezionare moderata o marchio come spam. Catched pubblicitari non vogliamo essere contrassegnati come Spam o messi in coda di moderazione. Inoltre è possibile abilitare o disabilitare se NoSpamNX dovrebbe effettuare i controlli, se un utente è connesso a."
 
-#: nospamnx.php:406
+#: nospamnx.php:422
 msgid "Mode"
 msgstr "Modo"
 
-#: nospamnx.php:409
+#: nospamnx.php:425
 msgid "Block (recommended)"
 msgstr "Blocca (raccomandato)"
 
-#: nospamnx.php:411
-msgid "Mark as Spam (Requires Akismet or similar plugin)"
-msgstr "Segnala come Spam (é necessario Akisment o simili)"
+#: nospamnx.php:427
+msgid "Mark as Spam"
+msgstr "Segna come Spam"
 
-#: nospamnx.php:413
+#: nospamnx.php:429
 msgid "Moderate"
 msgstr "Modera"
 
-#: nospamnx.php:417
+#: nospamnx.php:433
 msgid "Check logged in User"
 msgstr "Verifica gli utenti collegati"
 
-#: nospamnx.php:419
-#: nospamnx.php:429
+#: nospamnx.php:435
+#: nospamnx.php:445
 msgid "Yes"
 msgstr "Sì"
 
-#: nospamnx.php:419
-#: nospamnx.php:429
+#: nospamnx.php:435
+#: nospamnx.php:445
 msgid "No"
 msgstr "No"
 
-#: nospamnx.php:423
+#: nospamnx.php:439
 msgid "IP-Address Lockout"
 msgstr "Indirizzo IP-bloccaggio"
 
-#: nospamnx.php:424
+#: nospamnx.php:440
 msgid "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or indefinitely. This IP-Address can not post any comments during this time."
 msgstr "Puoi bloccare un indirizzo IP di un catched Spambot per 1 ora, 24 ore o indeterminato. Questo indirizzo IP non può pubblicare commenti durante questo periodo."
 
-#: nospamnx.php:427
+#: nospamnx.php:443
 msgid "Block IP-Address"
 msgstr "Salva indirizzo IP"
 
-#: nospamnx.php:436
+#: nospamnx.php:452
 msgid "Block time"
 msgstr "Tempo per il blocco"
 
-#: nospamnx.php:438
+#: nospamnx.php:454
 msgid "1 hour"
 msgstr "1 ora"
 
-#: nospamnx.php:440
+#: nospamnx.php:456
 msgid "24 hours"
 msgstr "24 ore"
 
-#: nospamnx.php:442
+#: nospamnx.php:458
 msgid "Indefinitely"
 msgstr "Illimitato"
 
-#: nospamnx.php:446
+#: nospamnx.php:462
 msgid "Entries"
 msgstr "Diciture"
 
-#: nospamnx.php:449
+#: nospamnx.php:465
 #, php-format
 msgid " Currently %s out of 100 entries is stored."
 msgid_plural " Currently %s out of 100 entries are stored."
 msgstr[0] " Attualmente %s su 100 iscrizioni è immagazzinato."
 msgstr[1] " Attualmente% s su 100 voci sono memorizzati."
 
-#: nospamnx.php:460
+#: nospamnx.php:476
 msgid "Save"
 msgstr "Salva"
 
-#: nospamnx.php:559
+#: nospamnx.php:575
 #, php-format
-msgid " has stopped %s birdbrained Spambot."
-msgid_plural " has stopped %s birdbrained Spambots."
-msgstr[0] " ha fermato %s stupido Spambot che voleva accedere a questo blog!"
-msgstr[1] " ha fermato %s stupidi Spambot che volevano accedere a questo blog!"
+msgid " has stopped %s birdbrained Spambot since it last activation."
+msgid_plural " has stopped %s birdbrained Spambots since it last activation."
+msgstr[0] " %s si è fermato birdbrained Spambot poiché attivazione."
+msgstr[1] " %s si è fermato birdbrained pubblicitari dal momento che l'ultima attivazione."
 
+#~ msgid " has stopped %s birdbrained Spambot."
+#~ msgid_plural " has stopped %s birdbrained Spambots."
+#~ msgstr[0] ""
+#~ " ha fermato %s stupido Spambot che voleva accedere a questo blog!"
+#~ msgstr[1] ""
+#~ " ha fermato %s stupidi Spambot che volevano accedere a questo blog!"
+#~ msgid "Mark as Spam (Requires Akismet or similar plugin)"
+#~ msgstr "Segnala come Spam (é necessario Akisment o simili)"
 #~ msgid "The required functions for creating the table could not be loaded."
 #~ msgstr ""
 #~ "Non sono state caricate le funzioni necesarie per la creazione della "
@@ -280,15 +288,8 @@ msgstr[1] " ha fermato %s stupidi Spambot che volevano accedere a questo blog!"
 #~ msgstr ""
 #~ "Non é stato possibile rimuovere le modifiche apportate al file comments."
 #~ "php. Apporta manualmente le modifiche."
-#~ msgid " has stopped %s birdbrained Spambot since its last activation."
-#~ msgid_plural ""
-#~ " has stopped %s birdbrained Spambots since its last activation."
-#~ msgstr[0] " ha fermato %s stupido Spambot dalla sua ultima attivazione."
-#~ msgstr[1] " ha fermato %s stupidi Spambot dalla sua ultima attivazione."
 #~ msgid "Reset Names"
 #~ msgstr "Namen zurücksetzen"
-#~ msgid "Mark as Spam"
-#~ msgstr "Als Spam markieren"
 #~ msgid "Block/Mark/Moderate"
 #~ msgstr "Blockieren/Markieren/Moderieren"
 #~ msgid "Yawasp Statistic"
