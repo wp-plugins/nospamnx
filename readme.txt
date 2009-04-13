@@ -55,7 +55,7 @@ No, the plugin focus on automated spambots only.
 
 = What about false-positives? =
 
-Due to the functionality of NoSpamNX false-positives are nearly impossible. There 'might' be problems when using WordPress Cache-Plugins, but none have ever been reported. If you are uncertain, try puting catched Spambots in moderation queue or mark as Spam (Akismet or similar required). 
+Due to the functionality of NoSpamNX false-positives are nearly impossible. There 'might' be problems when using WordPress Cache-Plugins, but none have ever been reported. If you are uncertain, try puting catched Spambots in moderation queue or mark as Spam. 
 
 
 == Screenshots ==
