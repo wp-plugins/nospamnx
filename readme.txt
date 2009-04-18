@@ -2,11 +2,11 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.3
+Stable tag: 1.4
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
-To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted.
+To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
 
 == Description ==
 
@@ -33,6 +33,8 @@ The user must no longer fill out any additional fields in the comment form, and 
 * French
 * Italian
 * Spanish
+* Russian
+* Chinese
 
 == Installation ==
 
@@ -44,6 +46,10 @@ The user must no longer fill out any additional fields in the comment form, and 
 Done!
 
 == Frequently Asked Questions ==
+
+= When i activate the plugin, the hidden fields are visible! =
+
+Make sure, that the template you are using calls wp_head before the closing HEAD tag (</head>). See http://is.gd/tazh for more information.
 
 = What is the difference to other anti-comment-spam plugins? =
 
@@ -65,6 +71,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 1.4 (tbd)
+    * Added Russian translation
+    * Added Chinese translation (Simplified Chinese)
+    * Modified function that changes the template
+    * Updated FAQ
 * Version 1.3 (10-04-09)
     * Added full compatibility with comments-popup
     * Added Spanish translation

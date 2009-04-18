@@ -2,8 +2,8 @@
 /*
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
-Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds automaticly additional formfields (hidden to a real user) to your comment template. These formfields are checked every time a comment is posted. 
-Version: 1.3
+Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
+Version: 1.4
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -71,37 +71,22 @@ Class NoSpamNX
 	function modifyTemplate()
 	{
 		//check if we only display the page/post
-		if (is_singular())
+		if (is_single() || is_page() || is_comments_popup())
 			//start output buffer and add callback function for comment template
-			ob_start(array(&$this, 'addHidden'));
-		else if (is_comments_popup())
-			//start output buffer and add callback function for comment popup template		
-			ob_start(array(&$this, 'addHiddenPopup'));
+			ob_start(array(&$this, 'addHiddenFields'));
 	}
 
-	function addHidden($template)
+	function addHiddenFields($template)
 	{	
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
 		
 		//replace the textfields within the ouput buffer
 		if (rand(1,2) == 1)
-			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
+			return str_ireplace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
 		else
-			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
+			return str_ireplace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
 	}
-	
-	function addHiddenPopup($template)
-	{	
-		//get the formfields names and value from wp options
-		$nospamnx = $this->nospamnx_names;
-		
-		//replace the textfields within the ouput buffer
-		if (rand(1,2) == 1)
-			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" />', $template);
-		else
-			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" />', $template);
-	}	
 	
 	function checkCommentForm()
 	{													
