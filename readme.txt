@@ -49,7 +49,15 @@ Done!
 
 = When i activate the plugin, the hidden fields are visible! =
 
-Make sure, that the template you are using calls wp_head before the closing HEAD tag (</head>). See http://is.gd/tazh for more information.
+Make sure that the template you are using calls wp_head before the closing HEAD tag (</head>). See http://is.gd/tazh for more information.
+
+= When i activate the plugin and post a comment, i see a white page! =
+
+Make sure you are using PHP5.
+
+= When i activate the plugin and post a comment, i see a PHP-Error (Call to undefined function)! =
+
+Make sure you are using PHP5.
 
 = What is the difference to other anti-comment-spam plugins? =
 
