@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.4
+Stable tag: 1.5
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -51,14 +51,6 @@ Done!
 
 Make sure that the template you are using calls wp_head before the closing HEAD tag (</head>). See http://is.gd/tazh for more information.
 
-= When i activate the plugin and post a comment, i see a white page! =
-
-Make sure you are using PHP5.
-
-= When i activate the plugin and post a comment, i see a PHP-Error (Call to undefined function)! =
-
-Make sure you are using PHP5.
-
 = What is the difference to other anti-comment-spam plugins? =
 
 Spambots are stopped within the plugin. You don't see them and most important you don't have to moderate them!
@@ -79,6 +71,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 1.5 (18-04-09)
+    * Increased compatibility with different PHP configurations
+    * Added information tab in seetings
+    * Updated language files
+    * Updated FAQ
 * Version 1.4 (18-04-09)
     * Added Russian translation
     * Added Chinese translation (Simplified Chinese)

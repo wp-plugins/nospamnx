@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 1.4
+Version: 1.5
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -48,6 +48,10 @@ Class NoSpamNX
 			return;
 		}
 		
+		//check if required PHP functons are available
+		if ($this->preFlight() === false)
+			add_action('admin_notices', array(&$this, 'phpFail'));
+		
 		//add nospamnx wordpress actions	
 		add_action('init', array(&$this, 'checkCommentForm'));		
 		add_action('template_redirect', array(&$this, 'modifyTemplate'));	
@@ -66,10 +70,19 @@ Class NoSpamNX
 	function wpVersionNotice()
 	{
 		echo "<div id='message' class='error fade'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!','nospamnx')."</p></div>";
+	}
+
+	function phpFail()
+	{
+		echo "<div id='message' class='error fade'><p>".__('NoSpamNX is currently disabled! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details.','nospamnx')."</p></div>";
 	}	
 	
 	function modifyTemplate()
 	{
+		//check if required PHP functons are available otherwise disable plugin with returing
+		if ($this->preFlight() === false)
+			return;
+		
 		//check if we only display the page/post
 		if (is_single() || is_page() || is_comments_popup())
 			//start output buffer and add callback function for comment template
@@ -83,9 +96,9 @@ Class NoSpamNX
 		
 		//replace the textfields within the ouput buffer
 		if (rand(1,2) == 1)
-			return str_ireplace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
 		else
-			return str_ireplace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
 	}
 	
 	function checkCommentForm()
@@ -234,6 +247,14 @@ Class NoSpamNX
 		}
 		
 		return false;
+	}
+	
+	function preFlight()
+	{
+		if (function_exists('ob_start') && function_exists('str_replace'))
+			return true;
+		else
+			return false;
 	}
 	
 	function cleanup()
@@ -463,7 +484,61 @@ Class NoSpamNX
 							
 					</div>							
 				</div>
-			</div>				
+			</div>
+			
+			<div id="poststuff" class="ui-sortable">
+				<div class="postbox opened">
+					<h3><?php echo __('Information','nospamnx'); ?></h3>
+					<div class="inside">
+					    <table class="form-table">
+					    	<tr>
+								<th scope="row" valign="top">
+								<b><?php echo __('Debug','nospamnx'); ?></b>	
+								</th>
+								<td>
+								<?php 
+								
+								$debug  = "PHP: ".phpversion()."\n";
+								(function_exists('ob_start')) ? $debug .= "ob_start: true\n" : $debug .= "ob_start: false\n";
+								(function_exists('str_replace')) ? $debug .= "str_replace: true\n" : $debug .= "str_replace: false\n";
+								
+								?>
+								<textarea cols="40" rows="4"><?php echo $debug  ?></textarea>
+								</td>
+							</tr>
+					    	<tr>
+								<th scope="row" valign="top">
+								<b><?php echo __('Support','nospamnx'); ?></b>	
+								</th>
+								<td><?php printf(__('Problems with NoSpamNX? Feel free to contact me via E-Mail (%s) or check out the comments at the Plugin homepage. Please add the debug information to your request.','nospamnx'),'nospamnx (at) svenkubiak.de'); ?>
+								<br/>
+								<a href="http://www.svenkubiak.de/nospamnx#comments">Plugin Homepage (DE)</a>
+								<br/>
+								<a href="http://www.svenkubiak.de/nospamnx-en#comments">Plugin Homepage (EN)</a>							
+								</td>
+							</tr>
+							<tr>
+								<th scope="row" valign="top">
+								<b><?php echo __('Donation','nospamnx'); ?></b>	
+								</th>
+								<td><?php echo __('Developing, maintaining and supporting this plugin requires time. You can support further work with a donation. Thanks!','nospamnx'); ?>
+								<br />
+								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+								<input type="hidden" name="cmd" value="_donations"/>
+								<input type="hidden" name="business" value="sk@svenkubiak.de"/>
+								<input type="hidden" name="lc" value="US"/>
+								<input type="hidden" name="item_name" value="NoSpamNX (svenkubiak.de)"/>
+								<input type="hidden" name="currency_code" value="EUR"/>
+								<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest"/>
+								<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Donate using PayPal"/>
+								<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
+								</form>
+								</td>
+							</tr>	
+						</table>			
+					</div>
+				</div>
+			</div>
 		
 	    </div>	
 	    
@@ -482,7 +557,7 @@ Class NoSpamNX
 	}
 	
 	function activate()
-	{
+	{	
 		//delete old options from version 1.0
 		delete_option('nospamnx_count_default');
 		delete_option('nospamnx_count_emptyblank'); 	
