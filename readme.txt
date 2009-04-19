@@ -71,7 +71,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
-* Version 1.4 (tbd)
+* Version 1.4 (18-04-09)
     * Added Russian translation
     * Added Chinese translation (Simplified Chinese)
     * Modified function that changes the template
