@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.5
+Stable tag: 1.6
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -37,6 +37,7 @@ The user must no longer fill out any additional fields in the comment form, and 
 * Spanish
 * Russian
 * Chinese
+* Polish
 
 == Installation ==
 
@@ -73,6 +74,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 1.6 (27-04-09)
+    * Added feature to disable NoSpamNX on certain pages/posts
+    * Fixed Bug that displayed hidden fields in comments popup
+    * Added Polish translation
+    * Update language files
 * Version 1.5 (18-04-09)
     * Increased compatibility with different PHP configurations
     * Added information tab in seetings

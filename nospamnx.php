@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 1.5
+Version: 1.6
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -35,6 +35,7 @@ Class NoSpamNX
 	var $nospamnx_blocktime;
 	var $nospamnx_checkuser;
 	var $nospamnx_blockips;
+	var $nospamnx_exclude;
 	
 	function nospamnx()
 	{
@@ -82,11 +83,25 @@ Class NoSpamNX
 		//check if required PHP functons are available otherwise disable plugin with returing
 		if ($this->preFlight() === false)
 			return;
+
+		//get ids of pages and posts to exclude
+		$exclude = explode(",",$this->nospamnx_exclude);
+
+		//check if we are in a page that we should exclude
+		for ($i=0; $i < count($exclude); $i++){
+			if (!empty($exclude[$i]) && is_single($exclude[$i]))
+				return;
+			else if (!empty($exclude[$i]) && is_page($exclude[$i]))
+				return;
+		}
 		
 		//check if we only display the page/post
-		if (is_single() || is_page() || is_comments_popup())
+		if (is_single() || is_page())
 			//start output buffer and add callback function for comment template
 			ob_start(array(&$this, 'addHiddenFields'));
+		else if (is_comments_popup())
+			//start output buffer and add callback function for comment template
+			ob_start(array(&$this, 'addHiddenFieldsPopup'));
 	}
 
 	function addHiddenFields($template)
@@ -100,6 +115,18 @@ Class NoSpamNX
 		else
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
 	}
+	
+	function addHiddenFieldsPopup($template)
+	{	
+		//get the formfields names and value from wp options
+		$nospamnx = $this->nospamnx_names;
+		
+		//replace the textfields within the ouput buffer
+		if (rand(1,2) == 1)
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" />', $template);
+		else
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" />', $template);
+	}	
 	
 	function checkCommentForm()
 	{													
@@ -351,6 +378,15 @@ Class NoSpamNX
 			$this->updateOptions();
 			echo "<div id='message' class='updated fade'><p>".__('NoSpamNX Counter was reseted successfully.','nospamnx')."</p></div>";			
 		}
+		else if ($_POST['update_exclude'])
+		{
+			//get id from textarea
+			$this->nospamnx_exclude = $_POST['exclude_ids'];
+			
+			//save options and display message
+			$this->updateOptions();
+			echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";
+		}
 		
 		//set checked values for radio buttons
 		($this->nospamnx_checkip == 1) ? $ipyes = 'checked' : $ipno = 'checked';	
@@ -488,12 +524,35 @@ Class NoSpamNX
 			
 			<div id="poststuff" class="ui-sortable">
 				<div class="postbox opened">
-					<h3><?php echo __('Information','nospamnx'); ?></h3>
+					<h3><?php echo __('Exclude page/post','nospamnx'); ?></h3>
+					<div class="inside">
+						<p><?php echo __('If you have Problems with NoSpamNX on a certain page/post you can exclude this page/post from NoSpamNX. Just enter the ID(s) of the page/post (use comma-separated values like 4,8,15,16,23,42)','nospamnx'); ?></p>
+						<form action="options-general.php?page=nospamnx" method="post">
+					    <table class="form-table">
+					    	<tr>
+								<th scope="row" valign="top">
+								<b><?php echo __('IDs','nospamnx'); ?></b>	
+								</th>
+								<td>
+								<textarea name="exclude_ids" cols="40" rows="4"><?php if (!empty($this->nospamnx_exclude)){echo $this->nospamnx_exclude;} ?></textarea>
+								</td>
+							</tr>
+						</table>	
+						<input type="hidden" value="1" name="update_exclude">
+						<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
+						</form>									
+					</div>
+				</div>
+			</div>			
+			
+			<div id="poststuff" class="ui-sortable">
+				<div class="postbox opened">
+					<h3><?php echo __('Debug','nospamnx'); ?></h3>
 					<div class="inside">
 					    <table class="form-table">
 					    	<tr>
 								<th scope="row" valign="top">
-								<b><?php echo __('Debug','nospamnx'); ?></b>	
+								<b><?php echo __('PHP-Info','nospamnx'); ?></b>	
 								</th>
 								<td>
 								<?php 
@@ -521,7 +580,7 @@ Class NoSpamNX
 								<th scope="row" valign="top">
 								<b><?php echo __('Donation','nospamnx'); ?></b>	
 								</th>
-								<td><?php echo __('Developing, maintaining and supporting this plugin requires time. You can support further work with a donation. Thanks!','nospamnx'); ?>
+								<td><?php echo __('Developing, maintaining and supporting this plugin requires time. You can support further development with a donation. Thanks!','nospamnx'); ?>
 								<br />
 								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 								<input type="hidden" name="cmd" value="_donations"/>
@@ -580,7 +639,8 @@ Class NoSpamNX
 			'nospamnx_operate'		=> 'block',
 			'nospamnx_blocktime'	=> 1,
 			'nospamnx_checkuser'	=> 1,
-			'nospamnx_blockips'		=> array()
+			'nospamnx_blockips'		=> array(),
+			'nospamnx_exclude'		=> ''
 		);
 		
 		add_option('nospamnx', $options, '', 'yes');
@@ -602,6 +662,7 @@ Class NoSpamNX
 		$this->nospamnx_blocktime	= $options['nospamnx_blocktime'];
 		$this->nospamnx_checkuser	= $options['nospamnx_checkuser'];
 		$this->nospamnx_blockips	= $options['nospamnx_blockips'];
+		$this->nospamnx_exclude		= $options['nospamnx_exclude'];
 	}
 	
 	function updateOptions()
@@ -613,7 +674,8 @@ Class NoSpamNX
 			'nospamnx_operate'		=> $this->nospamnx_operate,
 			'nospamnx_blocktime'	=> $this->nospamnx_blocktime,
 			'nospamnx_checkuser'	=> $this->nospamnx_checkuser,
-			'nospamnx_blockips'		=> $this->nospamnx_blockips	
+			'nospamnx_blockips'		=> $this->nospamnx_blockips,
+			'nospamnx_exclude'		=> $this->nospamnx_exclude	
 		);
 		
 		update_option('nospamnx', $options);
