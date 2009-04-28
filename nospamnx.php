@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 1.6
+Version: 1.7
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -36,6 +36,7 @@ Class NoSpamNX
 	var $nospamnx_checkuser;
 	var $nospamnx_blockips;
 	var $nospamnx_exclude;
+	var $disabled = false;
 	
 	function nospamnx()
 	{
@@ -89,10 +90,14 @@ Class NoSpamNX
 
 		//check if we are in a page that we should exclude
 		for ($i=0; $i < count($exclude); $i++){
-			if (!empty($exclude[$i]) && is_single($exclude[$i]))
+			if (!empty($exclude[$i]) && is_single($exclude[$i])){
+				$this->disabled = true;
 				return;
-			else if (!empty($exclude[$i]) && is_page($exclude[$i]))
-				return;
+			}		
+			else if (!empty($exclude[$i]) && is_page($exclude[$i])){
+				$this->disabled = true;
+				return;		
+			}
 		}
 		
 		//check if we only display the page/post
@@ -132,32 +137,32 @@ Class NoSpamNX
 	{													
 		//check if logged in user does not require check
 		if ($this->nospamnx_checkuser == 0 && is_user_logged_in())
-			return true;
+			return;
+		else if ($this->disabled == true)
+			return;
+		else if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')
+			return;
 		else
 		{		
-			//check if we are in wp-comments-post.php
-			if (basename($_SERVER['PHP_SELF']) == 'wp-comments-post.php')
-			{
-				//if ip lock is enabled, check if we have the spambot already catched
-				if ($this->nospamnx_checkip == 1 && $this->checkIp() == true)
-					$this->birdbrained(true);
-				
-				//get current formfield names from wp options
-				$nospamnx = $this->nospamnx_names;
+			//if ip lock is enabled, check if we have the spambot already catched
+			if ($this->nospamnx_checkip == 1 && $this->checkIp() == true)
+				$this->birdbrained(true);
+			
+			//get current formfield names from wp options
+			$nospamnx = $this->nospamnx_names;
 
-				//check if first hidden field is in $_POST data
-				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
-					$this->birdbrained(false);
-				//check if first hidden field is empty
-				else if ($_POST[$nospamnx['nospamnx-1']] != "")
-					$this->birdbrained(false);
-				//check if second hidden field is in $_POST data
-				else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
-					$this->birdbrained(false);
-				//check if the value of the second formfield matches stored value
-				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
-					$this->birdbrained(false);	
-			}
+			//check if first hidden field is in $_POST data
+			if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
+				$this->birdbrained(false);
+			//check if first hidden field is empty
+			else if ($_POST[$nospamnx['nospamnx-1']] != "")
+				$this->birdbrained(false);
+			//check if second hidden field is in $_POST data
+			else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
+				$this->birdbrained(false);
+			//check if the value of the second formfield matches stored value
+			else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
+				$this->birdbrained(false);	
 		}
 	}	
 		
