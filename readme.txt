@@ -74,7 +74,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
-* Version 1.7 (tbd)
+* Version 1.7 (28-04-09)
     * Fixed Bug when disabling NoSpamNX on certain pages/posts
     * Optimized function that blocks the spambots
 * Version 1.6 (27-04-09)
