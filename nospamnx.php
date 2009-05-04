@@ -90,14 +90,10 @@ Class NoSpamNX
 
 		//check if we are in a page or post that we should exclude
 		for ($i=0; $i < count($exclude); $i++){
-			if (!empty($exclude[$i]) && is_single($exclude[$i])){
+			if ((is_single($exclude[$i]) || is_page($exclude[$i])) && !empty($exclude[$i])){
 				$this->disabled = true;
 				return;
 			}		
-			else if (!empty($exclude[$i]) && is_page($exclude[$i])){
-				$this->disabled = true;
-				return;		
-			}
 		}
 		
 		//check if we only display the page/post
@@ -190,7 +186,7 @@ Class NoSpamNX
 			if ($this->nospamnx_checkip == 1 && $this->checkIp() === false)
 				$this->saveIp();
 			
-			//count spambot
+			//count spambot and save
 			$this->nospamnx_count++;
 			$this->updateOptions();			
 		}
