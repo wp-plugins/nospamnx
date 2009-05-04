@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 1.7
+Version: 1.8
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -81,14 +81,14 @@ Class NoSpamNX
 	
 	function modifyTemplate()
 	{
-		//check if required PHP functons are available otherwise disable plugin with returing
+		//check if required PHP functions are available, otherwise disable plugin
 		if ($this->preFlight() === false)
 			return;
 
 		//get ids of pages and posts to exclude
 		$exclude = explode(",",$this->nospamnx_exclude);
 
-		//check if we are in a page that we should exclude
+		//check if we are in a page or post that we should exclude
 		for ($i=0; $i < count($exclude); $i++){
 			if (!empty($exclude[$i]) && is_single($exclude[$i])){
 				$this->disabled = true;
@@ -105,7 +105,7 @@ Class NoSpamNX
 			//start output buffer and add callback function for comment template
 			ob_start(array(&$this, 'addHiddenFields'));
 		else if (is_comments_popup())
-			//start output buffer and add callback function for comment template
+			//start output buffer and add callback function for comment template popup
 			ob_start(array(&$this, 'addHiddenFieldsPopup'));
 	}
 
@@ -114,11 +114,11 @@ Class NoSpamNX
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
 		
-		//replace the textfields within the ouput buffer
+		//add hidden fields to the comment form
 		if (rand(1,2) == 1)
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />', $template);
 		else
-			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);
+			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />', $template);						
 	}
 	
 	function addHiddenFieldsPopup($template)
@@ -126,7 +126,10 @@ Class NoSpamNX
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
 		
-		//replace the textfields within the ouput buffer
+		//flush output buffer
+		flush();		
+		
+		//add hidden fields to the comment form
 		if (rand(1,2) == 1)
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" />', $template);
 		else
@@ -135,18 +138,27 @@ Class NoSpamNX
 	
 	function checkCommentForm()
 	{													
-		//check if logged in user does not require check
-		if ($this->nospamnx_checkuser == 0 && is_user_logged_in())
+		//check if we are in wp-comments-post.php
+		if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
 			return;
+		//check if NoSpamNX is disabled
 		else if ($this->disabled == true)
 			return;
-		else if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')
+		//check if user is logged in and does not require checking
+		else if ($this->nospamnx_checkuser == 0 && is_user_logged_in())
 			return;
 		else
 		{		
 			//if ip lock is enabled, check if we have the spambot already catched
 			if ($this->nospamnx_checkip == 1 && $this->checkIp() == true)
 				$this->birdbrained(true);
+				
+			//get the host name for referer check
+			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
+			
+			//check if referer matches siteurl
+			if ($match[0] != get_option('siteurl'))
+				$this->birdbrained(false);		
 			
 			//get current formfield names from wp options
 			$nospamnx = $this->nospamnx_names;
@@ -160,18 +172,18 @@ Class NoSpamNX
 			//check if second hidden field is in $_POST data
 			else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
 				$this->birdbrained(false);
-			//check if the value of the second formfield matches stored value
+			//check if the value of the second hidden field matches stored value
 			else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 				$this->birdbrained(false);	
 		}
-	}	
-		
+	}
+	
 	function birdbrained($catched)
 	{
 		//lets cleanup some old blocked ips, the spambot has enoguh time
 		($this->nospamnx_checkip == 1) ? $this->cleanup() : false;
 		
-		//check if we already catched the spambot (based on ip adress) or not
+		//check if we already catched the spambot (based on ip address) or not
 		if ($catched == false)
 		{
 			//save the spambots ip if option is enabled
@@ -219,7 +231,7 @@ Class NoSpamNX
 		//get current list of blocked ips
 		$blockips = $this->nospamnx_blockips;
 		
-		//do we have more than 100 entries in our databse?
+		//do we have more than 100 entries in the list of blocke ip?
 		if (count($blockips) >= 100)
 			return;		
 		
@@ -239,7 +251,7 @@ Class NoSpamNX
 				$until = $currentime + 86400;
 		}
 		
-		//lets generate a new entry
+		//generate a new entry for a blocked ip
 		$newentry = array(
 			'remoteip' 	=> $_SERVER['REMOTE_ADDR'],
 			'until' 	=> $until
@@ -248,7 +260,7 @@ Class NoSpamNX
 		//add the new entry to our list
 		$blockips [] = $newentry;
 		
-		//now save the new entry
+		//save the new entry
 		$this->nospamnx_blockips = $blockips;
 		$this->updateOptions();
  	}
@@ -283,6 +295,7 @@ Class NoSpamNX
 	
 	function preFlight()
 	{
+		//check if required functions are available
 		if (function_exists('ob_start') && function_exists('str_replace'))
 			return true;
 		else
@@ -310,7 +323,7 @@ Class NoSpamNX
 		$this->nospamnx_blockips = $blockips;
 		$this->updateOptions();
 	}
-	
+
 	function nospamnxOptionPage()
 	{	
 		if (!current_user_can('manage_options'))
@@ -345,6 +358,7 @@ Class NoSpamNX
 					$this->nospamnx_operate = 'block';		
 			}
 			
+			//do we have to save a new block time?
 			if (!empty($_POST['nospamnx_blocktime']))
 			{
 				//how long will the ips be blocked?
@@ -370,7 +384,7 @@ Class NoSpamNX
 			//do we have to save options for checking ips?
 			($_POST['nospamnx_ip'] == 1) ? $this->nospamnx_checkip = 1 : $this->nospamnx_checkip = 0;	
 			
-			//save options and display message
+			//save options and display success message
 			$this->updateOptions();
 			echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";			
 		}
@@ -379,7 +393,7 @@ Class NoSpamNX
 			//reset counter
 			$this->nospamnx_count = 0;
 			
-			//save options and display message
+			//save options and display success message
 			$this->updateOptions();
 			echo "<div id='message' class='updated fade'><p>".__('NoSpamNX Counter was reseted successfully.','nospamnx')."</p></div>";			
 		}
@@ -429,7 +443,7 @@ Class NoSpamNX
 		$entries = count($this->nospamnx_blockips);
 		
 		//confirmation text for reseting the counter
-		$confirm 	=	__('Are you sure you want to reset the counter?','nospamnx');	
+		$confirm = __('Are you sure you want to reset the counter?','nospamnx');	
 			
 		?>
 		
@@ -493,7 +507,7 @@ Class NoSpamNX
 										</td>									
 									</tr>
 									
-									<?php if ($this->nospamnx_checkip == 1){ ?>
+									<?php if ($this->nospamnx_checkip == 1) { ?>
 									
 						    		<tr>
 										<th scope="row" valign="top"><b><?php echo __('Block time','nospamnx'); ?></b></th>
