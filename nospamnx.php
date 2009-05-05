@@ -122,9 +122,6 @@ Class NoSpamNX
 		//get the formfields names and value from wp options
 		$nospamnx = $this->nospamnx_names;
 		
-		//flush output buffer
-		flush();		
-		
 		//add hidden fields to the comment form
 		if (rand(1,2) == 1)
 			return str_replace ('</textarea>', '</textarea><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none" />', $template);
@@ -178,6 +175,9 @@ Class NoSpamNX
 	{
 		//lets cleanup some old blocked ips, the spambot has enoguh time
 		($this->nospamnx_checkip == 1) ? $this->cleanup() : false;
+		
+		//flush output buffer
+		ob_end_clean();
 		
 		//check if we already catched the spambot (based on ip address) or not
 		if ($catched == false)
