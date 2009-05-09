@@ -221,13 +221,13 @@ Class NoSpamNX
 	
 	function saveIp()
 	{	
-		//get the curren time
+		//get the current time
 		$currentime = time();
 		
 		//get current list of blocked ips
 		$blockips = $this->nospamnx_blockips;
 		
-		//do we have more than 100 entries in the list of blocke ip?
+		//do we have more than 100 entries in the list of blocked ips?
 		if (count($blockips) >= 100)
 			return;		
 		
