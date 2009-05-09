@@ -1,0 +1,348 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yawasp in Italiano\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-26 21:11+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
+"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c;__ngettext_noop:1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: nospamnx.php:73
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
+msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.6 o superiore."
+
+#: nospamnx.php:78
+msgid "NoSpamNX is currently disabled! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
+msgstr "NoSpamNX è attualmente disabilitata! Alcune funzioni PHP richiesti non sono disponibili. Vedere Impostazioni -> NoSpamNX -> Informazioni per maggiori dettagli."
+
+#: nospamnx.php:181
+#: nospamnx.php:189
+msgid "Sorry, but it seems you are a Spambot."
+msgstr "Pare che tu sia uno Spambot."
+
+#: nospamnx.php:312
+msgid "Sorry, but you have no permissions to change settings."
+msgstr "Non hai i permessi per poter modificare le impostazioni."
+
+#: nospamnx.php:370
+#: nospamnx.php:388
+msgid "NoSpamNX settings were saved successfully."
+msgstr "Le impostazioni di NoSpamNX sono state salvate con successo."
+
+#: nospamnx.php:379
+msgid "NoSpamNX Counter was reseted successfully."
+msgstr "Il contatore di NoSpamNX é stato azzerato con successo."
+
+#: nospamnx.php:427
+msgid "Are you sure you want to reset the counter?"
+msgstr "Sei certo di voler azzerare il contatore?"
+
+#: nospamnx.php:433
+msgid "NoSpamNX Settings"
+msgstr "NoSpamNX Preferenze"
+
+#: nospamnx.php:437
+msgid "Statistic"
+msgstr "Statistica"
+
+#: nospamnx.php:442
+msgid "Stopped Spambots"
+msgstr "Arrestato pubblicitari"
+
+#: nospamnx.php:449
+msgid "Reset"
+msgstr "Reset"
+
+#: nospamnx.php:457
+msgid "Operating mode"
+msgstr "Modo operativo"
+
+#: nospamnx.php:460
+msgid "By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in."
+msgstr "Per impostazione predefinita tutte pubblicitari saranno bloccati. Se volete vedere ciò che è bloccato, selezionare moderata o marchio come spam. Catched pubblicitari non vogliamo essere contrassegnati come Spam o messi in coda di moderazione. Inoltre è possibile abilitare o disabilitare se NoSpamNX dovrebbe effettuare i controlli, se un utente è connesso a."
+
+#: nospamnx.php:464
+msgid "Mode"
+msgstr "Modo"
+
+#: nospamnx.php:467
+msgid "Block (recommended)"
+msgstr "Blocca (raccomandato)"
+
+#: nospamnx.php:469
+msgid "Mark as Spam"
+msgstr "Segna come Spam"
+
+#: nospamnx.php:471
+msgid "Moderate"
+msgstr "Modera"
+
+#: nospamnx.php:475
+msgid "Check logged in User"
+msgstr "Verifica gli utenti collegati"
+
+#: nospamnx.php:477
+#: nospamnx.php:487
+msgid "Yes"
+msgstr "Sì"
+
+#: nospamnx.php:477
+#: nospamnx.php:487
+msgid "No"
+msgstr "No"
+
+#: nospamnx.php:481
+msgid "IP-Address Lockout"
+msgstr "Indirizzo IP-bloccaggio"
+
+#: nospamnx.php:482
+msgid "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or indefinitely. This IP-Address can not post any comments during this time."
+msgstr "Puoi bloccare un indirizzo IP di un catched Spambot per 1 ora, 24 ore o indeterminato. Questo indirizzo IP non può pubblicare commenti durante questo periodo."
+
+#: nospamnx.php:485
+msgid "Block IP-Address"
+msgstr "Salva indirizzo IP"
+
+#: nospamnx.php:494
+msgid "Block time"
+msgstr "Tempo per il blocco"
+
+#: nospamnx.php:496
+msgid "1 hour"
+msgstr "1 ora"
+
+#: nospamnx.php:498
+msgid "24 hours"
+msgstr "24 ore"
+
+#: nospamnx.php:500
+msgid "Indefinitely"
+msgstr "Illimitato"
+
+#: nospamnx.php:504
+msgid "Entries"
+msgstr "Diciture"
+
+#: nospamnx.php:507
+#, php-format
+msgid " Currently %s out of 100 entries is stored."
+msgid_plural " Currently %s out of 100 entries are stored."
+msgstr[0] " Attualmente %s su 100 iscrizioni è immagazzinato."
+msgstr[1] " Attualmente% s su 100 voci sono memorizzati."
+
+#: nospamnx.php:518
+#: nospamnx.php:542
+msgid "Save"
+msgstr "Salva"
+
+#: nospamnx.php:527
+msgid "Exclude page/post"
+msgstr "Escludi pagina / post"
+
+#: nospamnx.php:529
+msgid "If you have Problems with NoSpamNX on a certain page/post you can exclude this page/post from NoSpamNX. Just enter the ID(s) of the page/post (use comma-separated values like 4,8,15,16,23,42)"
+msgstr "Se avete problemi con NoSpamNX su una certa pagina/post si può escludere questa pagina/post da NoSpamNX. Basta inserire l'ID (s) della pagina/post (utilizzare i valori separati da virgola, come 4,8,15,16,23,42)"
+
+#: nospamnx.php:534
+msgid "IDs"
+msgstr "IDs"
+
+#: nospamnx.php:550
+msgid "Debug"
+msgstr "Debug"
+
+#: nospamnx.php:555
+msgid "PHP-Info"
+msgstr "PHP-Info"
+
+#: nospamnx.php:570
+msgid "Support"
+msgstr "Assistenza"
+
+#: nospamnx.php:572
+#, php-format
+msgid "Problems with NoSpamNX? Feel free to contact me via E-Mail (%s) or check out the comments at the Plugin homepage. Please add the debug information to your request."
+msgstr "Problemi con il NoSpamNX? Non esitate a contattarci via E-Mail (%s) o controllare i commenti alla home page del plugin. Si prega di aggiungere le informazioni di debug alla tua richiesta."
+
+#: nospamnx.php:581
+msgid "Donation"
+msgstr "Donazione"
+
+#: nospamnx.php:583
+msgid "Developing, maintaining and supporting this plugin requires time. You can support further development with a donation. Thanks!"
+msgstr "In via di sviluppo, manutenzione e supporto questo plugin richiede tempo. È in grado di supportare ulteriori lavori con una donazione. Grazie!"
+
+#: nospamnx.php:697
+#, php-format
+msgid " has stopped %s birdbrained Spambot since it last activation."
+msgid_plural " has stopped %s birdbrained Spambots since it last activation."
+msgstr[0] " %s si è fermato birdbrained Spambot poiché attivazione."
+msgstr[1] " %s si è fermato birdbrained pubblicitari dal momento che l'ultima attivazione."
+
+#~ msgid "Information"
+#~ msgstr "Informazioni"
+#~ msgid " has stopped %s birdbrained Spambot."
+#~ msgid_plural " has stopped %s birdbrained Spambots."
+#~ msgstr[0] ""
+#~ " ha fermato %s stupido Spambot che voleva accedere a questo blog!"
+#~ msgstr[1] ""
+#~ " ha fermato %s stupidi Spambot che volevano accedere a questo blog!"
+#~ msgid "Mark as Spam (Requires Akismet or similar plugin)"
+#~ msgstr "Segnala come Spam (é necessario Akisment o simili)"
+#~ msgid "The required functions for creating the table could not be loaded."
+#~ msgstr ""
+#~ "Non sono state caricate le funzioni necesarie per la creazione della "
+#~ "tabella."
+#~ msgid "YAWASP Formfields were successfully regenerated."
+#~ msgstr "Il form di YAWASP é stato rigenerato con successo."
+#~ msgid "Are you sure you want to regenerate the Formfields?"
+#~ msgstr "Sei certo di volere rigenerare il form?"
+#~ msgid "Total"
+#~ msgstr "Totale"
+#~ msgid "Detailed"
+#~ msgstr "Dettaglio"
+#~ msgid "No detailed statistic so far."
+#~ msgstr "Ancora nessuna statistica."
+#~ msgid "%s Spambot send the default author and/or comment field."
+#~ msgid_plural "%s Spambots send the default author and/or comment field."
+#~ msgstr[0] ""
+#~ "%s Spambot indirizza all'autore predefinito e/o modulo dei commenti."
+#~ msgstr[1] ""
+#~ "%s Spambot indirizzano all'autore predefinito e/o modulo dei commenti."
+#~ msgid "%s Spambot did not send the hidden field."
+#~ msgid_plural "%s Spambots did not send the hidden field."
+#~ msgstr[0] "%s Spambot non invia il campo nascosto."
+#~ msgstr[1] "%s Spambot non inviano il campo nascosto."
+#~ msgid "%s Spambot send the hidden field, but filled it out."
+#~ msgid_plural "%s Spambots send the hidden field, but filled it out."
+#~ msgstr[0] "%s Spambot invia un campo nascosto, ma non lo ha compilato."
+#~ msgstr[1] "%s Spambots hanno inviato un campo nascosto senza compilarlo.."
+#~ msgid "%s Spambot was stopped because of their IP Address."
+#~ msgid_plural "%s Spambots was stopped because of their IP Address."
+#~ msgstr[0] "%s Spambot é stato bloccato per via del suo indirizzo IP."
+#~ msgstr[1] ""
+#~ "%s Spambots sono stati bloccati bloccato per via del loro indirizzo IP."
+#~ msgid "Reset Counter"
+#~ msgstr "Ripristina il contatore"
+#~ msgid "Formfields"
+#~ msgstr "Form"
+#~ msgid "Generate"
+#~ msgstr "Genera"
+#~ msgid ""
+#~ "If you notice an increasing number of Spambots who make it to your blog, "
+#~ "you might want to regenerate the names of the YAWASP Formfields."
+#~ msgstr ""
+#~ "Qualora registrassi un incremento del numero degli Spambot verso il tuo "
+#~ "sito, ti invito a rigenerare i nomi per i campi del form di YAWASP. "
+#~ msgid "Regenerate Formfields"
+#~ msgstr "Rigenera i campi per il form"
+#~ msgid ""
+#~ "YAWASP adds an additional Formfield (hidden to the \"real\" user) to your "
+#~ "comments.php. Most Spampots fall for this trap and fill it out blindly. "
+#~ "To make this trap as good as we can, we have to make this hidden as close "
+#~ "as it gets to a real Formfield. Therefore the id of this field is by "
+#~ "default set to the value \"Author\". However, as ids can not have the "
+#~ "same name twice, this is not strict HTML. Therefore you can decide on "
+#~ "your own if you want more proctection, but not strict HTML or less "
+#~ "protection, but strict HTML."
+#~ msgstr ""
+#~ "YAWASP aggiunge un form (nascosto per l'utente \"umano\") al file "
+#~ "comments.php. La maggior parte degli Spambots cadrà in questa trappola "
+#~ "compilando il modulo alla cieca. Per poter far rendere al meglio questa "
+#~ "trappola, dovremmo far sì che essa sia particolarmente simile al modulo "
+#~ "reale per i contatti. Inoltre, la id di questo campo dovrà essere "
+#~ "impostata come predefinita al valore \"Autore\". Comunque, poiché le id "
+#~ "non possono avere per due volte lo stesso nome,  l'HTML non verrà "
+#~ "convalidato. Infine, puoi tu stesso decidere se optare per una maggiore "
+#~ "protezione a costo della validità dell'HTML oppure, con un HTML valido, "
+#~ "ridurre la protezione stessa."
+#~ msgid "Name of the hidden Formfield"
+#~ msgstr "Nome per il campo nascosto"
+#~ msgid "Author (Higher protection, but not HTML conform)"
+#~ msgstr "Autore (Massima protezione, ma non conforme all'HTML)"
+#~ msgid "Blank (Less protection, but HTML conform)"
+#~ msgstr "Vuoto (Minore protezione, ma conforme all'HTML)"
+#~ msgid "IP Lock"
+#~ msgstr "Blocca IP"
+#~ msgid ""
+#~ "If a Spambot is catched, the combination of his IP Adress and User-agent "
+#~ "will be saved. You can lock this combination for 1 hour, 24 hours or "
+#~ "indefinitely."
+#~ msgstr ""
+#~ "Qualora uno Spambot fosse stato inserito nella cache, il suo indirizzo IP "
+#~ "nonché l'User-agent verranno salvati. Potrai bloccare questa combinazione "
+#~ "per 1 ora, 24 ore oppure per sempre. "
+#~ msgid "Automatic template change"
+#~ msgstr "Modifica automatica del tema"
+#~ msgid ""
+#~ "You will find a Backup (comments.php.old) of your comments.php in your "
+#~ "template folder."
+#~ msgstr ""
+#~ "Troverai nella cartella del tuo tema il backup (comments.php.old) del tuo "
+#~ "file comments.php."
+#~ msgid "Changes in comments.php"
+#~ msgstr "Modifica il file comments.php"
+#~ msgid "Change template"
+#~ msgstr "Modifica il tema"
+#~ msgid "Undo changes"
+#~ msgstr "Annulla le modifiche"
+#~ msgid "Manual template change"
+#~ msgstr "Modifica manuale del tema"
+#~ msgid ""
+#~ "Manual instructions for changing your comments.php are available in "
+#~ "english and german at the following websites:"
+#~ msgstr ""
+#~ "Le istruzioni sul come modificare il file comments.php sono disponibili "
+#~ "in lingua inglese e tedesca presso i seguenti siti:"
+#~ msgid "Instructions in German"
+#~ msgstr "Istruzioni in tedesco"
+#~ msgid "Instructions in English"
+#~ msgstr "Istruzioni in inglese"
+#~ msgid " has stopped %s birdbrained Spambot on this Blog!"
+#~ msgid_plural " has stopped %s birdbrained Spambots on this Blog!"
+#~ msgstr[0] ""
+#~ " ha fermato %s stupido Spambot che voleva accedere a questo blog!"
+#~ msgstr[1] ""
+#~ " ha fermato %s stupidi Spambot che volevano accedere a questo blog!"
+#~ msgid " Click %s for a detailed statistic."
+#~ msgstr " Clicca su %s per le statistiche dettagliate."
+#~ msgid "here"
+#~ msgstr "qui"
+#~ msgid ""
+#~ "Your comments.php was changed successfully. YAWASP is up and running!"
+#~ msgstr ""
+#~ "Il tuo file comments.php é stato modificato con successo. YAWASP é ok ed "
+#~ "in funzione!"
+#~ msgid "Failed to change your comments.php. Please change manually"
+#~ msgstr ""
+#~ "Non é stato possibile modificare il tuo file comments.php. Apporta "
+#~ "manualmente le modifiche"
+#~ msgid "Changes in comments.php were successfully removed."
+#~ msgstr "Le modifiche al file comments.php sono state rimosse con successo."
+#~ msgid "Failed to remove changes in comments.php. Please remove manually"
+#~ msgstr ""
+#~ "Non é stato possibile rimuovere le modifiche apportate al file comments."
+#~ "php. Apporta manualmente le modifiche."
+#~ msgid "Reset Names"
+#~ msgstr "Namen zurücksetzen"
+#~ msgid "Block/Mark/Moderate"
+#~ msgstr "Blockieren/Markieren/Moderieren"
+#~ msgid "Yawasp Statistic"
+#~ msgstr "Yawasp Statistik"
+#~ msgid ""
+#~ "If you still experience problems please visit the comments section for "
+#~ "futher help."
+#~ msgstr "Sollten dennoch Probleme auftreten, stehen für weitere"
+#~ msgid "Error in file: "
+#~ msgstr "Fehler in:"
+
