@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.7.1
-Stable tag: 1.8
+Stable tag: 1.9
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -74,6 +74,8 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 1.9 (09-05-09)
+    * Fixed bug with referer check
 * Version 1.8 (09-05-09)
 	* Improved function when using comments popup
     * Added referer check
