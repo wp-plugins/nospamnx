@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 1.9
+Version: 1.10
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -147,11 +147,11 @@ Class NoSpamNX
 				$this->birdbrained(true);
 				
 			//get the host name for referer check
-			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
+			//preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
 			
 			//check if referer matches siteurl
-			if (!empty($match[0]) && $match[0] != get_option('siteurl'))
-				$this->birdbrained(false);		
+			//if (!empty($match[0]) && $match[0] != get_option('siteurl'))
+				//$this->birdbrained(false);		
 			
 			//get current formfield names from wp options
 			$nospamnx = $this->nospamnx_names;
