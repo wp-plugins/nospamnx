@@ -74,6 +74,8 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 1.10 (11-05-09)
+    * Removed referer check temporarily 
 * Version 1.9 (09-05-09)
     * Fixed bug with referer check
 * Version 1.8 (09-05-09)
