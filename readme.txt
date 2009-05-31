@@ -1,12 +1,12 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.7.1
+Tested up to: 2.8
 Stable tag: 1.10
 Requires at least: 2.6
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
-To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment template, which are checked every time a comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
+To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
 
 == Description ==
 
@@ -74,6 +74,16 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 2.0 (tbd)
+	* Added Blacklist
+	* Re-Added HTTP-Referer-Check, but now optional
+	* Removed IP-Lock due to new Blacklist
+	* Changed place of hidden fields
+	* Removed option to deactivate Plugin on certain pages/posts
+	* Changed all Radio-Buttons to Checkboxes
+    * Updated Screenshot
+    * Updated reademe
+    * Updated language files 
 * Version 1.10 (11-05-09)
     * Removed referer check temporarily 
 * Version 1.9 (09-05-09)

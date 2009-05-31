@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-28 09:00+0800\n"
+"POT-Creation-Date: 2009-05-30 15:42+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Donald <donaldz@live.com>\n"
+"Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: Sven Kubiak <mail@svenkubiak.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,175 +22,181 @@ msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
 msgstr "你的WordPress版本过旧。 使用NoSpamNX需要WordPress 2.6或更高版本！"
 
 #: nospamnx.php:78
-msgid "NoSpamNX is currently disabled! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
-msgstr "NoSpamNX已禁用！ 某些运行NoSpamNX必需的PHP函数不可用。请通过 设置 -> NoSpamNX -> 信息 查看细节。"
+msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
+msgstr "NoSpamNX目前已停播！有些需要PHP函数无法使用。查看设置“ - > NoSpamNX - ”信息需要更详细的资料。"
 
-#: nospamnx.php:181
-#: nospamnx.php:189
-msgid "Sorry, but it seems you are a Spambot."
-msgstr "不好意思，不过看起来你是个垃圾评论机器人。"
+#: nospamnx.php:183
+msgid "Sorry, but your comment seems to be Spam."
+msgstr "很抱歉，您的评论似乎是垃圾邮件。"
 
-#: nospamnx.php:312
+#: nospamnx.php:253
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "对不起，你没有权限修改设置。"
 
-#: nospamnx.php:370
-#: nospamnx.php:388
-msgid "NoSpamNX settings were saved successfully."
+#: nospamnx.php:263
+msgid "Referer-Check successfull! You may turn on Referer-Check."
+msgstr "参考检查成功！您可以打开参考检查。"
+
+#: nospamnx.php:265
+msgid "Referer-Check failed! The referer does not match WordPress option \"siteurl\"."
+msgstr "参考校验失败！该参考不符WordPress的选项\ “siteurl \” 。"
+
+#: nospamnx.php:295
+#: nospamnx.php:313
+msgid "NoSpamNX settings saved successfully."
 msgstr "NoSpamNX设置已成功保存。"
 
-#: nospamnx.php:379
+#: nospamnx.php:304
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "NoSpamNX 计数器已成功重置。"
 
-#: nospamnx.php:427
+#: nospamnx.php:337
 msgid "Are you sure you want to reset the counter?"
 msgstr "你确定要重置计数器吗？"
 
-#: nospamnx.php:433
+#: nospamnx.php:343
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX 设置"
 
-#: nospamnx.php:437
+#: nospamnx.php:347
 msgid "Statistic"
 msgstr "统计"
 
-#: nospamnx.php:442
+#: nospamnx.php:352
 msgid "Stopped Spambots"
 msgstr "已阻止垃圾评论机器人"
 
-#: nospamnx.php:449
+#: nospamnx.php:359
 msgid "Reset"
 msgstr "重置"
 
-#: nospamnx.php:457
+#: nospamnx.php:367
 msgid "Operating mode"
 msgstr "操作模式"
 
-#: nospamnx.php:460
+#: nospamnx.php:369
 msgid "By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in."
 msgstr "默认设置下所有垃圾评论机器人都会被阻止。如果你想查看具体阻止了哪些内容，请选择 审核 或 标记为垃圾评论。 被截获的垃圾评论会被标记为垃圾评论或放入待审核队列中。 另外你还可以选择是否检查已登录用户。"
 
-#: nospamnx.php:464
+#: nospamnx.php:373
 msgid "Mode"
 msgstr "模式"
 
-#: nospamnx.php:467
+#: nospamnx.php:376
 msgid "Block (recommended)"
 msgstr "阻止(推荐)"
 
-#: nospamnx.php:469
-msgid "Mark as Spam"
-msgstr "标记为垃圾评论"
+#: nospamnx.php:378
+msgid "Mark as Spam (requires at least WP 2.7)"
+msgstr "标记为垃圾邮件（至少需要可湿性粉剂2.7 ）"
 
-#: nospamnx.php:471
+#: nospamnx.php:380
 msgid "Moderate"
 msgstr "审核"
 
-#: nospamnx.php:475
+#: nospamnx.php:384
 msgid "Check logged in User"
 msgstr "检查已登录用户"
 
-#: nospamnx.php:477
-#: nospamnx.php:487
-msgid "Yes"
-msgstr "是"
+#: nospamnx.php:385
+msgid "If disabled, NoSpamNX will add no hidden fields or perform any checks on logged in users."
+msgstr "如果停用， NoSpamNX将没有任何隐藏的领域或从事任何检查登录用户。"
 
-#: nospamnx.php:477
-#: nospamnx.php:487
-msgid "No"
-msgstr "否"
+#: nospamnx.php:388
+msgid "Check HTTP Referer"
+msgstr "检查的HTTP参考"
 
-#: nospamnx.php:481
-msgid "IP-Address Lockout"
-msgstr "IP地址屏蔽"
+#: nospamnx.php:389
+msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
+msgstr "如果启用， NoSpamNX检查，如果参考的评论符合您的博客网址。请检查正确的功能此功能，使用下面的链接。"
 
-#: nospamnx.php:482
-msgid "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or indefinitely. This IP-Address can not post any comments during this time."
-msgstr "你可以屏蔽已被截获的垃圾评论的IP地址1小时，24小时或永久。 此IP地址将在这个时间段内无法发表任何评论。"
-
-#: nospamnx.php:485
-msgid "Block IP-Address"
-msgstr "屏蔽IP地址"
-
-#: nospamnx.php:494
-msgid "Block time"
-msgstr "屏蔽时间"
-
-#: nospamnx.php:496
-msgid "1 hour"
-msgstr "1小时"
-
-#: nospamnx.php:498
-msgid "24 hours"
-msgstr "24小时"
-
-#: nospamnx.php:500
-msgid "Indefinitely"
-msgstr "永久"
-
-#: nospamnx.php:504
-msgid "Entries"
-msgstr "屏蔽条目"
-
-#: nospamnx.php:507
-#, php-format
-msgid " Currently %s out of 100 entries is stored."
-msgid_plural " Currently %s out of 100 entries are stored."
-msgstr[0] "最多可保存100项屏蔽条目, 当前 %s 项被保存。"
-msgstr[1] "最多可保存100项屏蔽条目, 当前 %s 项被保存。"
-
-#: nospamnx.php:518
-#: nospamnx.php:542
+#: nospamnx.php:393
+#: nospamnx.php:413
 msgid "Save"
 msgstr "保存"
 
-#: nospamnx.php:527
-msgid "Exclude page/post"
-msgstr "排除的 页面/文章"
+#: nospamnx.php:401
+msgid "Blacklist"
+msgstr "黑名单"
 
-#: nospamnx.php:529
-msgid "If you have Problems with NoSpamNX on a certain page/post you can exclude this page/post from NoSpamNX. Just enter the ID(s) of the page/post (use comma-separated values like 4,8,15,16,23,42)"
-msgstr "如果NoSpamNX在某个 页面/文章 上有问题，你可以将此页面/文章从NoSpamNX中排除。 只需输入 页面/文章的 ID (使用英文逗号分隔每个ID，比如 4,8,15,16,23,42)"
+#: nospamnx.php:403
+msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSPamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address and the URL of a comment. If a pattern mateches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
+msgstr "该NoSpamNX黑名单是可比的WordPress的黑名单（它是基于相同的代码） 。然而， NoSpamNX黑名单使您能够阻止评论含有某些价值，而不是让他们在审阅队列。因此，此选项只有在使用NoSpamNX意义阻止模式。检查的 NoSPamNX黑名单对特定价值观的IP地址，作者，电子邮件地址和网址的评论。如果一种模式mateches的评论将被封锁。像WordPress的黑名单黑名单使用的NoSpamNX子，所以如果你把\ “富\ ”清单中的 \“foobar\”会被拦截的。 Please use one value per line."
 
-#: nospamnx.php:534
-msgid "IDs"
-msgstr "ID列表"
-
-#: nospamnx.php:550
+#: nospamnx.php:421
 msgid "Debug"
 msgstr "调试信息"
 
-#: nospamnx.php:555
+#: nospamnx.php:426
 msgid "PHP-Info"
 msgstr "PHP信息"
 
-#: nospamnx.php:570
+#: nospamnx.php:443
 msgid "Support"
 msgstr "支持"
 
-#: nospamnx.php:572
+#: nospamnx.php:445
 #, php-format
-msgid "Problems with NoSpamNX? Feel free to contact me via E-Mail (%s) or check out the comments at the Plugin homepage. Please add the debug information to your request."
-msgstr "使用NoSpamNX遇到问题？ 请通过 E-Mail (%s) 联系我或者查看插件主页的评论。 当你求助时，请将调试信息一并附上。"
+msgid "Problems using NoSpamNX? Feel free to contact me via E-Mail (%s) or check out the comments at the Plugin homepage. Please add the debug information to your request."
+msgstr "使用NoSpamNX问题？请随时与我联系电子邮件（ ％ S ）或签出意见的插件主页。请添加调试信息，您的要求。"
 
-#: nospamnx.php:581
+#: nospamnx.php:453
 msgid "Donation"
 msgstr "捐助"
 
-#: nospamnx.php:583
+#: nospamnx.php:455
 msgid "Developing, maintaining and supporting this plugin requires time. You can support further development with a donation. Thanks!"
 msgstr "开发，维护和支持这个插件需要时间。 希望您能通过捐助来支持继续开发。 谢谢！"
 
-#: nospamnx.php:697
+#: nospamnx.php:550
 #, php-format
 msgid " has stopped %s birdbrained Spambot since it last activation."
 msgid_plural " has stopped %s birdbrained Spambots since it last activation."
 msgstr[0] " 自上次激活起已阻止 %s 个无脑垃圾评论。"
 msgstr[1] " 自上次激活起已阻止 %s 个无脑垃圾评论。"
 
-#~ msgid "Mark as Spam (Requires Akismet or similar plugin)"
-#~ msgstr "Als Spam markieren (Ben&ouml;tigt Akismet oder ähnliches Plugin)"
+#~ msgid "Mark as Spam"
+#~ msgstr "标记为垃圾评论"
+#~ msgid "Yes"
+#~ msgstr "是"
+#~ msgid "No"
+#~ msgstr "否"
+#~ msgid "IP-Address Lockout"
+#~ msgstr "IP地址屏蔽"
+#~ msgid ""
+#~ "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or "
+#~ "indefinitely. This IP-Address can not post any comments during this time."
+#~ msgstr ""
+#~ "你可以屏蔽已被截获的垃圾评论的IP地址1小时，24小时或永久。 此IP地址将在这个"
+#~ "时间段内无法发表任何评论。"
+#~ msgid "Block IP-Address"
+#~ msgstr "屏蔽IP地址"
+#~ msgid "Block time"
+#~ msgstr "屏蔽时间"
+#~ msgid "1 hour"
+#~ msgstr "1小时"
+#~ msgid "24 hours"
+#~ msgstr "24小时"
+#~ msgid "Indefinitely"
+#~ msgstr "永久"
+#~ msgid "Entries"
+#~ msgstr "屏蔽条目"
+#~ msgid " Currently %s out of 100 entries is stored."
+#~ msgid_plural " Currently %s out of 100 entries are stored."
+#~ msgstr[0] "最多可保存100项屏蔽条目, 当前 %s 项被保存。"
+#~ msgstr[1] "最多可保存100项屏蔽条目, 当前 %s 项被保存。"
+#~ msgid "Exclude page/post"
+#~ msgstr "排除的 页面/文章"
+#~ msgid ""
+#~ "If you have Problems with NoSpamNX on a certain page/post you can exclude "
+#~ "this page/post from NoSpamNX. Just enter the ID(s) of the page/post (use "
+#~ "comma-separated values like 4,8,15,16,23,42)"
+#~ msgstr ""
+#~ "如果NoSpamNX在某个 页面/文章 上有问题，你可以将此页面/文章从NoSpamNX中排"
+#~ "除。 只需输入 页面/文章的 ID (使用英文逗号分隔每个ID，比如 "
+#~ "4,8,15,16,23,42)"
+#~ msgid "IDs"
+#~ msgstr "ID列表"
 #~ msgid " has stopped %s birdbrained Spambot."
 #~ msgid_plural " has stopped %s birdbrained Spambots."
 #~ msgstr[0] " hat %s dummen Spambot gestoppt."
