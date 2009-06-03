@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Yawasp in Italiano\n"
+"Project-Id-Version: NoSpamNX in Italiano\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-26 21:11+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: nospamnx.php:73
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.6 o superiore."
+msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.6 o superiore!"
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently disabled! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
-msgstr "NoSpamNX è attualmente disabilitata! Alcune funzioni PHP richiesti non sono disponibili. Vedere Impostazioni -> NoSpamNX -> Informazioni per maggiori dettagli."
+msgstr "NoSpamNX è attualmente disabilitato! Alcune delle funzioni PHP richieste non sono disponibili. Vai sotto Impostazioni -> NoSpamNX -> Informazioni."
 
 #: nospamnx.php:181
 #: nospamnx.php:189
@@ -45,11 +45,11 @@ msgstr "Il contatore di NoSpamNX é stato azzerato con successo."
 
 #: nospamnx.php:427
 msgid "Are you sure you want to reset the counter?"
-msgstr "Sei certo di voler azzerare il contatore?"
+msgstr "Sei certo di volere azzerare il contatore?"
 
 #: nospamnx.php:433
 msgid "NoSpamNX Settings"
-msgstr "NoSpamNX Preferenze"
+msgstr "Impostazioni NoSpamNX"
 
 #: nospamnx.php:437
 msgid "Statistic"
@@ -57,11 +57,11 @@ msgstr "Statistica"
 
 #: nospamnx.php:442
 msgid "Stopped Spambots"
-msgstr "Arrestato pubblicitari"
+msgstr "Spambot bloccati"
 
 #: nospamnx.php:449
 msgid "Reset"
-msgstr "Reset"
+msgstr "Ripristina"
 
 #: nospamnx.php:457
 msgid "Operating mode"
@@ -69,11 +69,11 @@ msgstr "Modo operativo"
 
 #: nospamnx.php:460
 msgid "By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in."
-msgstr "Per impostazione predefinita tutte pubblicitari saranno bloccati. Se volete vedere ciò che è bloccato, selezionare moderata o marchio come spam. Catched pubblicitari non vogliamo essere contrassegnati come Spam o messi in coda di moderazione. Inoltre è possibile abilitare o disabilitare se NoSpamNX dovrebbe effettuare i controlli, se un utente è connesso a."
+msgstr "Tutti gli Spambot verranno bloccati come da impostazione predefinita. Nel caso in cui gradissi conoscere cosa fosse stato bloccato, seleziona modera oppure segnala come spam. Gli Spambot catturati saranno marcati come Spam o messi in coda di moderazione. Inoltre è possibile abilitare o disabilitare il controllo di NoSpamNX nel caso in cui un utente fosse connesso."
 
 #: nospamnx.php:464
 msgid "Mode"
-msgstr "Modo"
+msgstr "Modalità"
 
 #: nospamnx.php:467
 msgid "Block (recommended)"
@@ -103,15 +103,15 @@ msgstr "No"
 
 #: nospamnx.php:481
 msgid "IP-Address Lockout"
-msgstr "Indirizzo IP-bloccaggio"
+msgstr "Indirizzo-IP bloccato"
 
 #: nospamnx.php:482
 msgid "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or indefinitely. This IP-Address can not post any comments during this time."
-msgstr "Puoi bloccare un indirizzo IP di un catched Spambot per 1 ora, 24 ore o indeterminato. Questo indirizzo IP non può pubblicare commenti durante questo periodo."
+msgstr "Puoi bloccare un indirizzo IP di uno Spambot che é stato catturato per 1 ora, 24 ore oppure a tempo indeterminato. Questo indirizzo IP non potrà inserire alcun commento durante questo periodo."
 
 #: nospamnx.php:485
 msgid "Block IP-Address"
-msgstr "Salva indirizzo IP"
+msgstr "Blocca indirizzo-IP"
 
 #: nospamnx.php:494
 msgid "Block time"
@@ -131,14 +131,14 @@ msgstr "Illimitato"
 
 #: nospamnx.php:504
 msgid "Entries"
-msgstr "Diciture"
+msgstr "Accessi"
 
 #: nospamnx.php:507
 #, php-format
 msgid " Currently %s out of 100 entries is stored."
 msgid_plural " Currently %s out of 100 entries are stored."
-msgstr[0] " Attualmente %s su 100 iscrizioni è immagazzinato."
-msgstr[1] " Attualmente% s su 100 voci sono memorizzati."
+msgstr[0] "%s per cento in entrata è stato memorizzato."
+msgstr[1] "% s per cento delle voci é stato memorizzato."
 
 #: nospamnx.php:518
 #: nospamnx.php:542
@@ -147,15 +147,15 @@ msgstr "Salva"
 
 #: nospamnx.php:527
 msgid "Exclude page/post"
-msgstr "Escludi pagina / post"
+msgstr "Escludi pagina/articolo"
 
 #: nospamnx.php:529
 msgid "If you have Problems with NoSpamNX on a certain page/post you can exclude this page/post from NoSpamNX. Just enter the ID(s) of the page/post (use comma-separated values like 4,8,15,16,23,42)"
-msgstr "Se avete problemi con NoSpamNX su una certa pagina/post si può escludere questa pagina/post da NoSpamNX. Basta inserire l'ID (s) della pagina/post (utilizzare i valori separati da virgola, come 4,8,15,16,23,42)"
+msgstr "Qualora riscontrassi dei problemi con NoSpamNX su di una certa pagina/articolo ti ricordo che saràpossibile escludere questa pagina/articolo dalla protezione di NoSpamNX. Sarà sufficiente inserire l'ID della pagina/articolo (separare i valori con virgola. Ad es: 4,8,15,16,23,42)"
 
 #: nospamnx.php:534
 msgid "IDs"
-msgstr "IDs"
+msgstr "ID"
 
 #: nospamnx.php:550
 msgid "Debug"
@@ -163,7 +163,7 @@ msgstr "Debug"
 
 #: nospamnx.php:555
 msgid "PHP-Info"
-msgstr "PHP-Info"
+msgstr "Info PHP"
 
 #: nospamnx.php:570
 msgid "Support"
@@ -172,7 +172,7 @@ msgstr "Assistenza"
 #: nospamnx.php:572
 #, php-format
 msgid "Problems with NoSpamNX? Feel free to contact me via E-Mail (%s) or check out the comments at the Plugin homepage. Please add the debug information to your request."
-msgstr "Problemi con il NoSpamNX? Non esitate a contattarci via E-Mail (%s) o controllare i commenti alla home page del plugin. Si prega di aggiungere le informazioni di debug alla tua richiesta."
+msgstr "Problemi con NoSpamNX? Non esitare a contattarci via E-Mail (%s) o controllare i commenti alla home page del plugin. Aggiungi le informazioni di debug alla tua richiesta."
 
 #: nospamnx.php:581
 msgid "Donation"
@@ -180,14 +180,14 @@ msgstr "Donazione"
 
 #: nospamnx.php:583
 msgid "Developing, maintaining and supporting this plugin requires time. You can support further development with a donation. Thanks!"
-msgstr "In via di sviluppo, manutenzione e supporto questo plugin richiede tempo. È in grado di supportare ulteriori lavori con una donazione. Grazie!"
+msgstr "Lo sviluppo, la manutenzione ed il supporto fornito per questo plugin richiede del tempo. Sostieni il mio lavoro con una donazione. Grazie!"
 
 #: nospamnx.php:697
 #, php-format
 msgid " has stopped %s birdbrained Spambot since it last activation."
 msgid_plural " has stopped %s birdbrained Spambots since it last activation."
-msgstr[0] " %s si è fermato birdbrained Spambot poiché attivazione."
-msgstr[1] " %s si è fermato birdbrained pubblicitari dal momento che l'ultima attivazione."
+msgstr[0] " ha bloccato %s Spambot dalla sua ultima attivazione attivazione."
+msgstr[1] " ha bloccato %s Spambot dalla sua ultima attivazione attivazione."
 
 #~ msgid "Information"
 #~ msgstr "Informazioni"
