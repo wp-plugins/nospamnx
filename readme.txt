@@ -79,7 +79,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 	* Re-Added HTTP-Referer-Check, but now optional
 	* Changed pacing of hidden fields
 	* Changed all Radio-Buttons to Checkboxes
-	* Changed default operating mode to moderate
+	* Changed default operating to mark as spam
 	* Removed IP-Lock due to new Blacklist
 	* Removed option to deactivate Plugin on certain pages/posts due to new placing
 	* Requires now at least WordPress 2.7 
