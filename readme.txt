@@ -74,7 +74,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
-* Version 2.0 (14-07-09)
+* Version 2.0 (14-06-09)
 	* Added Blacklist
 	* Re-Added HTTP-Referer-Check, but now optional
 	* Changed pacing of hidden fields
