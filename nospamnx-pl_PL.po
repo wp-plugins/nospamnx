@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX pl_PL\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 15:36+0100\n"
+"POT-Creation-Date: 2009-06-14 19:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: prgTW <prgTW@o2.pl>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: nospamnx.php:73
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "Wersja Wordpressa jest zbyt stara. NoSpamNX wymaga Wordpressa w wersji 2.6 lub wyższej!"
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
+msgstr "Wersja Wordpressa jest zbyt stara. NoSpamNX wymaga Wordpressa w wersji 2.7 lub wyższej!"
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
@@ -87,8 +87,8 @@ msgid "Block (recommended)"
 msgstr "Blokuj (zalecane)"
 
 #: nospamnx.php:378
-msgid "Mark as Spam (requires at least WP 2.7)"
-msgstr "Oznacz jako spam (wymaga co najmniej WP 2.7)"
+msgid "Mark as Spam"
+msgstr "Oznacz jako Spam"
 
 #: nospamnx.php:380
 msgid "Moderate"
@@ -156,8 +156,8 @@ msgstr[0] " zatrzymał %s głupiutkiego robota spamującego od czasu ostatniej a
 msgstr[1] " zatrzymał %s głupiutkie roboty spamujące od czasu ostatniej aktywacji."
 msgstr[2] " zatrzymał %s głupiutkich robotów spamujących od czasu ostatniej aktywacji."
 
-#~ msgid "Mark as Spam"
-#~ msgstr "Oznacz jako Spam"
+#~ msgid "Mark as Spam (requires at least WP 2.7)"
+#~ msgstr "Oznacz jako spam (wymaga co najmniej WP 2.7)"
 #~ msgid "Yes"
 #~ msgstr "Tak"
 #~ msgid "No"

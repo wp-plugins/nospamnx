@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp in Italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 15:31+0100\n"
+"POT-Creation-Date: 2009-06-14 19:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: nospamnx.php:73
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.6 o superiore."
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
+msgstr "La tua versione di WordPress é datata.  Affinché NoSpamNX possa funzionare sarà necessaria una WordPress 2.7 o superiore."
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
@@ -87,8 +87,8 @@ msgid "Block (recommended)"
 msgstr "Blocca (raccomandato)"
 
 #: nospamnx.php:378
-msgid "Mark as Spam (requires at least WP 2.7)"
-msgstr "Segna come Spam (richiede almeno WP 2.7)"
+msgid "Mark as Spam"
+msgstr "Segna come Spam"
 
 #: nospamnx.php:380
 msgid "Moderate"
@@ -155,8 +155,8 @@ msgid_plural " has stopped %s birdbrained Spambots since it last activation."
 msgstr[0] " %s si è fermato birdbrained Spambot poiché attivazione."
 msgstr[1] " %s si è fermato birdbrained pubblicitari dal momento che l'ultima attivazione."
 
-#~ msgid "Mark as Spam"
-#~ msgstr "Segna come Spam"
+#~ msgid "Mark as Spam (requires at least WP 2.7)"
+#~ msgstr "Segna come Spam (richiede almeno WP 2.7)"
 #~ msgid "Yes"
 #~ msgstr "Sì"
 #~ msgid "No"

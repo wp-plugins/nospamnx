@@ -24,7 +24,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
-define('NOSPAMNXREQWP26', version_compare($wp_version, '2.6', '>='));
+define('NOSPAMNXREQWP27', version_compare($wp_version, '2.7', '>='));
 
 Class NoSpamNX
 {	
@@ -42,7 +42,7 @@ Class NoSpamNX
 			load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
 			
 		//check if wordpress is at least 2.6
-		if (NOSPAMNXREQWP26 != true){
+		if (NOSPAMNXREQWP27 != true){
 			add_action('admin_notices', array(&$this, 'wpVersionFail'));
 			return;
 		}
@@ -70,7 +70,7 @@ Class NoSpamNX
 
 	function wpVersionFail()
 	{
-		echo "<div id='message' class='error'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!','nospamnx')."</p></div>";
+		echo "<div id='message' class='error'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!','nospamnx')."</p></div>";
 	}
 
 	function phpFail()
@@ -259,7 +259,7 @@ Class NoSpamNX
 			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);	
 			
 			//check if referer matches siteurl
-			if (!empty($match[0]) && ($match[0] == get_option('siteurl')))
+			if (!empty($match[0]) && ($match[0] == get_option('home')))
 				echo "<div id='message' class='updated fade'><p>".__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx')."</p></div>";
 			else
 				echo "<div id='message' class='error'><p>".__('Referer-Check failed! The referer does not match WordPress option "siteurl".','nospamnx')."</p></div>";		
@@ -375,7 +375,7 @@ Class NoSpamNX
 										<input type="hidden" value="true" name="nospamnx_mode">
 										<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
 										<br />
-										<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam (requires at least WP 2.7)','nospamnx'); ?>
+										<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
 										<br />
 										<input type="radio" <?php echo $moderate; ?> name="nospamnx_operate" value="moderate"> <?php echo __('Moderate','nospamnx'); ?>
 										</td>									
@@ -492,7 +492,7 @@ Class NoSpamNX
 		$options = array(
 			'nospamnx_names' 		=> $this->generateNames(),
 			'nospamnx_count'		=> 0,
-			'nospamnx_operate'		=> 'block',
+			'nospamnx_operate'		=> 'mark',
 			'nospamnx_blacklist'	=> '',
 			'nospamnx_checkuser'	=> 1,
 			'nospamnx_checkreferer'	=> 0,

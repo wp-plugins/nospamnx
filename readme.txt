@@ -2,8 +2,8 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.8
-Stable tag: 1.10
-Requires at least: 2.6
+Stable tag: 2.0
+Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
 To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
@@ -20,9 +20,9 @@ The user must no longer fill out any additional fields in the comment form, and 
 
 * Easy installation (just activate the plugin!)
 * Does not require any modification on your comment template
-* Does not change any of your comment formfields (giving you full compatibility with other plugins or templates!)
+* Does not change any of your comment formfields (giving you more compatibility with other plugins or templates!)
 * Does not require JavaScript, Cookies or Sessions
-* No extra field for user input (e.g. Captcha) required
+* Does not require any extra field for user input (e.g. Captcha)
 * No need to manage spambot comments anymore 
 * Fully compatible with comments-popup
 * False-positives are nearly impossible
@@ -74,15 +74,17 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
-* Version 2.0 (tbd)
+* Version 2.0 (14-07-09)
 	* Added Blacklist
 	* Re-Added HTTP-Referer-Check, but now optional
-	* Removed IP-Lock due to new Blacklist
-	* Changed place of hidden fields
-	* Removed option to deactivate Plugin on certain pages/posts
+	* Changed pacing of hidden fields
 	* Changed all Radio-Buttons to Checkboxes
+	* Changed default operating mode to moderate
+	* Removed IP-Lock due to new Blacklist
+	* Removed option to deactivate Plugin on certain pages/posts due to new placing
+	* Requires now at least WordPress 2.7 
     * Updated Screenshot
-    * Updated reademe
+    * Updated readme
     * Updated language files 
 * Version 1.10 (11-05-09)
     * Removed referer check temporarily 

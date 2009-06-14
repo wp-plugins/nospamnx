@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 15:27+0100\n"
+"POT-Creation-Date: 2009-06-14 19:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: Sven Kubiak <mail@svenkubiak.de>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: nospamnx.php:73
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "Dein WordPress ist zu alt. NoSpamNX ben&ouml;tigt mind. WordPress 2.6!"
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
+msgstr "Dein WordPress ist zu alt. NoSpamNX ben&ouml;tigt mind. WordPress 2.7!"
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
@@ -87,8 +87,8 @@ msgid "Block (recommended)"
 msgstr "Blockieren (empfohlen)"
 
 #: nospamnx.php:378
-msgid "Mark as Spam (requires at least WP 2.7)"
-msgstr "Als Spam markieren (ben&ouml;tigt mind. WP 2.7)"
+msgid "Mark as Spam"
+msgstr "Als Spam markieren"
 
 #: nospamnx.php:380
 msgid "Moderate"
@@ -100,7 +100,7 @@ msgstr "Pr&uuml;fe angemeldete Benutzer"
 
 #: nospamnx.php:385
 msgid "If disabled, NoSpamNX will add no hidden fields or perform any checks on logged in users."
-msgstr "Wenn deaktiviert, wird NoSPamNX keine versteckten Felder hinzuf&uuml;gen oder &Uuml;berpr&uuml;fungen bei angemeldeten Benutzern durchf&uuml;hren."
+msgstr "Wenn deaktiviert, wird NoSpamNX keine versteckten Felder hinzuf&uuml;gen oder &Uuml;berpr&uuml;fungen bei angemeldeten Benutzern durchf&uuml;hren."
 
 #: nospamnx.php:388
 msgid "Check HTTP Referer"
@@ -155,8 +155,8 @@ msgid_plural " has stopped %s birdbrained Spambots since it last activation."
 msgstr[0] " hat seit seiner letzten Aktivierung %s dummen Spambot gestoppt."
 msgstr[1] " hat seit seiner letzten Aktivierung %s dumme Spambots gestoppt."
 
-#~ msgid "Mark as Spam"
-#~ msgstr "Als Spam markieren"
+#~ msgid "Mark as Spam (requires at least WP 2.7)"
+#~ msgstr "Als Spam markieren (ben&ouml;tigt mind. WP 2.7)"
 #~ msgid "Yes"
 #~ msgstr "Ja"
 #~ msgid "No"

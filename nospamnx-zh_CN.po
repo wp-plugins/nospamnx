@@ -19,7 +19,7 @@ msgstr ""
 
 #: nospamnx.php:73
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "你的WordPress版本过旧。 使用NoSpamNX需要WordPress 2.6或更高版本！"
+msgstr "你的WordPress版本过旧。 使用NoSpamNX需要WordPress 2.7或更高版本！"
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."

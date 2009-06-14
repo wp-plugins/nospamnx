@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mail On Update v2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-30 15:27+0100\n"
-"PO-Revision-Date: 2009-05-30 15:27+0100\n"
+"POT-Creation-Date: 2009-06-14 19:30+0100\n"
+"PO-Revision-Date: 2009-06-14 19:30+0100\n"
 "Last-Translator: Sven Kubiak <mail@svenkubiak.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: nospamnx.php:73
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.6!"
-msgstr "WordPress es su edad. NoSpamNX requiere al menos WordPress 2.6!"
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
+msgstr "WordPress es su edad. NoSpamNX requiere al menos WordPress 2.7!"
 
 #: nospamnx.php:78
 msgid "NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details."
@@ -86,8 +86,8 @@ msgid "Block (recommended)"
 msgstr "Bloque (recomendado)"
 
 #: nospamnx.php:378
-msgid "Mark as Spam (requires at least WP 2.7)"
-msgstr "Marcar como Spam (requiere al menos: WP 2.7)"
+msgid "Mark as Spam"
+msgstr "Marcar como spam"
 
 #: nospamnx.php:380
 msgid "Moderate"
@@ -154,8 +154,8 @@ msgid_plural " has stopped %s birdbrained Spambots since it last activation."
 msgstr[0] " %s se ha detenido birdbrained spambot desde la última activación."
 msgstr[1] " %s se ha detenido birdbrained spambots desde la última activación."
 
-#~ msgid "Mark as Spam"
-#~ msgstr "Marcar como spam"
+#~ msgid "Mark as Spam (requires at least WP 2.7)"
+#~ msgstr "Marcar como Spam (requiere al menos: WP 2.7)"
 #~ msgid "Yes"
 #~ msgstr "Sí"
 #~ msgid "No"
