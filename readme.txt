@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.8
-Stable tag: 2.0
+Stable tag: 2.1
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -34,7 +34,7 @@ The user must no longer fill out any additional fields in the comment form, and 
 * English
 * French
 * Italian
-* Spanish
+* Spanish (Translation: Samuel Aguilera)
 * Russian
 * Chinese
 * Polish
@@ -74,6 +74,8 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Version History ==
 
+* Version 2.1 (15-06-09)
+	* Updated Spanish translation
 * Version 2.0 (14-06-09)
 	* Added Blacklist
 	* Re-Added HTTP-Referer-Check, but now optional
