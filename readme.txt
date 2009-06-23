@@ -72,65 +72,78 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 1. NoSpamNX statistic on Dashboard
 2. NoSpamNX settings
 
-== Version History ==
 
-* Version 2.1 (15-06-09)
-	* Updated Spanish translation
-* Version 2.0 (14-06-09)
-	* Added Blacklist
-	* Re-Added HTTP-Referer-Check, but now optional
-	* Changed pacing of hidden fields
-	* Changed all Radio-Buttons to Checkboxes
-	* Changed default operating to mark as spam
-	* Removed IP-Lock due to new Blacklist
-	* Removed option to deactivate Plugin on certain pages/posts due to new placing
-	* Requires now at least WordPress 2.7 
-    * Updated Screenshot
-    * Updated readme
-    * Updated language files 
-* Version 1.10 (11-05-09)
-    * Removed referer check temporarily 
-* Version 1.9 (09-05-09)
-    * Fixed bug with referer check
-* Version 1.8 (09-05-09)
-	* Improved function when using comments popup
-    * Added referer check
-    * Optimized function that blocks the spambots
-* Version 1.7 (28-04-09)
-    * Fixed Bug when disabling NoSpamNX on certain pages/posts
-    * Optimized function that blocks the spambots
-* Version 1.6 (27-04-09)
-    * Added feature to disable NoSpamNX on certain pages/posts
-    * Fixed Bug that displayed hidden fields in comments popup
-    * Added Polish translation
-    * Update language files
-* Version 1.5 (18-04-09)
-    * Increased compatibility with different PHP configurations
-    * Added information tab in seetings
-    * Updated language files
-    * Updated FAQ
-* Version 1.4 (18-04-09)
-    * Added Russian translation
-    * Added Chinese translation (Simplified Chinese)
-    * Modified function that changes the template
-    * Updated FAQ
-* Version 1.3 (10-04-09)
-    * Added full compatibility with comments-popup
-    * Added Spanish translation
-    * Akismet or similar is not require any more to mark comment as spam
-	* Updated language files
-	* Updated Screenshot  
-	* Updated readme.txt
-* Version 1.2 (04-04-09)
-    * Added French translation
-    * Added Italian translation
-    * Minor code optimization
-    * Default blocktime for ip address set to 1 hour
-* Version 1.1 (29-03-09)
-	* Optimized function that adds the hidden fields
-    * Removed all serialize/unserialize functions
-    * Changed activate/deactivate to wp-hooks 
-    * Completly changed handling of options
-    * Updated language file
-* Version 1.0 (27-03-09)
-    * Initial release
+== Changelog ==
+
+= 2.1 =
+* Updated Spanish translation
+
+= 2.0 =
+* Added Blacklist
+* Re-Added HTTP-Referer-Check, but now optional
+* Changed pacing of hidden fields
+* Changed all Radio-Buttons to Checkboxes
+* Changed default operating to mark as spam
+* Removed IP-Lock due to new Blacklist
+* Removed option to deactivate Plugin on certain pages/posts due to new placing
+* Requires now at least WordPress 2.7 
+* Updated Screenshot
+* Updated readme
+* Updated language files
+ 
+= 1.10 =
+* Removed referer check temporarily
+ 
+= 1.9 =
+* Fixed bug with referer check
+
+= 1.8 =
+* Improved function when using comments popup
+* Added referer check
+* Optimized function that blocks the spambots
+
+= 1.7 =
+* Fixed Bug when disabling NoSpamNX on certain pages/posts
+* Optimized function that blocks the spambots
+    
+= 1.6 =
+* Added feature to disable NoSpamNX on certain pages/posts
+* Fixed Bug that displayed hidden fields in comments popup
+* Added Polish translation
+* Update language files
+
+= 1.5 =
+* Increased compatibility with different PHP configurations
+* Added information tab in seetings
+* Updated language files
+* Updated FAQ
+
+= 1.4 =
+* Added Russian translation
+* Added Chinese translation (Simplified Chinese)
+* Modified function that changes the template
+* Updated FAQ
+
+= 1.3 =
+* Added full compatibility with comments-popup
+* Added Spanish translation
+* Akismet or similar is not require any more to mark comment as spam
+* Updated language files
+* Updated Screenshot  
+* Updated readme.txt
+
+= 1.2 =
+* Added French translation
+* Added Italian translation
+* Minor code optimization
+* Default blocktime for ip address set to 1 hour
+
+= 1.1 =
+* Optimized function that adds the hidden fields
+* Removed all serialize/unserialize functions
+* Changed activate/deactivate to wp-hooks 
+* Completly changed handling of options
+* Updated language file
+
+= 1.0 =
+* Initial release
