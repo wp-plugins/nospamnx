@@ -72,6 +72,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 1. NoSpamNX statistic on Dashboard
 2. NoSpamNX settings
 
+
 == Changelog ==
 
 = 2.1 =
