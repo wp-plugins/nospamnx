@@ -75,6 +75,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 2.2 =
+* Plugin only loads when comment template is displayed
+* Modified loading of Stylesheet
+
 = 2.1 =
 * Updated Spanish translation
 

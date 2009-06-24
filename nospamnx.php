@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 2.1
+Version: 2.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -36,7 +36,7 @@ Class NoSpamNX
 	var $nospamnx_checkreferer;
 	
 	function nospamnx()
-	{
+	{		
 		//load language strings
 		if (function_exists('load_plugin_textdomain'))
 			load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
@@ -476,14 +476,9 @@ Class NoSpamNX
 	}	
 	
 	function nospamnxStyle()
-	{	
-		//build url to nospamnx css file
-		$nospamnxcssurl = (get_option('siteurl')."/".PLUGINDIR."/nospamnx/");
-		
-		//display link to nospamnx css in wordpress header
-		echo "<!-- nospamnxcss -->\n";
-		echo '<link rel="stylesheet" href="'.$nospamnxcssurl.'nospamnx.css" type="text/css" media="screen" />';
-		echo "\n<!-- /nospamnxcss -->\n";
+	{			
+		echo '<link rel="stylesheet" href="' . get_option('siteurl') . '/' . PLUGINDIR . '/nospamnx/nospamnx.css" type="text/css" />';
+		echo "\n";
 	}
 	
 	function activate()
