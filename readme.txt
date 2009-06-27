@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.8
-Stable tag: 2.1
+Stable tag: 2.2
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -76,8 +76,8 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 2.2 =
-* Plugin only loads when comment template is displayed
 * Modified loading of Stylesheet
+* Added new WordPress Plugin changelog
 
 = 2.1 =
 * Updated Spanish translation

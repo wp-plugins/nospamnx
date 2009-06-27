@@ -477,8 +477,8 @@ Class NoSpamNX
 	
 	function nospamnxStyle()
 	{			
-		echo '<link rel="stylesheet" href="' . get_option('siteurl') . '/' . PLUGINDIR . '/nospamnx/nospamnx.css" type="text/css" />';
-		echo "\n";
+		$css = get_option( 'siteurl' ) . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
+		echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 	}
 	
 	function activate()
