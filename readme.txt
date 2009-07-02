@@ -6,7 +6,7 @@ Stable tag: 2.3
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
-To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
+To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. PLEASE NOTE: Make sure your theme loads wp_head() and comment_form() according to the WordPress Codex (see http://is.gd/1lezf), othweise NoSpamNX will not work properly! 
 
 == Description ==
 
@@ -15,6 +15,9 @@ Most anti-comment-spam-plugins focus on user interaction, e.g. captcha or math-c
 NoSpamNX adds additional formfields to your comment form, invisible to the users. If a spambot fills these fields blindly (which 99.9% of all spambots do), the comment will not be saved. You can decide if you want to block these spambots, mark them as spam or put them in moderation queue. Furthermore, the ip address of catched spambots can be stored and blocked for 1 hour, 24 hours or indefinitly.
 	
 The user must no longer fill out any additional fields in the comment form, and you can focus on blogging and your readers comments!
+
+PLEASE NOTE: Make sure your theme loads wp_head() and comment_form() according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
+
 
 = Features in a nutshell =
 
