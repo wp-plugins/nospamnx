@@ -16,13 +16,13 @@ NoSpamNX adds additional formfields to your comment form, invisible to the users
 	
 The user must no longer fill out any additional fields in the comment form, and you can focus on blogging and your readers comments!
 
-PLEASE NOTE: Make sure your theme loads wp_head() and comment_form() according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
+PLEASE NOTE: Make sure your theme loads wphead and commentform according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
 
 
 = Features in a nutshell =
 
 * Easy installation (just activate the plugin!)
-* Does not require any modification on your comment template (but make sure your them loads wp_head and comment_form - see WordPress Codex!)
+* Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins or templates!)
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha)
