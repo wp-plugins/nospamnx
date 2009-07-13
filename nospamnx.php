@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 2.3
+Version: 2.4
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -205,7 +205,11 @@ if (!class_exists('NoSpamNX'))
 
 		function nospamnxAdminMenu()
 		{
-			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
+			if( function_exists( 'is_site_admin' ) && !is_site_admin() ){
+				return;
+			} else {
+				add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));
+			}		
 		}
 			
 		function preFlight()
@@ -410,18 +414,27 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_checkuser'	=> 1,
 				'nospamnx_checkreferer'	=> 0,
 			);
-			
-			add_option('nospamnx', $options, '', 'yes');
+
+		     if (function_exists( 'is_site_admin' ))
+		     	add_site_option('nospamnx', $options);
+			 else
+		     	add_option('nospamnx', $options);		
 		}	
 		
 		function deactivate()
 		{
-			delete_option('nospamnx');	
+			if (function_exists( 'is_site_admin' ))
+				delete_site_option('nospamnx');
+			else
+				delete_option('nospamnx');
 		}
 		
 		function loadOptions()
 		{
-			$options = get_option('nospamnx');
+			if (function_exists( 'is_site_admin' ))
+				$options = get_site_option('nospamnx');
+			else
+				$options = get_option('nospamnx');
 			
 			$this->nospamnx_names 			= $options['nospamnx_names'];
 			$this->nospamnx_count			= $options['nospamnx_count'];
@@ -442,7 +455,10 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_checkreferer'	=> $this->nospamnx_checkreferer
 			);
 			
-			update_option('nospamnx', $options);
+		     if (function_exists( 'is_site_admin' ))
+		     	update_site_option('nospamnx', $options);
+		     else
+		        update_option('nospamnx', $options);
 		}
 		
 		function nospamnxStats()
@@ -468,7 +484,6 @@ if (!class_exists('NoSpamNX'))
 				echo "</p>";			
 		}
 	}
-	
 	$nospamnx = new NoSpamNX();
 }
 ?>

@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.8
+Tested up to: 2.8.1
 Stable tag: 2.3
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
@@ -29,6 +29,7 @@ PLEASE NOTE: Make sure your theme loads wphead and commentform according to the 
 * No need to manage spambot comments anymore (if you don't want to!)
 * Fully compatible with comments-popup
 * False-positives are nearly impossible
+* Compatible with WordPress MU
 
 
 = Available Languages  =
@@ -39,7 +40,7 @@ PLEASE NOTE: Make sure your theme loads wphead and commentform according to the 
 * Italian
 * Spanish (Translation: Samuel Aguilera)
 * Russian
-* Chinese
+* Chinese (Translation: Donald Z)
 * Polish
 
 == Installation ==
@@ -77,6 +78,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 2.4 =
+* Plugin is now compatible with WordPress MU 
+* Update Chinese Translation
+* Update readem
 
 = 2.3 =
 * Optimized class loading
