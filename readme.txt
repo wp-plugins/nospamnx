@@ -42,7 +42,6 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * French
 * Italian
 * Spanish (Translation: Samuel Aguilera)
-* Russian
 * Chinese (Translation: Donald Z)
 * Polish
 * Swedish (Translation: Mats Bergsten)
