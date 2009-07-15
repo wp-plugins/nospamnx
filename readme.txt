@@ -10,9 +10,9 @@ To protect your Blog from automated spambots, which fill you comments with junk,
 
 == Description ==
 
-Most anti-comment-spam-plugins focus on user interaction, e.g. captcha or math-comment-spam-protection to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX focuses on handling automated comment-spam without these measures. It does not require JavaScript, Cookies or Sessions. It does not change your comment template in any way, given you full compatibility with other WordPress- or Browser Plugins.
+Most Anti Spam Plugins focus on user interaction, e.g. captcha or Math calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX intend to handle automated comment-spam without these measures. It does not require JavaScript, Cookies or Sessions. It does not change your comment template in any way, given you full compatibility with other WordPress- or Browser Plugins.
 
-NoSpamNX adds additional formfields to your comment form, invisible to the users. If a spambot fills these fields blindly (which 99.9% of all spambots do), the comment will not be saved. You can decide if you want to block these spambots, mark them as spam or put them in moderation queue. Furthermore, you can put common spam-phrases on a blacklist.
+NoSpamNX automaticly adds additional formfields to your comment form, invisible to the users. If a spambot fills these fields blindly (which 99.9% of all spambots do), the comment will not be saved. You can decide if you want to block these spambots, mark them as spam or put them in moderation queue. Furthermore, you can put common spam-phrases on a blacklist.
 	
 The user must no longer fill out any additional fields in the comment form, and you can focus on blogging and your readers comments!
 
@@ -24,15 +24,15 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 
 = Features in a nutshell =
 
-* Easy installation (just activate the plugin!)
+* Easy installation (just activate the plugin)
 * Does not require any modification on your comment template
-* Does not change any of your comment formfields (giving you more compatibility with other plugins or templates!)
+* Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha)
-* No need to manage spambot comments anymore (if you don't want to!)
-* Fully compatible with comments-popup
-* False-positives are nearly impossible
+* No need to manage spambot comments anymore (if you don't want to)
+* Compatible with comments-popup
 * Compatible with WordPress MU
+* False-positives are nearly impossible
 
 
 = Available Languages  =
