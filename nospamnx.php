@@ -28,7 +28,6 @@ define('NOSPAMNXREQWP27', version_compare($wp_version, '2.7', '>='));
 
 if (!class_exists('NoSpamNX'))
 {
-
 	Class NoSpamNX
 	{	
 		var $nospamnx_names;
