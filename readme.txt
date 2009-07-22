@@ -82,6 +82,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 2.5 =
+* Fixed bug when displaying statistic 
+
 = 2.4 =
 * Plugin is now compatible with WordPress MU 
 * Added Swedish Translation

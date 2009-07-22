@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 2.4
+Version: 2.5
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -204,11 +204,10 @@ if (!class_exists('NoSpamNX'))
 
 		function nospamnxAdminMenu()
 		{
-			if( function_exists( 'is_site_admin' ) && !is_site_admin() ){
+			if( function_exists( 'is_site_admin' ) && !is_site_admin() )
 				return;
-			} else {
-				add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));
-			}		
+			else
+				add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
 		}
 			
 		function preFlight()
@@ -467,9 +466,6 @@ if (!class_exists('NoSpamNX'))
 		
 		function displayStats($dashboard=false)
 		{
-			//get counter in local number format
-			$counter = number_format_i18n($this->nospamnx_count);
-
 			if ($dashboard == true)
 				echo "<p>";
 				
@@ -477,7 +473,7 @@ if (!class_exists('NoSpamNX'))
 			printf(__ngettext(
 				" has stopped %s birdbrained Spambot since it last activation.",
 				" has stopped %s birdbrained Spambots since it last activation.",
-				$counter, 'nospamnx'), $counter);
+				$this->nospamnx_count, 'nospamnx'), $this->nospamnx_count);
 			
 			if ($dashboard == true)
 				echo "</p>";			
