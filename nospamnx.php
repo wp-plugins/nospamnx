@@ -43,7 +43,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
 				
-			//check if wordpress is at least 2.6
+			//check if wordpress is at least 2.7
 			if (NOSPAMNXREQWP27 != true){
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
@@ -67,7 +67,7 @@ if (!class_exists('NoSpamNX'))
 			register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));		
 
 			//load nospamnx options
-			$this->loadOptions();
+			$this->getOptions();
 		}
 
 		function wpVersionFail()
@@ -77,7 +77,7 @@ if (!class_exists('NoSpamNX'))
 
 		function phpFail()
 		{
-			echo "<div id='message' class='error'><p>".__('NoSpamNX is currently inactive! Some required PHP functions are not available. See Settings -> NoSpamNX -> Information for more details.','nospamnx')."</p></div>";
+			echo "<div id='message' class='error'><p>".__('NoSpamNX is currently inactive, due to missing required PHP functions.','nospamnx')."</p></div>";
 		}	
 		
 		function addHiddenFields()
@@ -104,11 +104,11 @@ if (!class_exists('NoSpamNX'))
 			{		
 				//perform blacklist check
 				if ($this->blacklistCheck(
-					trim($_POST['author']),
-					trim($_POST['email']),
-					trim($_POST['url']),
-					$_POST['comment'],
-					$_SERVER['REMOTE_ADDR']) == true)
+						trim($_POST['author']),
+						trim($_POST['email']),
+						trim($_POST['url']),
+						$_POST['comment'],
+						$_SERVER['REMOTE_ADDR']) == true)
 					$this->birdbrained();
 				
 				//check if referer check is enabled and check referer
@@ -144,7 +144,7 @@ if (!class_exists('NoSpamNX'))
 		{		
 			//count spambot and save count
 			$this->nospamnx_count++;
-			$this->updateOptions();
+			$this->setOptions();
 			
 			//check in which mode we are and block, mark as spam or put in moderation queue
 			if ($this->nospamnx_operate == 'mark')
@@ -266,7 +266,7 @@ if (!class_exists('NoSpamNX'))
 				($_POST['nospamnx_checkreferer'] == 1) ? $this->nospamnx_checkreferer = 1 : $this->nospamnx_checkreferer = 0;			
 				
 				//save options and display success message
-				$this->updateOptions();
+				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings saved successfully.','nospamnx')."</p></div>";			
 			}
 			else if ($_POST['reset_counter'] == 1)
@@ -275,7 +275,7 @@ if (!class_exists('NoSpamNX'))
 				$this->nospamnx_count = 0;
 				
 				//save options and display success message
-				$this->updateOptions();
+				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX Counter was reseted successfully.','nospamnx')."</p></div>";			
 			}
 			else if ($_POST['update_blacklist'] == 1)
@@ -284,12 +284,12 @@ if (!class_exists('NoSpamNX'))
 				$this->nospamnx_blacklist = $_POST['blacklist'];
 				
 				//save options and display message
-				$this->updateOptions();
+				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings saved successfully.','nospamnx')."</p></div>";
 			}
 			
 			//set checked values for radio buttons
-			($this->nospamnx_checkuser == 1) ? 		$checkuser = 'checked=checked' : $checkuser = '';
+			($this->nospamnx_checkuser == 1) 	?	$checkuser = 'checked=checked' : $checkuser = '';
 			($this->nospamnx_checkreferer == 1) ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
 
 			//set checked values for operating mode
@@ -427,7 +427,7 @@ if (!class_exists('NoSpamNX'))
 				delete_option('nospamnx');
 		}
 		
-		function loadOptions()
+		function getOptions()
 		{
 			if (function_exists( 'is_site_admin' ))
 				$options = get_site_option('nospamnx');
@@ -442,7 +442,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
 		}
 		
-		function updateOptions()
+		function setOptions()
 		{
 			$options = array(
 				'nospamnx_names'		=> $this->nospamnx_names,
