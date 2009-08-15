@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.8.1
+Tested up to: 2.8.5
 Stable tag: 2.4
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
@@ -10,7 +10,7 @@ To protect your Blog from automated spambots, which fill you comments with junk,
 
 == Description ==
 
-Most Anti Spam Plugins focus on user interaction, e.g. captcha or Math calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX intend to handle automated comment-spam without these measures. It does not require JavaScript, Cookies or Sessions. It does not change your comment template in any way, given you full compatibility with other WordPress- or Browser Plugins.
+Most Antispam Plugins focus on user interaction, e.g. captcha or Math calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX intend to handle automated comment-spam without these measures. It does not require JavaScript, Cookies or Sessions. It does not change your comment template in any way, given you full compatibility with other WordPress- or Browser Plugins.
 
 NoSpamNX automaticly adds additional formfields to your comment form, invisible to the users. If a spambot fills these fields blindly (which 99.9% of all spambots do), the comment will not be saved. You can decide if you want to block these spambots, mark them as spam or put them in moderation queue. Furthermore, you can put common spam-phrases on a blacklist.
 	
