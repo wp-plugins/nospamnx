@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.8.5
-Stable tag: 2.4
+Tested up to: 2.8.4
+Stable tag: 2.5
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection
 
@@ -81,6 +81,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 2.5 =
+* Fixed bug when displaying statistics 
 
 = 2.4 =
 * Plugin is now compatible with WordPress MU 
