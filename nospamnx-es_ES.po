@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NoSpamNX 2.0\n"
+"Project-Id-Version: NoSpamNX 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-08 10:51+0100\n"
+"POT-Creation-Date: 2009-09-08 13:09+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
+"Last-Translator: Samuel Aguilera <correo@samuelaguilera.com>\n"
 "Language-Team: Samuel Aguilera <correo@samuelaguilera.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,14 +22,14 @@ msgstr "Tu WordPress es muy antiguo. ¡NoSpamNX necesita al menos WordPress 2.7!
 
 #: nospamnx.php:89
 msgid "NoSpamNX is currently inactive, due to missing required PHP functions."
-msgstr "NoSpamNX está actualmente inactiva, debido a la falta precisan funciones de PHP."
+msgstr "NoSpamNX está actualmente inactivo, debido a que faltan funciones PHP necesarias."
 
 #: nospamnx.php:163
 #: nospamnx.php:166
 #: nospamnx.php:169
 #: nospamnx.php:172
 msgid "Sorry, but access to this page is restricted."
-msgstr "Lo sentimos, pero el acceso a esta página está restringido."
+msgstr "Lo siento, pero el acceso a esta página está restringido."
 
 #: nospamnx.php:187
 msgid "Sorry, but your comment seems to be Spam."
@@ -82,7 +82,7 @@ msgstr "Modo de operación"
 
 #: nospamnx.php:380
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue."
-msgstr "Por defecto, todos Spambots son marcados como spam, pero el modo recomendado es de \"bloque\". Si quieres ver lo que está bloqueado, seleccione moderada o marcar como spam. Contra spam bots CATCHED vamos a estar marcado como spam o poner en cola de moderación."
+msgstr "Predeterminadamente todos los bots de spam son marcados como spam, pero el modo recomendado es \"Bloquear\" . Si quieres ver lo que se bloquea, selecciona moderar o marcar como spam. Los bots de spam cazados serán marcados como spam o puestos en la cola de moderación."
 
 #: nospamnx.php:384
 msgid "Mode"
@@ -106,7 +106,7 @@ msgstr "Comprobar usuarios conectados"
 
 #: nospamnx.php:396
 msgid "If enabled, NoSpamNX will add hidden fields and perform checks on logged in users as well."
-msgstr "Si está activado, NoSpamNX agregará campos ocultos y realizar los controles de los usuarios registrados también."
+msgstr "Si se activa, NoSpamNX añadirá campos ocultos y también realizará comprobaciones en los usuarios conectados."
 
 #: nospamnx.php:399
 msgid "Check HTTP Referer"
@@ -118,11 +118,11 @@ msgstr "Si se activa, NoSpamNX comprobará que el referenciador de un comentario
 
 #: nospamnx.php:403
 msgid "Check Registration and Login Form"
-msgstr "Hora de Registro y Login Form"
+msgstr "Comprobar formulario de registro e inicio de sesión"
 
 #: nospamnx.php:404
 msgid "If enabled, NoSpamNX checks your Registration and Login Form for automated (non-human) access. All automated (non-human) access will be blocked."
-msgstr "Si está habilitado, NoSpamNX comprueba su registro y el formulario de inicio de sesión automático (no humanos) de acceso. Todos automatizado (no humanos) el acceso será bloqueado."
+msgstr "Si está activado, NoSpamNX comprueba los accesos automatizados (no humanos) de tus formularios de registro e inicio de sesión. Todos los accesos automatizados (no humanos) serán bloqueados."
 
 #: nospamnx.php:408
 #: nospamnx.php:428
