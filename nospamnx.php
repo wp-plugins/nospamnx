@@ -57,7 +57,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			//add nospamnx wordpress actions	
-			add_action('init', array(&$this, 'checkFields'));		
+			add_action('init', array(&$this, 'checkForms'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
 			add_action('wp_head', array(&$this, 'nospamnxStyle'));
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
@@ -101,12 +101,12 @@ if (!class_exists('NoSpamNX'))
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />';						
 		}
 		
-		function checkFields()
+		function checkForms()
 		{													
-			//check if we have to check registration form as well
+			//do we have to check registration and login form
 			($this->nospamnx_checkregister == 1) ? $this->checkAdminForm() : false;
 			
-			//check if we are in wp-comments-post.php or wp-login.php
+			//check if we are in wp-comments-post.php
 			if ($basename != 'wp-comments-post.php')		
 				return;
 			//check if user is logged in and does not require checking
@@ -134,38 +134,42 @@ if (!class_exists('NoSpamNX'))
 						$this->birdbrained();				
 				}
 				
-				//call functions for checking formfields
-				$this->checkBirdbrained();
+				//get current formfield names from wp options
+				$nospamnx = $this->nospamnx_names;
+	
+				//check if first hidden field is in $_POST data
+				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
+					$this->birdbrained();
+				//check if first hidden field is empty
+				else if ($_POST[$nospamnx['nospamnx-1']] != "")
+					$this->birdbrained();
+				//check if second hidden field is in $_POST data
+				else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
+					$this->birdbrained();
+				//check if the value of the second hidden field matches stored value
+				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
+					$this->birdbrained();
 			}
 		}
 		
 		function checkAdminForm()
 		{
-			//check if we are in wp-comments-post.php or wp-login.php
-			if ($basename != 'wp-login.php' && empty($_POST['user_login']))		
-				return;		
-
-			//call functions for checking formfields
-			$this->checkBirdbrained();
-		}
-		
-		function checkBirdbrained()
-		{
-			//get current formfield names from wp options
-			$nospamnx = $this->nospamnx_names;
+			//check if we are in wp-login.php 
+			if ($basename != 'wp-login.php')		
+				return;					
 
 			//check if first hidden field is in $_POST data
 			if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
-				$this->birdbrained();
+				wp_die(__('Sorry, but access to this page is restricted.','nospamnx'));
 			//check if first hidden field is empty
 			else if ($_POST[$nospamnx['nospamnx-1']] != "")
-				$this->birdbrained();
+				wp_die(__('Sorry, but access to this page is restricted.','nospamnx'));
 			//check if second hidden field is in $_POST data
 			else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
-				$this->birdbrained();
+				wp_die(__('Sorry, but access to this page is restricted.','nospamnx'));
 			//check if the value of the second hidden field matches stored value
 			else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
-				$this->birdbrained();			
+				wp_die(__('Sorry, but access to this page is restricted.','nospamnx'));
 		}
 		
 		function birdbrained()
@@ -397,7 +401,7 @@ if (!class_exists('NoSpamNX'))
 										</tr>
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Check Registration\Login Form','nospamnx'); ?></b></th>
-											<td valign="top"><input type="checkbox" name="nospamnx_checkregister" value="1"  <?php echo $checkregister; ?> /><br /><?php echo __('If enabled, NoSpamNX checks your Registration and Login Form for automated access.','nospamnx'); ?></td>									
+											<td valign="top"><input type="checkbox" name="nospamnx_checkregister" value="1"  <?php echo $checkregister; ?> /><br /><?php echo __('If enabled, NoSpamNX checks your Registration and Login Form for automated (non-human) access. All access will be blocked.','nospamnx'); ?></td>									
 										</tr>																			
 								</table>
 								<input type="hidden" value="1" name="save_settings">
