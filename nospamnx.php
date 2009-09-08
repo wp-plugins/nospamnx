@@ -377,7 +377,7 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">		
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
-								<p><?php echo __('By default all Spambots will be blocked. If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue. Furthermore you can enable or disable if NoSpamNX should perfom its checks, if a user is logged in.','nospamnx'); ?></p>
+								<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "Block". If you want to see what is blocked, select moderate or mark as spam. Catched Spambots will we be marked as Spam or put in moderation queue.','nospamnx'); ?></p>
 								<form action="options-general.php?page=nospamnx" method="post">
 								<table class="form-table">						
 										<tr>
@@ -393,15 +393,15 @@ if (!class_exists('NoSpamNX'))
 										</tr>
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Check logged in User','nospamnx'); ?></b></th>
-											<td valign="top"><input type="checkbox" name="nospamnx_checkuser" value="1" <?php echo $checkuser; ?> /><br/><?php echo __('If disabled, NoSpamNX will add no hidden fields or perform any checks on logged in users.','nospamnx'); ?></td>									
+											<td valign="top"><input type="checkbox" name="nospamnx_checkuser" value="1" <?php echo $checkuser; ?> /><br/><?php echo __('If enabled, NoSpamNX will add hidden fields and perform checks on logged in users as well.','nospamnx'); ?></td>									
 										</tr>
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Check HTTP Referer','nospamnx'); ?></b></th>
 											<td valign="top"><input type="checkbox" name="nospamnx_checkreferer" value="1"  <?php echo $checkreferer; ?> /><br /><?php echo __('If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link.','nospamnx'); ?> <a href="options-general.php?page=nospamnx&refcheck=1">Referer-Check</a></td>									
 										</tr>
 										<tr>
-											<th scope="row" valign="top"><b><?php echo __('Check Registration\Login Form','nospamnx'); ?></b></th>
-											<td valign="top"><input type="checkbox" name="nospamnx_checkregister" value="1"  <?php echo $checkregister; ?> /><br /><?php echo __('If enabled, NoSpamNX checks your Registration and Login Form for automated (non-human) access. All access will be blocked.','nospamnx'); ?></td>									
+											<th scope="row" valign="top"><b><?php echo __('Check Registration and Login Form','nospamnx'); ?></b></th>
+											<td valign="top"><input type="checkbox" name="nospamnx_checkregister" value="1"  <?php echo $checkregister; ?> /><br /><?php echo __('If enabled, NoSpamNX checks your Registration and Login Form for automated (non-human) access. All automated (non-human) access will be blocked.','nospamnx'); ?></td>									
 										</tr>																			
 								</table>
 								<input type="hidden" value="1" name="save_settings">

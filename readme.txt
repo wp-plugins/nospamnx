@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.8.4
-Stable tag: 2.5
+Stable tag: 2.6
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user
 
@@ -16,7 +16,7 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 	
 The user must no longer fill out any additional fields in the comment form, and you can focus on blogging and your readers comments!
 
-Since Version 2.6 NoSpmaNX can use the same mechanics to protect your Registration and Login Form from automated access. 
+Since Version 2.6 NoSpmaNX can use the same mechanics to protect your Registration and Login Form against automated access. 
 
 
 = Requirements =
@@ -35,7 +35,7 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * Compatible with comments-popup
 * Compatible with WordPress MU
 * False-positives are nearly impossible
-* NEW: Protect your Registration and Login Form from automated access (since 2.6)
+* NEW: Protect your Registration and Login Form against automated access (since 2.6)
 
 
 = Available Languages  =
@@ -87,7 +87,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 = 2.6 =
 * Added optional check for Registration and Login Form
-* Updated Italien Translation
+* Updated language files
 * Updated readme 
 
 = 2.5 =
