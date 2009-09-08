@@ -107,7 +107,7 @@ if (!class_exists('NoSpamNX'))
 			($this->nospamnx_checkregister == 1) ? $this->checkAdminForm() : false;
 			
 			//check if we are in wp-comments-post.php
-			if ($basename != 'wp-comments-post.php')		
+			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
 				return;
 			//check if user is logged in and does not require checking
 			else if ($this->nospamnx_checkuser == 0 && is_user_logged_in())
@@ -155,7 +155,7 @@ if (!class_exists('NoSpamNX'))
 		function checkAdminForm()
 		{
 			//check if we are in wp-login.php 
-			if ($basename != 'wp-login.php')		
+			if (basename($_SERVER['PHP_SELF']) != 'wp-login.php')		
 				return;					
 
 			//check if first hidden field is in $_POST data
