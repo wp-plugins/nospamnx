@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 2.5
+Version: 2.6
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -36,6 +36,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_checkuser;
 		var $nospamnx_blacklist;
 		var $nospamnx_checkreferer;
+		var $nospamnx_checkregister;
 		
 		function nospamnx()
 		{		
@@ -56,11 +57,11 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			//add nospamnx wordpress actions	
-			add_action('init', array(&$this, 'checkCommentForm'));		
+			add_action('init', array(&$this, 'checkFields'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
 			add_action('wp_head', array(&$this, 'nospamnxStyle'));
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
-			add_action('rightnow_end', array(&$this, 'nospamnxStats'));
+			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			
 			//tell wp what to do when plugin is activated and deactivated
 			register_activation_hook(__FILE__, array(&$this, 'activate'));
@@ -68,6 +69,14 @@ if (!class_exists('NoSpamNX'))
 
 			//load nospamnx options
 			$this->getOptions();
+			
+			//add actions for registration and login form if enabled
+			if ($this->nospamnx_checkregister == 1)
+			{
+				add_action('login_head', array(&$this, 'nospamnxStyle'));
+				add_action('register_form', array(&$this, 'addHiddenFields'));
+				add_action('login_form', array(&$this, 'addHiddenFields'));
+			}			 
 		}
 
 		function wpVersionFail()
@@ -92,16 +101,19 @@ if (!class_exists('NoSpamNX'))
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />';						
 		}
 		
-		function checkCommentForm()
+		function checkFields()
 		{													
-			//check if we are in wp-comments-post.php
-			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
+			//check if we have to check registration form as well
+			($this->nospamnx_checkregister == 1) ? $this->checkAdminForm() : false;
+			
+			//check if we are in wp-comments-post.php or wp-login.php
+			if ($basename != 'wp-comments-post.php')		
 				return;
 			//check if user is logged in and does not require checking
 			else if ($this->nospamnx_checkuser == 0 && is_user_logged_in())
 				return;
 			else
-			{		
+			{			
 				//perform blacklist check
 				if ($this->blacklistCheck(
 						trim($_POST['author']),
@@ -121,23 +133,39 @@ if (!class_exists('NoSpamNX'))
 					if (!empty($match[0]) && $match[0] != get_option('siteurl'))
 						$this->birdbrained();				
 				}
-
-				//get current formfield names from wp options
-				$nospamnx = $this->nospamnx_names;
-
-				//check if first hidden field is in $_POST data
-				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
-					$this->birdbrained();
-				//check if first hidden field is empty
-				else if ($_POST[$nospamnx['nospamnx-1']] != "")
-					$this->birdbrained();
-				//check if second hidden field is in $_POST data
-				else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
-					$this->birdbrained();
-				//check if the value of the second hidden field matches stored value
-				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
-					$this->birdbrained();	
+				
+				//call functions for checking formfields
+				$this->checkBirdbrained();
 			}
+		}
+		
+		function checkAdminForm()
+		{
+			//check if we are in wp-comments-post.php or wp-login.php
+			if ($basename != 'wp-login.php' && empty($_POST['user_login']))		
+				return;		
+
+			//call functions for checking formfields
+			$this->checkBirdbrained();
+		}
+		
+		function checkBirdbrained()
+		{
+			//get current formfield names from wp options
+			$nospamnx = $this->nospamnx_names;
+
+			//check if first hidden field is in $_POST data
+			if (!array_key_exists($nospamnx['nospamnx-1'],$_POST))
+				$this->birdbrained();
+			//check if first hidden field is empty
+			else if ($_POST[$nospamnx['nospamnx-1']] != "")
+				$this->birdbrained();
+			//check if second hidden field is in $_POST data
+			else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST))
+				$this->birdbrained();
+			//check if the value of the second hidden field matches stored value
+			else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
+				$this->birdbrained();			
 		}
 		
 		function birdbrained()
@@ -265,6 +293,9 @@ if (!class_exists('NoSpamNX'))
 				//do we have to check logged in users?
 				($_POST['nospamnx_checkreferer'] == 1) ? $this->nospamnx_checkreferer = 1 : $this->nospamnx_checkreferer = 0;			
 				
+				//do we have to check the registration form?
+				($_POST['nospamnx_checkregister'] == 1) ? $this->nospamnx_checkregister = 1 : $this->nospamnx_checkregister = 0;				
+				
 				//save options and display success message
 				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings saved successfully.','nospamnx')."</p></div>";			
@@ -289,8 +320,9 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			//set checked values for radio buttons
-			($this->nospamnx_checkuser == 1) 	?	$checkuser = 'checked=checked' : $checkuser = '';
-			($this->nospamnx_checkreferer == 1) ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
+			($this->nospamnx_checkuser == 1) 	 ?	$checkuser = 'checked=checked' 		: $checkuser = '';
+			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' 	: $checkreferer = '';
+			($this->nospamnx_checkregister == 1) ? 	$checkregister = 'checked=checked' 	: $checkregister = '';			
 
 			//set checked values for operating mode
 			switch ($this->nospamnx_operate)
@@ -362,7 +394,11 @@ if (!class_exists('NoSpamNX'))
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Check HTTP Referer','nospamnx'); ?></b></th>
 											<td valign="top"><input type="checkbox" name="nospamnx_checkreferer" value="1"  <?php echo $checkreferer; ?> /><br /><?php echo __('If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link.','nospamnx'); ?> <a href="options-general.php?page=nospamnx&refcheck=1">Referer-Check</a></td>									
-										</tr>									
+										</tr>
+										<tr>
+											<th scope="row" valign="top"><b><?php echo __('Check Registration\Login Form','nospamnx'); ?></b></th>
+											<td valign="top"><input type="checkbox" name="nospamnx_checkregister" value="1"  <?php echo $checkregister; ?> /><br /><?php echo __('If enabled, NoSpamNX checks your Registration and Login Form for automated access.','nospamnx'); ?></td>									
+										</tr>																			
 								</table>
 								<input type="hidden" value="1" name="save_settings">
 								<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
@@ -405,12 +441,13 @@ if (!class_exists('NoSpamNX'))
 		{	
 			//add nospamnx options
 			$options = array(
-				'nospamnx_names' 		=> $this->generateNames(),
-				'nospamnx_count'		=> 0,
-				'nospamnx_operate'		=> 'mark',
-				'nospamnx_blacklist'	=> '',
-				'nospamnx_checkuser'	=> 1,
-				'nospamnx_checkreferer'	=> 0,
+				'nospamnx_names' 			=> $this->generateNames(),
+				'nospamnx_count'			=> 0,
+				'nospamnx_operate'			=> 'mark',
+				'nospamnx_blacklist'		=> '',
+				'nospamnx_checkuser'		=> 1,
+				'nospamnx_checkreferer'		=> 0,
+				'nospamnx_checkregister'	=> 0
 			);
 
 		     if (function_exists( 'is_site_admin' ))
@@ -440,17 +477,19 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_checkuser		= $options['nospamnx_checkuser'];
 			$this->nospamnx_blacklist		= $options['nospamnx_blacklist'];
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
+			$this->nospamnx_checkregister	= $options['nospamnx_checkregister'];
 		}
 		
 		function setOptions()
 		{
 			$options = array(
-				'nospamnx_names'		=> $this->nospamnx_names,
-				'nospamnx_count'		=> $this->nospamnx_count,
-				'nospamnx_operate'		=> $this->nospamnx_operate,
-				'nospamnx_checkuser'	=> $this->nospamnx_checkuser,
-				'nospamnx_blacklist'	=> $this->nospamnx_blacklist,
-				'nospamnx_checkreferer'	=> $this->nospamnx_checkreferer
+				'nospamnx_names'			=> $this->nospamnx_names,
+				'nospamnx_count'			=> $this->nospamnx_count,
+				'nospamnx_operate'			=> $this->nospamnx_operate,
+				'nospamnx_checkuser'		=> $this->nospamnx_checkuser,
+				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
+				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
+				'nospamnx_checkregister'	=> $this->nospamnx_checkregister
 			);
 			
 		     if (function_exists( 'is_site_admin' ))
