@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form, which are checked every time a new comment is posted. NOTE: If the hidden fields are displayed, make sure your theme does load wp_head()! 
-Version: 2.8
+Version: 2.9
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -96,9 +96,9 @@ if (!class_exists('NoSpamNX'))
 			
 			//add hidden fields to the comment form
 			if (rand(1,2) == 1)
-				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" />';
+				echo '<p><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /></p>';
 			else
-				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" />';						
+				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="locktross" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="locktross" /></p>';						
 		}
 		
 		function checkForms()
