@@ -80,6 +80,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.1 =
+* Fixed Bug when including CSS
+
 = 3.0 =
 * Hidden field names now have a variable length
 * Added option to include own stylesheet

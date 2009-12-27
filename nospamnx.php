@@ -408,7 +408,7 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'			=> 'mark',
 				'nospamnx_blacklist'		=> '',
 				'nospamnx_checkreferer'		=> 0,	
-				'nospamnx_cssname'			=> 'lotsensurrt',								
+				'nospamnx_cssname'			=> DEFAULTCSS,								
 			);
 
 			if (function_exists( 'is_site_admin' ))
