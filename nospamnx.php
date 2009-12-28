@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.1
+Version: 3.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -38,13 +38,10 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_cssname;
 		var $nospamnx_checkreferer;
 		
-		function nospamnx()
-		{		
-			//load language strings
+		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
 				
-			//check if wordpress is at least 2.7
 			if (REQWP27 != true) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
@@ -63,19 +60,17 @@ if (!class_exists('NoSpamNX'))
 			//load nospamnx options
 			$this->getOptions();
 			
-			//check if we have to include css style
-			if (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS) {
-				add_action('wp_head', array(&$this, 'nospamnxStyle'));			
-			}		 
+			//check if we have to include the css style
+			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS)) {
+				add_action('wp_head', array(&$this, 'nospamnxStyle'));
+			}	 
 		}
 
-		function wpVersionFail()
-		{
+		function wpVersionFail() {
 			echo "<div id='message' class='error'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!','nospamnx')."</p></div>";
 		}
 		
-		function addHiddenFields()
-		{	
+		function addHiddenFields() {	
 			//get the formfields names and values from wp options
 			$nospamnx = $this->nospamnx_names;
 			
@@ -86,8 +81,7 @@ if (!class_exists('NoSpamNX'))
 				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="'.$this->nospamnx_cssname.'" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="'.$this->nospamnx_cssname.'" /></p>';						
 		}
 		
-		function checkForms()
-		{															
+		function checkForms() {															
 			//check if we are in wp-comments-post.php
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
 				return;
@@ -129,8 +123,7 @@ if (!class_exists('NoSpamNX'))
 			}
 		}
 		
-		function birdbrained()
-		{		
+		function birdbrained() {		
 			//count spambot and save count
 			$this->nospamnx_count++;
 			$this->setOptions();
@@ -142,8 +135,7 @@ if (!class_exists('NoSpamNX'))
 				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 		}		
 
-		function blacklistCheck($author, $email, $url, $comment, $remoteip)
-		{
+		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
 			$blacklist = trim($this->nospamnx_blacklist);
 			
 			//return if blacklist is empty
@@ -176,9 +168,7 @@ if (!class_exists('NoSpamNX'))
 			return false;
 		}	
 		
-		function generateNames()
-		{		
-			//set random names and value for the hidden formfields
+		function generateNames() {		
 			$nospamnx = array(
 				'nospamnx-1'		=> $this->generateRandomString(),
 				'nospamnx-2'		=> $this->generateRandomString(),
@@ -188,24 +178,21 @@ if (!class_exists('NoSpamNX'))
 			return $nospamnx;
 		}	
 		
-		function generateRandomString()
-		{
+		function generateRandomString() {
 			$length = rand(4, 23);
 			
 			//return random value with variable length
 			return substr(md5(uniqid(rand(), true)), $length);
 		}
 
-		function nospamnxAdminMenu()
-		{
+		function nospamnxAdminMenu() {
 			if( function_exists( 'is_site_admin' ) && !is_site_admin() )
 				return;
 			else
 				add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
 		}
 
-		function nospamnxOptionPage()
-		{	
+		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
@@ -359,11 +346,11 @@ if (!class_exists('NoSpamNX'))
 							<table class="form-table">					    
 								<tr>
 									<th scope="row" valign="top"><b><?php echo __('CSS Name','nospamnx'); ?></b></th>								
-									<td><input type="text" size="25" name="css_name" value="<?php echo $this->nospamnx_cssname; ?>" /></td>
+									<td><input type="text" size="25" name="css_name" value="<?php echo $this->nospamnx_cssname; ?>" /><input type="text" value="<?php echo __('Reset','nospamnx'); ?>" class="button-secondary" onclick="location.href='options-general.php?page=nospamnx&resetcss=1'"></td>
 								</tr>
 							</table>	
 							<input type="hidden" value="1" name="update_cssname">
-							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" />&nbsp;<input type="text" value="<?php echo __('Reset','nospamnx'); ?>" class="button-secondary" onclick="location.href='options-general.php?page=nospamnx&resetcss=1'"></p>
+							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
 							</form>
 						</div>
 					</div>
@@ -393,14 +380,12 @@ if (!class_exists('NoSpamNX'))
 			<?php		
 		}	
 		
-		function nospamnxStyle()
-		{			
+		function nospamnxStyle() {			
 			$css = get_option( 'siteurl' ) . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
-		function activate()
-		{	
+		function activate() {	
 			//add nospamnx options
 			$options = array(
 				'nospamnx_names' 			=> $this->generateNames(),
@@ -417,16 +402,14 @@ if (!class_exists('NoSpamNX'))
 		     	add_option('nospamnx', $options);			
 		}	
 		
-		function deactivate()
-		{
+		function deactivate() {
 			if (function_exists( 'is_site_admin' ))
 				delete_site_option('nospamnx');
 			else
 				delete_option('nospamnx');
 		}
 		
-		function getOptions()
-		{
+		function getOptions() {
 			if (function_exists( 'is_site_admin' ))
 				$options = get_site_option('nospamnx');
 			else
@@ -440,8 +423,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
 		}
 		
-		function setOptions()
-		{
+		function setOptions() {
 			$options = array(
 				'nospamnx_names'			=> $this->nospamnx_names,
 				'nospamnx_count'			=> $this->nospamnx_count,
@@ -457,13 +439,11 @@ if (!class_exists('NoSpamNX'))
 		        update_option('nospamnx', $options);
 		}
 		
-		function nospamnxStats()
-		{	
+		function nospamnxStats() {	
 			$this->displayStats(true);		
 		}	
 		
-		function displayStats($dashboard=false)
-		{
+		function displayStats($dashboard=false) {
 			if ($dashboard)
 				echo "<p>";
 				

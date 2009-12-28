@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9
-Stable tag: 3.1
+Stable tag: 3.2
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user
 
@@ -79,6 +79,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.2 =
+* Fixed Bug when including CSS
 
 = 3.1 =
 * Fixed Bug when including CSS
