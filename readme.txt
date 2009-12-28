@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9
-Stable tag: 3.2
+Stable tag: 3.3
 Requires at least: 2.7
 Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user
 
@@ -29,7 +29,7 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha)
-* No need to manage spambot comments anymore (if you don't want to)
+* No need to manage spambot comments anymore
 * Compatible with comments-popup
 * Compatible with WordPress MU
 * False-positives are nearly impossible
@@ -80,6 +80,13 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.3 =
+* Re-Added old CSS-Style due to cache problems
+* Fixed Bug on Options-Page
+* Updated screenshots
+* Updated german language file
+* Updated readme
+
 = 3.2 =
 * Fixed Bug when including CSS
 
@@ -90,7 +97,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 * Hidden field names now have a variable length
 * Added option to include own stylesheet
 * Removed option to moderate catched spambots
-* Removed option to check logged in users
+* Removed option to check logged in users (now built-in)
 * Removed option to check registration and login form
 * Removed all fuzzy translations
 * Blacklist now searches for pattern in comment field
