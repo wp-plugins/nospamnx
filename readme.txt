@@ -2,9 +2,9 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9
-Stable tag: 3.3
+Stable tag: 3.4
 Requires at least: 2.7
-Tags: wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user
+Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
 To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
 
@@ -29,7 +29,7 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha)
-* No need to manage spambot comments anymore
+* No need to manage spambot comments
 * Compatible with comments-popup
 * Compatible with WordPress MU
 * False-positives are nearly impossible
@@ -47,9 +47,9 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 == Installation ==
 
 1. Unzip Plugin
-2. Copy the nospamnx folder to wp-content/plugins
+2. Copy the nospamnx folder to your wp-content/plugins folder
 3. Activate plugin
-4. Feel free to adjust settings (WP-Admin -> Settings -> NoSpamNX)
+4. (Optional) Adjust settings (settings -> NoSpamNX)
 
 Done!
 
@@ -58,6 +58,10 @@ Done!
 = When i activate the plugin, the hidden fields are visible! =
 
 Make sure that the template you are using calls <code>wp_head</code> before the closing HEAD tag. See http://is.gd/tazh for more information.
+
+= My template does load <code>wp_head</code>, but the hidden fields are still visible! =
+
+First, deactivate and re-active the Plugin. Then go to settings -> NoSpamNX and reset the CSS Name.
 
 = What is the difference to other anti-comment-spam plugins? =
 
@@ -79,6 +83,12 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.3 =
+* Fixed Bug with referer check
+* Updated language files
+* Removed uneccesary code comments
+* Updated readme
 
 = 3.3 =
 * Re-Added old CSS-Style due to cache problems

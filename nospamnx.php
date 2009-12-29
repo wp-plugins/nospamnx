@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.3
+Version: 3.4
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -48,7 +48,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			//add nospamnx wordpress actions	
-			add_action('init', array(&$this, 'checkForms'));		
+			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
@@ -60,10 +60,9 @@ if (!class_exists('NoSpamNX'))
 			//load nospamnx options
 			$this->getOptions();
 			
-			//check if we have to include the css style
-			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS)) {
+			//check if we have to include the nospamnx css style
+			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS))
 				add_action('wp_head', array(&$this, 'nospamnxStyle'));
-			}	 
 		}
 
 		function wpVersionFail() {
@@ -81,7 +80,7 @@ if (!class_exists('NoSpamNX'))
 				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="'.$this->nospamnx_cssname.'" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="'.$this->nospamnx_cssname.'" /></p>';						
 		}
 		
-		function checkForms() {															
+		function checkCommentForm() {															
 			//check if we are in wp-comments-post.php
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
 				return;
@@ -128,7 +127,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_count++;
 			$this->setOptions();
 			
-			//check in which mode we are and block, mark as spam or put in moderation queue
+			//check in which mode we are and block or mark as spam
 			if ($this->nospamnx_operate == 'mark')
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			else
@@ -138,7 +137,6 @@ if (!class_exists('NoSpamNX'))
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
 			$blacklist = trim($this->nospamnx_blacklist);
 			
-			//return if blacklist is empty
 			if ($blacklist == '' || empty($blacklist))
 				return false;
 		
@@ -147,7 +145,6 @@ if (!class_exists('NoSpamNX'))
 
 			//loop through values and check if pattern matches
 			foreach ((array)$words as $word ) {
-				//remove emtpy spaces
 				$word = trim($word);
 
 				//skipp through empty lines
@@ -157,7 +154,7 @@ if (!class_exists('NoSpamNX'))
 				$word = preg_quote($word, '#');
 				$pattern = "#$word#i";
 			
-				//check word against comment values
+				//check word against comment form values
 				if (preg_match($pattern, $author)
 					|| preg_match($pattern, $email)
 					|| preg_match($pattern, $url)
@@ -196,13 +193,13 @@ if (!class_exists('NoSpamNX'))
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
-			//do we have to test referer-check
+			//do we have to test referer-check?
 			if ($_GET['refcheck'] == 1) {
 				//get the host name for referer check
 				preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);	
 				
 				//check if referer matches siteurl
-				if (!empty($match[0]) && ($match[0] == get_option('home')))
+				if (!empty($match[0]) && ($match[0] == get_option('siteurl')))
 					echo "<div id='message' class='updated fade'><p>".__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx')."</p></div>";
 				else
 					echo "<div id='message' class='error'><p>".__('Referer-Check failed! The referer does not match WordPress option "siteurl".','nospamnx')."</p></div>";		
@@ -210,7 +207,7 @@ if (!class_exists('NoSpamNX'))
 
 			//do we have to update any settings?
 			if ($_POST['save_settings'] == 1) {
-				//which operation mode do we have to save
+				//which operation mode do we have to save?
 				switch($_POST['nospamnx_operate']) {
 					case 'block':
 						$this->nospamnx_operate = 'block';
@@ -259,11 +256,11 @@ if (!class_exists('NoSpamNX'))
 				
 				//save options and display message
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX CSS name was updated successfully.','nospamnx')."</p></div>";
+				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX CSS name was reseted successfully.','nospamnx')."</p></div>";
 			}			
 			
 			//set checked values for radio buttons
-			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' 	: $checkreferer = '';
+			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
 
 			//set checked values for operating mode
 			switch ($this->nospamnx_operate) {
@@ -383,7 +380,6 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function activate() {	
-			//add nospamnx options
 			$options = array(
 				'nospamnx_names' 			=> $this->generateNames(),
 				'nospamnx_count'			=> 0,

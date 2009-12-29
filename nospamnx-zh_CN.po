@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-27 18:24+0100\n"
+"POT-Creation-Date: 2009-12-29 09:07+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Donald <donaldz@live.com>\n"
@@ -17,124 +17,122 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:74
+#: nospamnx.php:69
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
 msgstr "你的WordPress版本过旧。 NoSpamNX需要WordPress 2.7或以上版本才可正常工作。"
 
-#: nospamnx.php:142
+#: nospamnx.php:134
 msgid "Sorry, but your comment seems to be Spam."
 msgstr "很抱歉，你的评论看起来像是垃圾评论。"
 
-#: nospamnx.php:210
+#: nospamnx.php:194
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "很抱歉，您没有更改设置的权限。"
 
-#: nospamnx.php:219
+#: nospamnx.php:203
 msgid "Referer-Check successfull! You may turn on Referer-Check."
 msgstr "引用者信息（Referer）检查成功！ 现在你可以启用引用者信息检查了。"
 
-#: nospamnx.php:221
+#: nospamnx.php:205
 msgid "Referer-Check failed! The referer does not match WordPress option \"siteurl\"."
 msgstr "引用者信息（Referer）检查失败！ 引用者信息和WordPress 选项 \"siteurl\" 不符。"
 
-#: nospamnx.php:243
-#, fuzzy
+#: nospamnx.php:227
 msgid "NoSpamNX settings were saved successfully."
-msgstr "已成功保存 NoSpamNX 设置。"
+msgstr ""
 
-#: nospamnx.php:251
+#: nospamnx.php:235
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "已成功重置 NoSpamNX 计数器。"
 
-#: nospamnx.php:259
-#, fuzzy
+#: nospamnx.php:243
 msgid "NoSpamNX Blacklist was updated successfully."
-msgstr "已成功重置 NoSpamNX 计数器。"
+msgstr ""
 
-#: nospamnx.php:267
-#: nospamnx.php:275
-#, fuzzy
+#: nospamnx.php:251
 msgid "NoSpamNX CSS name was updated successfully."
-msgstr "已成功重置 NoSpamNX 计数器。"
+msgstr ""
 
-#: nospamnx.php:297
+#: nospamnx.php:259
+msgid "NoSpamNX CSS name was reseted successfully."
+msgstr ""
+
+#: nospamnx.php:278
 msgid "Are you sure you want to reset the counter?"
 msgstr "你确定要重置计数器吗？"
 
-#: nospamnx.php:303
+#: nospamnx.php:284
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX 设置"
 
-#: nospamnx.php:307
+#: nospamnx.php:288
 msgid "Statistic"
 msgstr "统计"
 
-#: nospamnx.php:312
+#: nospamnx.php:293
 msgid "Stopped Spambots"
 msgstr "阻止垃圾评论数量"
 
-#: nospamnx.php:319
-#: nospamnx.php:366
+#: nospamnx.php:300
+#: nospamnx.php:343
 msgid "Reset"
 msgstr "重置"
 
-#: nospamnx.php:327
+#: nospamnx.php:308
 msgid "Operating mode"
 msgstr "操作模式"
 
-#: nospamnx.php:329
-#, fuzzy
+#: nospamnx.php:310
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
-msgstr "缺省设置下所有垃圾评论都会被阻止。 如果你想查看哪些评论被阻止， 请选择 审核 或 标记为垃圾评论。 被截获的垃圾评论会被标记为垃圾评论，或放入审核队列中。 另外你还可以选择启用或禁用 NoSpamNX 对已登录用户的检查。"
+msgstr ""
 
-#: nospamnx.php:333
+#: nospamnx.php:314
 msgid "Mode"
 msgstr "模式"
 
-#: nospamnx.php:336
+#: nospamnx.php:317
 msgid "Block (recommended)"
 msgstr "阻止 （推荐）"
 
-#: nospamnx.php:338
+#: nospamnx.php:319
 msgid "Mark as Spam"
 msgstr "标记为垃圾评论"
 
-#: nospamnx.php:342
+#: nospamnx.php:323
 msgid "Check HTTP Referer"
 msgstr "检查 HTTP 引用者信息（Referer）"
 
-#: nospamnx.php:343
+#: nospamnx.php:324
 msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
 msgstr "如果启用此功能， NoSpamNX会检查评论的引用者信息（Referer）是否和你的Blog地址相符。 请使用下面的链接检查该功能是否正常运作。"
 
+#: nospamnx.php:328
 #: nospamnx.php:347
-#: nospamnx.php:366
-#: nospamnx.php:386
+#: nospamnx.php:367
 msgid "Save"
 msgstr "保存"
 
-#: nospamnx.php:355
+#: nospamnx.php:336
 msgid "CSS"
 msgstr "CSS"
 
-#: nospamnx.php:357
+#: nospamnx.php:338
 msgid "By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include this CSS-Stylesheet, enter the name of your Stylesheet in the textfield below. You have to set up your own Stylesheet to hide the fields, e.g."
 msgstr ""
 
-#: nospamnx.php:361
+#: nospamnx.php:342
 msgid "CSS Name"
 msgstr ""
 
-#: nospamnx.php:374
+#: nospamnx.php:355
 msgid "Blacklist"
 msgstr "黑名单"
 
-#: nospamnx.php:376
-#, fuzzy
+#: nospamnx.php:357
 msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern mateches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
-msgstr "NoSpamNX 黑名单与WordPress 黑名单基本一致 （基于同样的代码）， 但NoSpamNX 黑名单允许你“阻止” 包含特定值的评论，而不是将它们放入审核队列。 因此这个选项只在将NoSpamNX 设置为 阻止评论 模式时才有效。 NoSpamNX黑名单会检查评论的IP地址， 作者， E-Mail 地址和网址。 如果有一个值与黑名单中的内容相符，这条评论就会被阻止。 和WordPress 黑名单类似， NoSpamNX黑名单也使用子串（substrings)，所以如果你将 \"foo\" 放入黑名单中， \"foobar\" 也会被阻止。 请注意一行只可添加一个值。"
+msgstr ""
 
-#: nospamnx.php:472
+#: nospamnx.php:445
 #, php-format
 msgid " has stopped %s birdbrained Spambot since it last activation."
 msgid_plural " has stopped %s birdbrained Spambots since it last activation."
