@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9
-Stable tag: 3.4
+Stable tag: 3.5
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -43,6 +43,7 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * Chinese (Thanks to Donald Z)
 * Swedish (Thanks to Mats Bergsten)
 * French (Thanks to Sylvain Ménard)
+* Italian (Thanks to Gianni Diurno)
 
 == Installation ==
 
@@ -84,7 +85,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
-= 3.3 =
+= 3.5 =
+* Fixed Bug in plugin activation
+* Added Italian Translation
+
+= 3.4 =
 * Fixed Bug with referer check
 * Updated language files
 * Removed uneccesary code comments
