@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mail On Update v2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-29 09:07+0100\n"
-"PO-Revision-Date: 2009-12-29 09:07+0100\n"
+"POT-Creation-Date: 2010-01-05 20:36+0100\n"
+"PO-Revision-Date: 2010-01-05 20:36+0100\n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,127 +16,132 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:69
+#: nospamnx.php:70
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
 msgstr "Votre version de Wordpress est trop vieille. NoSpamNX nécessite au moins la version 2.7 de Wordpress."
 
-#: nospamnx.php:134
+#: nospamnx.php:143
 msgid "Sorry, but your comment seems to be Spam."
 msgstr "Désolé, votre commentaire semble être du pourriel."
 
-#: nospamnx.php:194
+#: nospamnx.php:207
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Désolé, vous n'avez pas l'autorisation de modifier ces réglages."
 
-#: nospamnx.php:203
+#: nospamnx.php:216
 msgid "Referer-Check successfull! You may turn on Referer-Check."
 msgstr "La vérification de référent avec « Referer-Check » a réussi! Vous pouvez activer cette fonction."
 
-#: nospamnx.php:205
+#: nospamnx.php:218
 msgid "Referer-Check failed! The referer does not match WordPress option \"siteurl\"."
 msgstr "La vérification de référent avec « Referer-Check » a échoué! Le référent ne correspond pas à l'option WordPress  \"siteurl \"."
 
-#: nospamnx.php:227
+#: nospamnx.php:240
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Les paramètres de NoSpamNX ont été sauvegardés avec succès."
 
-#: nospamnx.php:235
+#: nospamnx.php:248
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Le compteur de SpamNX a été remis à zéro avec succès."
 
-#: nospamnx.php:243
+#: nospamnx.php:256
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "Le compteur de SpamNX a été remis à zéro avec succès."
 
-#: nospamnx.php:251
+#: nospamnx.php:264
 msgid "NoSpamNX CSS name was updated successfully."
 msgstr ""
 
-#: nospamnx.php:259
+#: nospamnx.php:272
 msgid "NoSpamNX CSS name was reseted successfully."
 msgstr ""
 
-#: nospamnx.php:278
+#: nospamnx.php:291
 msgid "Are you sure you want to reset the counter?"
 msgstr "Êtes-vous certain de vouloir remettre le compteur à zéro?"
 
-#: nospamnx.php:284
+#: nospamnx.php:297
 msgid "NoSpamNX Settings"
 msgstr "Paramètres de NoSpamNX"
 
-#: nospamnx.php:288
+#: nospamnx.php:301
 msgid "Statistic"
 msgstr "Statistiques"
 
-#: nospamnx.php:293
+#: nospamnx.php:306
 msgid "Stopped Spambots"
 msgstr "Spambots interceptés"
 
-#: nospamnx.php:300
-#: nospamnx.php:343
+#: nospamnx.php:313
+#: nospamnx.php:356
 msgid "Reset"
 msgstr "Remise à zéro"
 
-#: nospamnx.php:308
+#: nospamnx.php:321
 msgid "Operating mode"
 msgstr "Mode de fonctionnement"
 
-#: nospamnx.php:310
+#: nospamnx.php:323
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
 msgstr ""
 
-#: nospamnx.php:314
+#: nospamnx.php:327
 msgid "Mode"
 msgstr "Mode"
 
-#: nospamnx.php:317
+#: nospamnx.php:330
 msgid "Block (recommended)"
 msgstr "Bloquer (mode recommandé)"
 
-#: nospamnx.php:319
+#: nospamnx.php:332
 msgid "Mark as Spam"
 msgstr "Marquer en tant que pourriel"
 
-#: nospamnx.php:323
+#: nospamnx.php:336
 msgid "Check HTTP Referer"
 msgstr "Vérifier le référent HTTP"
 
-#: nospamnx.php:324
+#: nospamnx.php:337
 msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
 msgstr "Si coché, NoSpamNX vérifiera si le référent correspond à l'adresse du blogue. Vérifier le fonctionnement de cette fonction en cliquant sur le lien suivant."
 
-#: nospamnx.php:328
-#: nospamnx.php:347
-#: nospamnx.php:367
+#: nospamnx.php:341
+#: nospamnx.php:360
+#: nospamnx.php:380
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: nospamnx.php:336
+#: nospamnx.php:349
 msgid "CSS"
 msgstr ""
 
-#: nospamnx.php:338
+#: nospamnx.php:351
 msgid "By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include this CSS-Stylesheet, enter the name of your Stylesheet in the textfield below. You have to set up your own Stylesheet to hide the fields, e.g."
 msgstr ""
 
-#: nospamnx.php:342
+#: nospamnx.php:355
 msgid "CSS Name"
 msgstr ""
 
-#: nospamnx.php:355
+#: nospamnx.php:368
 msgid "Blacklist"
 msgstr "Liste noire"
 
-#: nospamnx.php:357
+#: nospamnx.php:370
 msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern mateches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
 msgstr ""
 
-#: nospamnx.php:445
+#: nospamnx.php:472
 #, php-format
 msgid " has stopped %s birdbrained Spambot since it last activation."
 msgid_plural " has stopped %s birdbrained Spambots since it last activation."
 msgstr[0] " a intercepté %s pourriel depuis sa dernière activation."
 msgstr[1] " a intercepté %s pourriels depuis sa dernière activation."
+
+#: nospamnx.php:476
+#, php-format
+msgid " %1$d per Day."
+msgstr ""
 
 #~ msgid ""
 #~ "NoSpamNX is currently inactive, due to missing required PHP functions."

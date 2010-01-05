@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.9
-Stable tag: 3.5
+Tested up to: 2.9.1
+Stable tag: 3.6
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -84,6 +84,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.6 =
+* Improved Referer-Check
+* Added per Day Stats
+* Updated language files
 
 = 3.5 =
 * Fixed Bug in plugin activation

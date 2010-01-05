@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.5
+Version: 3.6
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -37,6 +37,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_blacklist;
 		var $nospamnx_cssname;
 		var $nospamnx_checkreferer;
+		var $nospamnx_activated;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
@@ -82,7 +83,7 @@ if (!class_exists('NoSpamNX'))
 		
 		function checkCommentForm() {															
 			//check if we are in wp-comments-post.php
-			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')		
+			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')
 				return;
 			else {			
 				//perform blacklist check
@@ -96,10 +97,14 @@ if (!class_exists('NoSpamNX'))
 				
 				//check if referer check is enabled and check referer
 				if ($this->nospamnx_checkreferer == 1) {
+					//check if referer isnt empty
+					if (empty($_SERVER['HTTP_REFERER']))
+						$this->birdbrained();
+					
 					//get the host name for referer check
 					preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
 				
-					//check if referer matches wordpress option siteurl
+					//check if referer matches siteurl
 					if (!empty($match[0]) && $match[0] != get_option('siteurl'))
 						$this->birdbrained();				
 				}
@@ -119,6 +124,10 @@ if (!class_exists('NoSpamNX'))
 				//check if the value of the second hidden field matches stored value
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();
+
+				//comment seems valid, check HTTP_ACCEPT at last
+				if ($_SERVER['HTTP_ACCEPT'] == "*/*")
+					$this->maybeBirdbrained();
 			}
 		}
 		
@@ -132,6 +141,10 @@ if (!class_exists('NoSpamNX'))
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			else
 				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
+		}	
+
+		function maybeBirdbrained() {		
+			add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 		}		
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
@@ -386,7 +399,8 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'			=> 'mark',
 				'nospamnx_blacklist'		=> '',
 				'nospamnx_checkreferer'		=> 0,	
-				'nospamnx_cssname'			=> DEFAULTCSS								
+				'nospamnx_cssname'			=> DEFAULTCSS,
+				'nospamnx_activated'		=> time()							
 			);
 
 			if (function_exists( 'is_site_admin' ))
@@ -414,6 +428,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_blacklist		= $options['nospamnx_blacklist'];
 			$this->nospamnx_cssname			= $options['nospamnx_cssname'];			
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
+			$this->nospamnx_activated		= $options['nospamnx_activated'];
 		}
 		
 		function setOptions() {
@@ -423,7 +438,8 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'			=> $this->nospamnx_operate,
 				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
-				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer
+				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
+				'nospamnx_activated'		=> $this->nospamnx_activated,
 			);
 			
 		     if (function_exists( 'is_site_admin' ))
@@ -436,7 +452,18 @@ if (!class_exists('NoSpamNX'))
 			$this->displayStats(true);		
 		}	
 		
+		function getStatsPerDay() {
+			$secs = time() - $this->nospamnx_activated;
+			$days = ($secs / (24*3600));
+
+			($days <= 1) ? $days = 1 : $days = floor($days);
+
+			return ceil($this->nospamnx_count / $days);
+		}
+		
 		function displayStats($dashboard=false) {
+			$perDay = $this->getStatsPerDay();
+			
 			if ($dashboard)
 				echo "<p>";
 				
@@ -445,7 +472,9 @@ if (!class_exists('NoSpamNX'))
 				" has stopped %s birdbrained Spambot since it last activation.",
 				" has stopped %s birdbrained Spambots since it last activation.",
 				$this->nospamnx_count, 'nospamnx'), $this->nospamnx_count);
-			
+			if ($perDay > 0)
+				printf( __(' %1$d per Day.', 'nospamnx'), $perDay);
+				
 			if ($dashboard)
 				echo "</p>";			
 		}
