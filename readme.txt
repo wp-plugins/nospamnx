@@ -85,6 +85,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.7 =
+* Minor code improvements
+* Updated language files
+
 = 3.6 =
 * Improved Referer-Check
 * Added per Day Stats

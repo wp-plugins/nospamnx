@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-05 20:36+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -142,7 +142,7 @@ msgstr[1] " ha bloccato %s Spambot dal momento della sua attivazione."
 #: nospamnx.php:476
 #, php-format
 msgid " %1$d per Day."
-msgstr ""
+msgstr " %1$d al giorno."
 
 #~ msgid "Sorry, but it seems you are not human."
 #~ msgstr "Sorry, aber Du scheinst nicht menschlich zu sein."
