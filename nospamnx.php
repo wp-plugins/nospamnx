@@ -452,7 +452,7 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
 				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
-				'nospamnx_activate'			=> $this->nospamnx_activated,
+				'nospamnx_activated'			=> $this->nospamnx_activated,
 				'nospamnx_dateformat'		=> $this->nospamnx_dateformat,
 				'nospamnx_siteurl'			=> $this->nospamnx_siteurl
 			);
