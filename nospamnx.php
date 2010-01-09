@@ -39,6 +39,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_checkreferer;
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
+		var $nospamnx_siteurl;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
@@ -56,8 +57,12 @@ if (!class_exists('NoSpamNX'))
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
 			
 			//tell wp what to do when plugin is activated and deactivated
-			register_activation_hook(__FILE__, array(&$this, 'activate'));
-			register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));		
+			if (function_exists('register_activation_hook'))
+				register_activation_hook(__FILE__, array(&$this, 'activate'));
+			if (function_exists('register_uninstall_hook'))
+				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+			if (function_exists('register_deactivation_hook'))
+				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));	
 
 			//load nospamnx options
 			$this->getOptions();
@@ -149,7 +154,7 @@ if (!class_exists('NoSpamNX'))
 			//check if referer isnt empty and matches siteurl
 			if (empty($match[0]))
 				return false;
-			else if ($match[0] != get_option('siteurl'))
+			else if ($match[0] != $this->nospamnx_siteurl)
 				return false;
 
 			return true;
@@ -392,7 +397,7 @@ if (!class_exists('NoSpamNX'))
 		}	
 		
 		function nospamnxStyle() {			
-			$css = get_option( 'siteurl' ) . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
+			$css = $this->nospamnx_siteurl . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
@@ -405,7 +410,8 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_checkreferer'		=> 0,	
 				'nospamnx_cssname'			=> DEFAULTCSS,
 				'nospamnx_activated'		=> time(),
-				'nospamnx_dateformat'		=> get_option('date_format')								
+				'nospamnx_dateformat'		=> get_option('date_format'),
+				'nospamnx_siteurl'			=> get_option('siteurl')								
 			);
 
 			if (function_exists( 'is_site_admin' ))
@@ -414,7 +420,7 @@ if (!class_exists('NoSpamNX'))
 		     	add_option('nospamnx', $options);			
 		}	
 		
-		function deactivate() {
+		function uninstall() {
 			if (function_exists( 'is_site_admin' ))
 				delete_site_option('nospamnx');
 			else
@@ -426,7 +432,7 @@ if (!class_exists('NoSpamNX'))
 				$options = get_site_option('nospamnx');
 			else
 				$options = get_option('nospamnx');
-			
+
 			$this->nospamnx_names 			= $options['nospamnx_names'];
 			$this->nospamnx_count			= $options['nospamnx_count'];
 			$this->nospamnx_operate			= $options['nospamnx_operate'];
@@ -444,8 +450,7 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'			=> $this->nospamnx_operate,
 				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
-				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
-				'nospamnx_activated'		=> $this->nospamnx_activated,
+				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer
 			);
 			
 		     if (function_exists( 'is_site_admin' ))
@@ -469,7 +474,7 @@ if (!class_exists('NoSpamNX'))
 		
 		function displayStats($dashboard=false) {
 			if ($dashboard) {echo "<p>";}
-			
+
 			if ($this->nospamnx_count == 0)
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			else {

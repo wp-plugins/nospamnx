@@ -86,6 +86,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 3.7 =
+* Fixed bug when plugin was deactivated
 * Minor code improvements
 * Updated language files
 
