@@ -49,23 +49,23 @@ if (!class_exists('NoSpamNX'))
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
 			}
-			
-			//add nospamnx wordpress actions	
-			add_action('init', array(&$this, 'checkCommentForm'));		
-			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
-			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
-			add_action('comment_form', array(&$this, 'addHiddenFields'));	
-			
+
 			//tell wp what to do when plugin is activated and deactivated
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
 				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
 			if (function_exists('register_deactivation_hook'))
-				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));	
-
+				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));				
+			
 			//load nospamnx options
-			$this->getOptions();
+			$this->getOptions();	
+
+			//add nospamnx wordpress actions	
+			add_action('init', array(&$this, 'checkCommentForm'));		
+			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
+			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
+			add_action('comment_form', array(&$this, 'addHiddenFields'));	
 			
 			//check if we have to include the nospamnx css style
 			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS))
@@ -417,7 +417,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists( 'is_site_admin' ))
 				add_site_option('nospamnx', $options);
 			else
-		     	add_option('nospamnx', $options);			
+		     	add_option('nospamnx', $options);		
 		}	
 		
 		function uninstall() {
@@ -432,7 +432,7 @@ if (!class_exists('NoSpamNX'))
 				$options = get_site_option('nospamnx');
 			else
 				$options = get_option('nospamnx');
-
+				
 			$this->nospamnx_names 			= $options['nospamnx_names'];
 			$this->nospamnx_count			= $options['nospamnx_count'];
 			$this->nospamnx_operate			= $options['nospamnx_operate'];
@@ -441,6 +441,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
 			$this->nospamnx_activated		= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
+			$this->nospamnx_siteurl			= $options['nospamnx_siteurl'];
 		}
 		
 		function setOptions() {
@@ -450,7 +451,10 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'			=> $this->nospamnx_operate,
 				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
-				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer
+				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
+				'nospamnx_activate'			=> $this->nospamnx_activated,
+				'nospamnx_dateformat'		=> $this->nospamnx_dateformat,
+				'nospamnx_siteurl'			=> $this->nospamnx_siteurl
 			);
 			
 		     if (function_exists( 'is_site_admin' ))
@@ -475,7 +479,7 @@ if (!class_exists('NoSpamNX'))
 		function displayStats($dashboard=false) {
 			if ($dashboard) {echo "<p>";}
 
-			if ($this->nospamnx_count == 0)
+			if ($this->nospamnx_count <= 0)
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			else {
 					printf(__ngettext(
