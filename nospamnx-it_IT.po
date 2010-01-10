@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 20:36+0100\n"
+"POT-Creation-Date: 2010-01-10 10:30+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
+"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,133 +17,139 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:70
+#: nospamnx.php:76
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
 msgstr "La tua versione di WordPress é datata. NoSpamNX richiede WordPress 2.7 o superiore!"
 
-#: nospamnx.php:143
+#: nospamnx.php:139
 msgid "Sorry, but your comment seems to be Spam."
 msgstr "Pare che il tuo commento sia spam."
 
-#: nospamnx.php:207
+#: nospamnx.php:220
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Non hai i permessi necessari per modificare le impostazioni."
 
-#: nospamnx.php:216
+#: nospamnx.php:225
 msgid "Referer-Check successfull! You may turn on Referer-Check."
 msgstr "Il referente é stato verificato con successo! Puoi attivare il Referer-Check."
 
-#: nospamnx.php:218
+#: nospamnx.php:227
 msgid "Referer-Check failed! The referer does not match WordPress option \"siteurl\"."
 msgstr "La verifica del referente é fallita! Il referer non coincide con l'opzione \"siteurl\" di WordPress."
 
-#: nospamnx.php:240
+#: nospamnx.php:249
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Le impostazioni di NoSpamNX sono state sqalvate con successo."
 
-#: nospamnx.php:248
+#: nospamnx.php:257
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Il contatore di NoSpamNX é stato azzerato con successo."
 
-#: nospamnx.php:256
+#: nospamnx.php:265
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "La blacklist di NoSpamNX Blacklist é stata aggiornata con successo."
 
-#: nospamnx.php:264
+#: nospamnx.php:273
 msgid "NoSpamNX CSS name was updated successfully."
 msgstr "Il nome CSS di NoSpamNX CSS é stato aggiornato con successo."
 
-#: nospamnx.php:272
+#: nospamnx.php:281
 msgid "NoSpamNX CSS name was reseted successfully."
 msgstr "Il nome CSS di NoSpamNX CSS é stato resettato con successo."
 
-#: nospamnx.php:291
+#: nospamnx.php:300
 msgid "Are you sure you want to reset the counter?"
 msgstr "Sei certo di volere azzerare il contatore?"
 
-#: nospamnx.php:297
+#: nospamnx.php:306
 msgid "NoSpamNX Settings"
 msgstr "Impostazioni NoSpamNX"
 
-#: nospamnx.php:301
+#: nospamnx.php:310
 msgid "Statistic"
 msgstr "Statistica"
 
-#: nospamnx.php:306
+#: nospamnx.php:315
 msgid "Stopped Spambots"
 msgstr "Spambot bloccati"
 
-#: nospamnx.php:313
-#: nospamnx.php:356
+#: nospamnx.php:322
+#: nospamnx.php:365
 msgid "Reset"
 msgstr "Azzera"
 
-#: nospamnx.php:321
+#: nospamnx.php:330
 msgid "Operating mode"
 msgstr "Modalità operativa"
 
-#: nospamnx.php:323
+#: nospamnx.php:332
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
 msgstr "Come funzione predefinita, modalità di \"Blocco\" segnalerà tutti gli Spambot come Spam. Qualora desiderassi vedere cosa invece fosse stato bloccato, seleziona l'opzione segnala come spam."
 
-#: nospamnx.php:327
+#: nospamnx.php:336
 msgid "Mode"
 msgstr "Modalità"
 
-#: nospamnx.php:330
+#: nospamnx.php:339
 msgid "Block (recommended)"
 msgstr "Blocco (raccomandato)"
 
-#: nospamnx.php:332
+#: nospamnx.php:341
 msgid "Mark as Spam"
 msgstr "Segnala come spam"
 
-#: nospamnx.php:336
+#: nospamnx.php:345
 msgid "Check HTTP Referer"
 msgstr "Verifica HTTP referente"
 
-#: nospamnx.php:337
+#: nospamnx.php:346
 msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
 msgstr "Se attivato, NoSpamNX controllerà se il referente di un commento coincide con il tuo URL del blog. Verifica il corretto funzionamento di questa funzione utilizzando il seguente link:"
 
-#: nospamnx.php:341
-#: nospamnx.php:360
-#: nospamnx.php:380
+#: nospamnx.php:350
+#: nospamnx.php:369
+#: nospamnx.php:389
 msgid "Save"
 msgstr "Salva"
 
-#: nospamnx.php:349
+#: nospamnx.php:358
 msgid "CSS"
 msgstr "CSS"
 
-#: nospamnx.php:351
+#: nospamnx.php:360
 msgid "By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include this CSS-Stylesheet, enter the name of your Stylesheet in the textfield below. You have to set up your own Stylesheet to hide the fields, e.g."
 msgstr "Come funzione predefinita NoSpamNX includerà un foglio di stile CSS atto all'occultamento dei campi modulo inseriti . Nel caso in cui non gradissi che NoSpamNX includa il foglio di stile CSS, inserisci qui sotto il nome del tuo foglio di stile. Tu hai impostato il tuo foglio di stile in modo da potere nascondere i campi, ad esempio:"
 
-#: nospamnx.php:355
+#: nospamnx.php:364
 msgid "CSS Name"
 msgstr "Nome CSS"
 
-#: nospamnx.php:368
+#: nospamnx.php:377
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: nospamnx.php:370
+#: nospamnx.php:379
 msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern mateches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
 msgstr "La blacklist di NoSpamNX é paragonabile a quella di WordPress (hanno lo stesso codice di base). Comunque, la blacklist di NoSpamNX ti permetterà di bloccare quei commenti che contengono dei determinati valori invece di porli in coda di moderazione. Ti ricordo che questa opzione funzionerà solamente con la modalita di blocco di NoSpamNX. La blacklist di NoSpamNX verificherà i valori in relazione agli indirizzi ip, all'autore, agli indirizzi email, al commento ed al campo URL di un commento. Nel caso in cui si verificasse una coincidenza, il commento verrà bloccato. Così come per la blacklist di WordPress, anche la blacklist di NoSpamNX utilizza le sotto-stringhe: inserendo ad esempio \"foo\" nella lista, anche  \"foobar\" sarà bloccato. Utilizza un valore per linea."
 
-#: nospamnx.php:472
-#, php-format
-msgid " has stopped %s birdbrained Spambot since it last activation."
-msgid_plural " has stopped %s birdbrained Spambots since it last activation."
-msgstr[0] " ha bloccato %s Spambot dal momento della sua attivazione."
-msgstr[1] " ha bloccato %s Spambot dal momento della sua attivazione."
+#: nospamnx.php:483
+msgid "NoSpamNX has stopped no birdbrained Spambots yet."
+msgstr ""
 
-#: nospamnx.php:476
+#: nospamnx.php:486
 #, php-format
-msgid " %1$d per Day."
-msgstr " %1$d al giorno."
+msgid "Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day)."
+msgid_plural "Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day)."
+msgstr[0] ""
+msgstr[1] " hat %s dumme Spambots gestoppt."
 
+#~ msgid " has stopped %s birdbrained Spambot since it last activation."
+#~ msgid_plural ""
+#~ " has stopped %s birdbrained Spambots since it last activation."
+#~ msgstr[0] " ha bloccato %s Spambot dal momento della sua attivazione."
+#~ msgstr[1] " ha bloccato %s Spambot dal momento della sua attivazione."
+#~ msgid " %1$d per Day."
+#~ msgstr " %1$d al giorno."
 #~ msgid "Sorry, but it seems you are not human."
 #~ msgstr "Sorry, aber Du scheinst nicht menschlich zu sein."
 #~ msgid "Default value:"
@@ -256,10 +262,6 @@ msgstr " %1$d al giorno."
 #~ msgstr "IDs"
 #~ msgid "Information"
 #~ msgstr "Informationen"
-#~ msgid " has stopped %s birdbrained Spambot."
-#~ msgid_plural " has stopped %s birdbrained Spambots."
-#~ msgstr[0] " hat %s dummen Spambot gestoppt."
-#~ msgstr[1] " hat %s dumme Spambots gestoppt."
 #~ msgid "IP Lock"
 #~ msgstr "IP Sperre"
 #~ msgid "The required functions for creating the table could not be loaded."

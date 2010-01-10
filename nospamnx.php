@@ -484,7 +484,7 @@ if (!class_exists('NoSpamNX'))
 			else {
 					printf(__ngettext(
 						"Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day).",
-						"Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day).",
+						"Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day).",
 						$this->nospamnx_count, 'nospamnx'),
 						date($this->nospamnx_dateformat, $this->nospamnx_activated),
 						'<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>',
