@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.7
+Version: 3.8
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
+define('NOSPAMNXV', 3.8);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -40,6 +41,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
 		var $nospamnx_siteurl;
+		var $nospamnx_version;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
@@ -54,13 +56,20 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
-				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+				register_uninstall_hook(__FILE__, array(&$this, 'deactivate'));
 			if (function_exists('register_deactivation_hook'))
-				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));				
-			
-			//load nospamnx options
-			$this->getOptions();	
+				register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));	
 
+			//load nospamnx options
+			$this->getOptions();
+			
+			//automated update does not reset options, lets do it manuelly
+			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
+				$this->deactivate();
+				$this->activate();
+				$this->getOptions();
+			}
+			
 			//add nospamnx wordpress actions	
 			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
@@ -420,11 +429,12 @@ if (!class_exists('NoSpamNX'))
 		     	add_option('nospamnx', $options);		
 		}	
 		
-		function uninstall() {
+		function deactivate() {
 			if (function_exists( 'is_site_admin' ))
 				delete_site_option('nospamnx');
 			else
 				delete_option('nospamnx');
+				
 		}
 		
 		function getOptions() {
@@ -442,6 +452,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_activated		= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
 			$this->nospamnx_siteurl			= $options['nospamnx_siteurl'];
+			$this->nospamnx_version			= $options['nospamnx_version'];
 		}
 		
 		function setOptions() {
@@ -452,9 +463,10 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
 				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
-				'nospamnx_activated'			=> $this->nospamnx_activated,
+				'nospamnx_activated'		=> $this->nospamnx_activated,
 				'nospamnx_dateformat'		=> $this->nospamnx_dateformat,
-				'nospamnx_siteurl'			=> $this->nospamnx_siteurl
+				'nospamnx_siteurl'			=> $this->nospamnx_siteurl,
+				'nospamnx_version'			=> NOSPAMNXV
 			);
 			
 		     if (function_exists( 'is_site_admin' ))

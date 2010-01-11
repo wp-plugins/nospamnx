@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9.1
-Stable tag: 3.7
+Stable tag: 3.8
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -56,6 +56,10 @@ Done!
 
 == Frequently Asked Questions ==
 
+= After i update to Version x.x the plugin seems broken! =
+
+In 99.9% this is becaus NoSpamNX misses some options. Deactivate and (re)activate the plugin.
+
 = When i activate the plugin, the hidden fields are visible! =
 
 Make sure that the template you are using calls <code>wp_head</code> before the closing HEAD tag. See http://is.gd/tazh for more information.
@@ -84,6 +88,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.7 =
+* Quickfix for deactivation/activation Bug
 
 = 3.7 =
 * Fixed bug when plugin was deactivated
