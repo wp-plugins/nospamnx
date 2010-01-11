@@ -89,7 +89,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
-= 3.7 =
+= 3.8 =
 * Quickfix for deactivation/activation Bug
 
 = 3.7 =
