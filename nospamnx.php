@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.8
+Version: 3.9
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
-define('NOSPAMNXV', 3.8);
+define('NOSPAMNXV', 3.9);
 
 if (!class_exists('NoSpamNX'))
 {

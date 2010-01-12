@@ -89,6 +89,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.9 =
+* Updated spanish translation
+
 = 3.8 =
 * Quickfix for deactivation/activation Bug
 

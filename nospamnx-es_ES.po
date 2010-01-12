@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NoSpamNX 2.6\n"
+"Project-Id-Version: NoSpamNX 3.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-10 10:30+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
+"Last-Translator: Samuel Aguilera <correo@samuelaguilera.com>\n"
 "Language-Team: Samuel Aguilera <correo@samuelaguilera.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +54,7 @@ msgstr "Contador de NoSpamNX reiniciado satisfactoriamente."
 
 #: nospamnx.php:281
 msgid "NoSpamNX CSS name was reseted successfully."
-msgstr ""
+msgstr "El nombre del archivo CSS de NoSpamNX ha sido reiniciado satisfactoriamente."
 
 #: nospamnx.php:300
 msgid "Are you sure you want to reset the counter?"
@@ -113,15 +113,15 @@ msgstr "Guardar"
 
 #: nospamnx.php:358
 msgid "CSS"
-msgstr ""
+msgstr "CSS"
 
 #: nospamnx.php:360
 msgid "By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include this CSS-Stylesheet, enter the name of your Stylesheet in the textfield below. You have to set up your own Stylesheet to hide the fields, e.g."
-msgstr ""
+msgstr "NoSpamNX incluye de forma predeterminada una hoja de estilos CSS predefinida para ocultar los campos del formulario insertados. Si no quieres que NoSpamNX incluya esta hoja de estilos CSS, introduce el nombre de tu hoja de estilos en el campo de texto de debajo. Tienes que crear tu propia hoja de estilos para ocultar los campos, p. ej."
 
 #: nospamnx.php:364
 msgid "CSS Name"
-msgstr ""
+msgstr "Nombre de archivo CSS"
 
 #: nospamnx.php:377
 msgid "Blacklist"
@@ -133,7 +133,7 @@ msgstr "La lista negra de NoSpamNX es comparable a la lista negra de WordPress (
 
 #: nospamnx.php:483
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
-msgstr ""
+msgstr "NoSpamNX todavía no ha parado ningún bot de spam."
 
 #~ msgid ""
 #~ "NoSpamNX is currently inactive, due to missing required PHP functions."
