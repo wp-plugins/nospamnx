@@ -90,6 +90,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 3.9 =
+* Fixed bug when displaying statistics
 * Updated spanish translation
 
 = 3.8 =

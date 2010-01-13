@@ -52,20 +52,20 @@ if (!class_exists('NoSpamNX'))
 				return;
 			}
 
-			//tell wp what to do when plugin is activated and deactivated
+			//tell wp what to do when plugin is activated and uninstall
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
-				register_uninstall_hook(__FILE__, array(&$this, 'deactivate'));
+				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));	
 			if (function_exists('register_deactivation_hook'))
-				register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));	
-
+				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));
+				
 			//load nospamnx options
 			$this->getOptions();
 			
-			//automated update does not reset options, lets do it manuelly
+			//automated update does not reset options, lets do it manuelly on new versions
 			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
-				$this->deactivate();
+				$this->uninstall();
 				$this->activate();
 				$this->getOptions();
 			}
@@ -130,8 +130,8 @@ if (!class_exists('NoSpamNX'))
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();
 
-				//comment seems valid, check HTTP_ACCEPT at last
-				if ($_SERVER['HTTP_ACCEPT'] == "*/*")
+				//comment seems valid, check some HTTP Headers at last
+				if ($_SERVER['HTTP_ACCEPT'] == "*/*" && empty($_SERVER['HTTP_COOKIE']))
 					$this->maybeBirdbrained();
 			}
 		}
@@ -429,7 +429,7 @@ if (!class_exists('NoSpamNX'))
 		     	add_option('nospamnx', $options);		
 		}	
 		
-		function deactivate() {
+		function uninstall() {
 			if (function_exists( 'is_site_admin' ))
 				delete_site_option('nospamnx');
 			else
@@ -498,7 +498,7 @@ if (!class_exists('NoSpamNX'))
 						"Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day).",
 						"Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day).",
 						$this->nospamnx_count, 'nospamnx'),
-						date($this->nospamnx_dateformat, $this->nospamnx_activated),
+						date_i18n($this->nospamnx_dateformat, $this->nospamnx_activated),
 						'<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>',
 						$this->nospamnx_count,
 						$this->getStatsPerDay()
