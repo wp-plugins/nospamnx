@@ -63,7 +63,7 @@ if (!class_exists('NoSpamNX'))
 			//load nospamnx options
 			$this->getOptions();
 			
-			//automated update does not reset options, lets do it manuelly on new versions
+			//automated update does not reset options, so lets do it manuelly
 			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
 				$this->uninstall();
 				$this->activate();
@@ -129,10 +129,6 @@ if (!class_exists('NoSpamNX'))
 				//check if the value of the second hidden field matches stored value
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();
-
-				//comment seems valid, check some HTTP Headers at last
-				if ($_SERVER['HTTP_ACCEPT'] == "*/*" && empty($_SERVER['HTTP_COOKIE']))
-					$this->maybeBirdbrained();
 			}
 		}
 		
@@ -147,10 +143,6 @@ if (!class_exists('NoSpamNX'))
 			else
 				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 		}	
-
-		function maybeBirdbrained() {		
-			add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
-		}
 
 		function checkReferer() {
 			//check if referer isnt empty
@@ -433,8 +425,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists( 'is_site_admin' ))
 				delete_site_option('nospamnx');
 			else
-				delete_option('nospamnx');
-				
+				delete_option('nospamnx');		
 		}
 		
 		function getOptions() {
