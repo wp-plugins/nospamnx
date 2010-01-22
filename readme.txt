@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9.1
-Stable tag: 3.9
+Stable tag: 3.10
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -88,6 +88,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.10 =
+* Change Referer-Check from 'siteurl' to 'home'
 
 = 3.9 =
 * Fixed bug when displaying statistics

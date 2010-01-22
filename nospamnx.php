@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.9
+Version: 3.10
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
-define('NOSPAMNXV', 3.9);
+define('NOSPAMNXV', 3.10);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -40,7 +40,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_checkreferer;
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
-		var $nospamnx_siteurl;
+		var $nospamnx_home;
 		var $nospamnx_version;
 		
 		function nospamnx() {		
@@ -152,10 +152,10 @@ if (!class_exists('NoSpamNX'))
 			//get the host name for referer check
 			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
 		
-			//check if referer isnt empty and matches siteurl
+			//check if referer isnt empty and matches home
 			if (empty($match[0]))
 				return false;
-			else if ($match[0] != $this->nospamnx_siteurl)
+			else if ($match[0] != $this->nospamnx_home)
 				return false;
 
 			return true;
@@ -225,7 +225,7 @@ if (!class_exists('NoSpamNX'))
 				if ($this->checkReferer() == true)
 					echo "<div id='message' class='updated fade'><p>".__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx')."</p></div>";
 				else
-					echo "<div id='message' class='error'><p>".__('Referer-Check failed! The referer does not match WordPress option "siteurl".','nospamnx')."</p></div>";		
+					echo "<div id='message' class='error'><p>".__('Referer-Check failed! The referer does not match WordPress option "home".','nospamnx')."</p></div>";		
 			}
 
 			//do we have to update any settings?
@@ -398,21 +398,21 @@ if (!class_exists('NoSpamNX'))
 		}	
 		
 		function nospamnxStyle() {			
-			$css = $this->nospamnx_siteurl . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
+			$css = $this->nospamnx_home . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
 		function activate() {	
 			$options = array(
-				'nospamnx_names' 			=> $this->generateNames(),
-				'nospamnx_count'			=> 0,
-				'nospamnx_operate'			=> 'mark',
-				'nospamnx_blacklist'		=> '',
-				'nospamnx_checkreferer'		=> 0,	
-				'nospamnx_cssname'			=> DEFAULTCSS,
-				'nospamnx_activated'		=> time(),
-				'nospamnx_dateformat'		=> get_option('date_format'),
-				'nospamnx_siteurl'			=> get_option('siteurl')								
+				'nospamnx_names' 		=> $this->generateNames(),
+				'nospamnx_count'		=> 0,
+				'nospamnx_operate'		=> 'mark',
+				'nospamnx_blacklist'	=> '',
+				'nospamnx_checkreferer'	=> 0,	
+				'nospamnx_cssname'		=> DEFAULTCSS,
+				'nospamnx_activated'	=> time(),
+				'nospamnx_dateformat'	=> get_option('date_format'),
+				'nospamnx_home'			=> get_option('home')								
 			);
 
 			if (function_exists( 'is_site_admin' ))
@@ -442,22 +442,22 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
 			$this->nospamnx_activated		= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
-			$this->nospamnx_siteurl			= $options['nospamnx_siteurl'];
+			$this->nospamnx_home			= $options['nospamnx_home'];
 			$this->nospamnx_version			= $options['nospamnx_version'];
 		}
 		
 		function setOptions() {
 			$options = array(
-				'nospamnx_names'			=> $this->nospamnx_names,
-				'nospamnx_count'			=> $this->nospamnx_count,
-				'nospamnx_operate'			=> $this->nospamnx_operate,
-				'nospamnx_blacklist'		=> $this->nospamnx_blacklist,
-				'nospamnx_cssname'			=> $this->nospamnx_cssname,		
-				'nospamnx_checkreferer'		=> $this->nospamnx_checkreferer,
-				'nospamnx_activated'		=> $this->nospamnx_activated,
-				'nospamnx_dateformat'		=> $this->nospamnx_dateformat,
-				'nospamnx_siteurl'			=> $this->nospamnx_siteurl,
-				'nospamnx_version'			=> NOSPAMNXV
+				'nospamnx_names'		=> $this->nospamnx_names,
+				'nospamnx_count'		=> $this->nospamnx_count,
+				'nospamnx_operate'		=> $this->nospamnx_operate,
+				'nospamnx_blacklist'	=> $this->nospamnx_blacklist,
+				'nospamnx_cssname'		=> $this->nospamnx_cssname,		
+				'nospamnx_checkreferer'	=> $this->nospamnx_checkreferer,
+				'nospamnx_activated'	=> $this->nospamnx_activated,
+				'nospamnx_dateformat'	=> $this->nospamnx_dateformat,
+				'nospamnx_home'			=> $this->nospamnx_home,
+				'nospamnx_version'		=> NOSPAMNXV
 			);
 			
 		     if (function_exists( 'is_site_admin' ))
