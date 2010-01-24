@@ -52,21 +52,20 @@ if (!class_exists('NoSpamNX'))
 				return;
 			}
 
-			//tell wp what to do when plugin is activated and uninstall
+			//tell wp what to do when plugin is activated and uninstalled
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
 				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));	
 			if (function_exists('register_deactivation_hook'))
-				register_deactivation_hook(__FILE__, array(&$this, 'uninstall'));
+				register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));
 				
 			//load nospamnx options
 			$this->getOptions();
 			
 			//automated update does not reset options, so lets do it manuelly
 			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
-				$this->uninstall();
-				$this->activate();
+				$this->reactivate();
 				$this->getOptions();
 			}
 			
@@ -76,7 +75,7 @@ if (!class_exists('NoSpamNX'))
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
 			
-			//check if we have to include the nospamnx css style
+			//check if we have to include the nospamnx css default style
 			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS))
 				add_action('wp_head', array(&$this, 'nospamnxStyle'));
 		}
@@ -152,7 +151,7 @@ if (!class_exists('NoSpamNX'))
 			//get the host name for referer check
 			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
 		
-			//check if referer isnt empty and matches home
+			//check if referer isnt empty and matches 'home'
 			if (empty($match[0]))
 				return false;
 			else if ($match[0] != $this->nospamnx_home)
@@ -407,7 +406,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_names' 		=> $this->generateNames(),
 				'nospamnx_count'		=> 0,
 				'nospamnx_operate'		=> 'mark',
-				'nospamnx_blacklist'	=> '',
 				'nospamnx_checkreferer'	=> 0,	
 				'nospamnx_cssname'		=> DEFAULTCSS,
 				'nospamnx_activated'	=> time(),
@@ -415,35 +413,47 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_home'			=> get_option('home')								
 			);
 
-			if (function_exists( 'is_site_admin' ))
-				add_site_option('nospamnx', $options);
-			else
-		     	add_option('nospamnx', $options);		
+			add_option('nospamnx-blacklist', '');
+	     	add_option('nospamnx', $options);		
 		}	
 		
+		function deactivate() {
+			delete_option('nospamnx');		
+		}		
+		
+		function reactivate() {
+			$options = array(
+				'nospamnx_names' 		=> $this->generateNames(),
+				'nospamnx_count'		=> 0,
+				'nospamnx_operate'		=> 'mark',
+				'nospamnx_checkreferer'	=> 0,	
+				'nospamnx_cssname'		=> DEFAULTCSS,
+				'nospamnx_activated'	=> time(),
+				'nospamnx_dateformat'	=> get_option('date_format'),
+				'nospamnx_home'			=> get_option('home')								
+			);
+
+			update_option('nospamnx', $options);
+		}
+		
 		function uninstall() {
-			if (function_exists( 'is_site_admin' ))
-				delete_site_option('nospamnx');
-			else
-				delete_option('nospamnx');		
+			delete_option('nospamnx');	
+			delete_option('nospamnx-blacklist');	
 		}
 		
 		function getOptions() {
-			if (function_exists( 'is_site_admin' ))
-				$options = get_site_option('nospamnx');
-			else
-				$options = get_option('nospamnx');
+			$options = get_option('nospamnx');
 				
 			$this->nospamnx_names 			= $options['nospamnx_names'];
 			$this->nospamnx_count			= $options['nospamnx_count'];
 			$this->nospamnx_operate			= $options['nospamnx_operate'];
-			$this->nospamnx_blacklist		= $options['nospamnx_blacklist'];
 			$this->nospamnx_cssname			= $options['nospamnx_cssname'];			
 			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
 			$this->nospamnx_activated		= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
 			$this->nospamnx_home			= $options['nospamnx_home'];
 			$this->nospamnx_version			= $options['nospamnx_version'];
+			$this->nospamnx_blacklist		= get_option('nospamnx-blacklist');
 		}
 		
 		function setOptions() {
@@ -451,7 +461,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_names'		=> $this->nospamnx_names,
 				'nospamnx_count'		=> $this->nospamnx_count,
 				'nospamnx_operate'		=> $this->nospamnx_operate,
-				'nospamnx_blacklist'	=> $this->nospamnx_blacklist,
 				'nospamnx_cssname'		=> $this->nospamnx_cssname,		
 				'nospamnx_checkreferer'	=> $this->nospamnx_checkreferer,
 				'nospamnx_activated'	=> $this->nospamnx_activated,
@@ -460,10 +469,8 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_version'		=> NOSPAMNXV
 			);
 			
-		     if (function_exists( 'is_site_admin' ))
-		     	update_site_option('nospamnx', $options);
-		     else
-		        update_option('nospamnx', $options);
+			update_option('nospamnx-blacklist', $this->nospamnx_blacklist);
+		    update_option('nospamnx', $options);
 		}
 		
 		function nospamnxStats() {	

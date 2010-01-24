@@ -30,8 +30,6 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha)
 * No need to manage spambot comments
-* Compatible with comments-popup
-* Compatible with WordPress MU
 * False-positives are nearly impossible
 
 
@@ -90,7 +88,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 3.10 =
-* Change Referer-Check from 'siteurl' to 'home'
+* Changed Referer-Check from 'siteurl' to 'home'
+* Blacklist will only be deleted when plugin is uninstalled
+* Removed WordPress MU support
+* Removed comments-popup support
 * Updated language files
 
 = 3.9 =
