@@ -209,10 +209,7 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function nospamnxAdminMenu() {
-			if( function_exists( 'is_site_admin' ) && !is_site_admin() )
-				return;
-			else
-				add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
+			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
 		}
 
 		function nospamnxOptionPage() {	
