@@ -87,6 +87,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.11 =
+* Updated language files
+
 = 3.10 =
 * Changed Referer-Check from 'siteurl' to 'home'
 * Blacklist will only be deleted when plugin is uninstalled
