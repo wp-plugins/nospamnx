@@ -41,6 +41,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
 		var $nospamnx_home;
+		var $nospamnx_siteurl;		
 		var $nospamnx_version;
 		
 		function nospamnx() {		
@@ -55,17 +56,18 @@ if (!class_exists('NoSpamNX'))
 			//tell wp what to do when plugin is activated and uninstalled
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
-			if (function_exists('register_uninstall_hook'))
-				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));	
 			if (function_exists('register_deactivation_hook'))
 				register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));
+			if (function_exists('register_uninstall_hook'))
+				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));	
 				
 			//load nospamnx options
 			$this->getOptions();
 			
 			//automated update does not reset options, so lets do it manuelly
 			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
-				$this->reactivate();
+				$this->deactivate();
+				$this->activate();
 				$this->getOptions();
 			}
 			
@@ -81,7 +83,7 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function wpVersionFail() {
-			echo "<div id='message' class='error'><p>".__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!','nospamnx')."</p></div>";
+			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!','nospamnx'));
 		}
 		
 		function addHiddenFields() {	
@@ -154,7 +156,7 @@ if (!class_exists('NoSpamNX'))
 			//check if referer isnt empty and matches 'home'
 			if (empty($match[0]))
 				return false;
-			else if ($match[0] != $this->nospamnx_home)
+			else if ($match[0] != $this->nospamnx_home && $match[0] != $this->nospamnx_siteurl)
 				return false;
 
 			return true;
@@ -211,6 +213,14 @@ if (!class_exists('NoSpamNX'))
 		function nospamnxAdminMenu() {
 			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
 		}
+		
+		function displayMessage($text) {
+			echo "<div id='message' class='updated fade'><p>".$text."</p></div>";
+		}
+		
+		function displayError($text) {
+			echo "<div id='message' class='error'><p>".$text."</p></div>";
+		}
 
 		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
@@ -219,12 +229,12 @@ if (!class_exists('NoSpamNX'))
 			//do we have to test referer-check?
 			if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
-					echo "<div id='message' class='updated fade'><p>".__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx')."</p></div>";
+					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
 				else
-					echo "<div id='message' class='error'><p>".__('Referer-Check failed! The referer does not match WordPress option "home".','nospamnx')."</p></div>";		
+					$this->displayError(__('Referer-Check failed! The referer does not match WordPress option "home" or "siteurl".','nospamnx'));
 			}
 
-			//do we have to update any settings?
+			//do we have to update settings?
 			if ($_POST['save_settings'] == 1) {
 				//which operation mode do we have to save?
 				switch($_POST['nospamnx_operate']) {
@@ -246,36 +256,24 @@ if (!class_exists('NoSpamNX'))
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";			
 			}
 			else if ($_POST['reset_counter'] == 1) {
-				//reset counter
 				$this->nospamnx_count = 0;
-				
-				//save options and display success message
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX Counter was reseted successfully.','nospamnx')."</p></div>";			
+				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
 			else if ($_POST['update_blacklist'] == 1) {
-				//set blacklist to class var
 				$this->nospamnx_blacklist = $_POST['blacklist'];
-				
-				//save options and display message
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX Blacklist was updated successfully.','nospamnx')."</p></div>";
+				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
 			else if ($_POST['update_cssname'] == 1) {
-				//set blacklist to class var
 				$this->nospamnx_cssname = $_POST['css_name'];
-				
-				//save options and display message
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX CSS name was updated successfully.','nospamnx')."</p></div>";
+				$this->displayMessage(__('NoSpamNX CSS name was updated successfully.','nospamnx'));
 			}
 			else if ($_GET['resetcss'] == 1) {
-				//reset css name
 				$this->nospamnx_cssname = DEFAULTCSS;
-				
-				//save options and display message
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX CSS name was reseted successfully.','nospamnx')."</p></div>";
+				$this->displayMessage(__('NoSpamNX CSS name was reseted successfully.','nospamnx'));
 			}			
 			
 			//set checked values for radio buttons
@@ -393,8 +391,8 @@ if (!class_exists('NoSpamNX'))
 			<?php		
 		}	
 		
-		function nospamnxStyle() {			
-			$css = $this->nospamnx_home . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
+		function nospamnxStyle() {		
+			$css = $this->nospamnx_siteurl . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
@@ -407,31 +405,17 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_cssname'		=> DEFAULTCSS,
 				'nospamnx_activated'	=> time(),
 				'nospamnx_dateformat'	=> get_option('date_format'),
-				'nospamnx_home'			=> get_option('home')								
+				'nospamnx_home'			=> get_option('home'),
+				'nospamnx_siteurl'		=> get_option('siteurl')								
 			);
 
-			add_option('nospamnx-blacklist', '');
-	     	add_option('nospamnx', $options);		
+			update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
+	     	update_option('nospamnx', $options);		
 		}	
 		
 		function deactivate() {
 			delete_option('nospamnx');		
 		}		
-		
-		function reactivate() {
-			$options = array(
-				'nospamnx_names' 		=> $this->generateNames(),
-				'nospamnx_count'		=> 0,
-				'nospamnx_operate'		=> 'mark',
-				'nospamnx_checkreferer'	=> 0,	
-				'nospamnx_cssname'		=> DEFAULTCSS,
-				'nospamnx_activated'	=> time(),
-				'nospamnx_dateformat'	=> get_option('date_format'),
-				'nospamnx_home'			=> get_option('home')								
-			);
-
-			update_option('nospamnx', $options);
-		}
 		
 		function uninstall() {
 			delete_option('nospamnx');	
@@ -449,6 +433,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_activated		= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
 			$this->nospamnx_home			= $options['nospamnx_home'];
+			$this->nospamnx_siteurl			= $options['nospamnx_siteurl'];			
 			$this->nospamnx_version			= $options['nospamnx_version'];
 			$this->nospamnx_blacklist		= get_option('nospamnx-blacklist');
 		}
@@ -463,6 +448,7 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_activated'	=> $this->nospamnx_activated,
 				'nospamnx_dateformat'	=> $this->nospamnx_dateformat,
 				'nospamnx_home'			=> $this->nospamnx_home,
+				'nospamnx_siteurl'		=> $this->nospamnx_siteurl,			
 				'nospamnx_version'		=> NOSPAMNXV
 			);
 			

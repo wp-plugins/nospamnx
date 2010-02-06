@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9.1
-Stable tag: 3.10
+Stable tag: 3.11
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -88,6 +88,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 3.11 =
+* Fixed Bug that could cause visibility of hidden fields
+* Referer-Check checks now against 'siteurl' AND 'home'
+* Code cleanup
 * Updated language files
 
 = 3.10 =
