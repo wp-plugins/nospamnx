@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
-Tested up to: 2.9.1
-Stable tag: 3.11
+Tested up to: 2.9.2
+Stable tag: 3.12
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -54,11 +54,11 @@ Done!
 
 == Frequently Asked Questions ==
 
-= After i update to Version x.x the plugin seems broken! =
+= After I updated to Version x.x the plugin seems broken! =
 
-In 99.9% this is becaus NoSpamNX misses some options. Deactivate and (re)activate the plugin.
+In 99.9% this is because NoSpamNX misses some options. Deactivate and (re)activate the plugin.
 
-= When i activate the plugin, the hidden fields are visible! =
+= When I activate the plugin, the hidden fields are visible! =
 
 Make sure that the template you are using calls <code>wp_head</code> before the closing HEAD tag. See http://is.gd/tazh for more information.
 
@@ -66,13 +66,13 @@ Make sure that the template you are using calls <code>wp_head</code> before the 
 
 First, deactivate and re-active the Plugin. Then go to settings -> NoSpamNX and reset the CSS Name.
 
-= What is the difference to other anti-comment-spam plugins? =
+= What is the difference to other Anti-Spambots plugins? =
 
-Spambots are stopped within the plugin. You don't see them and most important you don't have to moderate them!
+Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
 
 = Does the plugin block Ping-/Trackback Spam as well? =
 
-No, the plugin focus on automated spambots only.
+No, the plugin focus on automated Spambots only.
 
 = What about false-positives? =
 
@@ -86,6 +86,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.12 =
+* Changed Error- and Info-Message to new Stylesheets
+* Updated reademe
 
 = 3.11 =
 * Fixed Bug that could cause visibility of hidden fields

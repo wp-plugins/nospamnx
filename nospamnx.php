@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.11
+Version: 3.12
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
-define('NOSPAMNXV', 3.11);
+define('NOSPAMNXV', 3.12);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -204,29 +204,25 @@ if (!class_exists('NoSpamNX'))
 		}	
 		
 		function generateRandomString() {
-			$length = rand(4, 23);
-			
-			//return random value with variable length
-			return substr(md5(uniqid(rand(), true)), $length);
+			return substr(md5(uniqid(rand(), true)), rand(4, 23));
 		}
 
 		function nospamnxAdminMenu() {
 			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
 		}
 		
-		function displayMessage($text) {
-			echo "<div id='message' class='updated fade'><p>".$text."</p></div>";
+		function displayMessage($message) {
+			echo "<div id='message' class='updated'><p>".$message."</p></div>";
 		}
 		
-		function displayError($text) {
-			echo "<div id='message' class='error'><p>".$text."</p></div>";
+		function displayError($message) {
+			echo "<div id='message' class='error'><p>".$message."</p></div>";
 		}
 
 		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
-			//do we have to test referer-check?
 			if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
 					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
@@ -291,7 +287,7 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
-			//confirmation text for reseting the counter
+			//set confirmation text for reseting the counter
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');
 
 			?>
