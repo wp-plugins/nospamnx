@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en/#donate
 Tested up to: 2.9.2
-Stable tag: 3.12
+Stable tag: 3.13
 Requires at least: 2.7
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
 
@@ -25,12 +25,15 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 = Features in a nutshell =
 
 * Easy installation (just activate the plugin)
+* Compatible with WPtouch (Mobile Theme)
 * Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
-* Does not require any extra field for user input (e.g. Captcha)
+* Does not require any extra field for user input (e.g. Captcha, Pictures, etc.)
+* Blacklist to block specific URLs, Domains, etc. (use it to block "handmade" Spam)
 * No need to manage spambot comments
 * False-positives are nearly impossible
+* Less than 500 Lines of code
 
 
 = Available Languages  =
@@ -54,6 +57,10 @@ Done!
 
 == Frequently Asked Questions ==
 
+= After I updated to Version x.x the Options are reseted! =
+
+This is not a Bug, it's a Feature. After an update all settings (except for the Blacklist) are reseted. I had to implement this, so that I can add or remove Options when updating the Plugin.
+
 = After I updated to Version x.x the plugin seems broken! =
 
 In 99.9% this is because NoSpamNX misses some options. Deactivate and (re)activate the plugin.
@@ -64,11 +71,11 @@ Make sure that the template you are using calls <code>wp_head</code> before the 
 
 = My template does load <code>wp_head</code>, but the hidden fields are still visible! =
 
-First, deactivate and re-active the Plugin. Then go to settings -> NoSpamNX and reset the CSS Name.
+First, deactivate and re-active the Plugin. Then go to Settings -> NoSpamNX and reset the CSS Name.
 
 = What is the difference to other Anti-Spambots plugins? =
 
-Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
+Most "new" AntiSpam Plugin change the name of one (or more) of you comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment field, but it still very effective. Furthermore Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
 
 = Does the plugin block Ping-/Trackback Spam as well? =
 
@@ -86,6 +93,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.13 =
+* Fixed Bug that could mark first comment after Plugin Update as Spam
+* Added Support for SSL for Referer-Check
+* Updated reademe
 
 = 3.12 =
 * Changed Error- and Info-Message to new Stylesheets

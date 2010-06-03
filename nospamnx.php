@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.12
+Version: 3.13
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
-define('NOSPAMNXV', 3.12);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -63,14 +62,7 @@ if (!class_exists('NoSpamNX'))
 				
 			//load nospamnx options
 			$this->getOptions();
-			
-			//automated update does not reset options, so lets do it manuelly
-			if (!version_compare($this->nospamnx_version, NOSPAMNXV, '=')) {
-				$this->deactivate();
-				$this->activate();
-				$this->getOptions();
-			}
-			
+
 			//add nospamnx wordpress actions	
 			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
@@ -87,7 +79,6 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function addHiddenFields() {	
-			//get the formfields names and values from wp options
 			$nospamnx = $this->nospamnx_names;
 			
 			//add hidden fields to the comment form
@@ -115,7 +106,6 @@ if (!class_exists('NoSpamNX'))
 				if ($this->nospamnx_checkreferer == 1 && $this->checkReferer() == false)
 					$this->birdbrained();
 				
-				//get current formfield names from wp options
 				$nospamnx = $this->nospamnx_names;
 	
 				//check if first hidden field is in $_POST data
@@ -134,7 +124,7 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function birdbrained() {		
-			//count spambot and save count
+			//count spambot and save
 			$this->nospamnx_count++;
 			$this->setOptions();
 			
@@ -149,16 +139,22 @@ if (!class_exists('NoSpamNX'))
 			//check if referer isnt empty
 			if (empty($_SERVER['HTTP_REFERER']))
 				return false;
-			
-			//get the host name for referer check
-			preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);			
-		
-			//check if referer isnt empty and matches 'home'
-			if (empty($match[0]))
-				return false;
-			else if ($match[0] != $this->nospamnx_home && $match[0] != $this->nospamnx_siteurl)
-				return false;
 
+			//check if referer matches 'home' or 'siteurl' (http or https)
+			if (preg_match("|https|",$_SERVER['HTTP_REFERER'])) {
+				$homessl = preg_replace('/http/', 'https', $this->nospamnx_home);
+				$siteurlssl = preg_replace('/http/', 'https', $this->nospamnx_siteurl);
+				
+				preg_match('@^(?:https://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$matchssl);
+				if ($matchssl[0] != $homessl && $matchssl[0] != $siteurlssl)
+					return false;	
+			} else {
+				preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);
+				if ($match[0] != $this->nospamnx_home && $match[0] != $this->nospamnx_siteurl) {
+					return false;	
+				}
+			} 
+			
 			return true;
 		}
 
@@ -190,6 +186,7 @@ if (!class_exists('NoSpamNX'))
 					|| preg_match($pattern, $comment))
 				return true;
 			}
+			
 			return false;
 		}	
 		
@@ -393,6 +390,8 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function activate() {	
+			$this->deactivate();
+			
 			$options = array(
 				'nospamnx_names' 		=> $this->generateNames(),
 				'nospamnx_count'		=> 0,
@@ -445,7 +444,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_dateformat'	=> $this->nospamnx_dateformat,
 				'nospamnx_home'			=> $this->nospamnx_home,
 				'nospamnx_siteurl'		=> $this->nospamnx_siteurl,			
-				'nospamnx_version'		=> NOSPAMNXV
 			);
 			
 			update_option('nospamnx-blacklist', $this->nospamnx_blacklist);
