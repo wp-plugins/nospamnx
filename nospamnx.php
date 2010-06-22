@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.13
+Version: 3.14
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 global $wp_version;
 define('REQWP27', version_compare($wp_version, '2.7', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
+define('RESETOPTIONS', false);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -92,7 +93,7 @@ if (!class_exists('NoSpamNX'))
 			//check if we are in wp-comments-post.php
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')
 				return;
-			else {			
+			else {		
 				//perform blacklist check
 				if ($this->blacklistCheck(
 						trim($_POST['author']),
@@ -188,7 +189,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			return false;
-		}	
+		}
 		
 		function generateNames() {		
 			$nospamnx = array(
@@ -220,15 +221,16 @@ if (!class_exists('NoSpamNX'))
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
-			if ($_GET['refcheck'] == 1) {
+		    if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
 					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
 				else
 					$this->displayError(__('Referer-Check failed! The referer does not match WordPress option "home" or "siteurl".','nospamnx'));
 			}
-
+			
+			$nonce = $_REQUEST['_wpnonce'];
 			//do we have to update settings?
-			if ($_POST['save_settings'] == 1) {
+			if ($_POST['save_settings'] == 1 && $this->verifyNonce($nonce)) {
 				//which operation mode do we have to save?
 				switch($_POST['nospamnx_operate']) {
 					case 'block':
@@ -248,22 +250,22 @@ if (!class_exists('NoSpamNX'))
 				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";			
 			}
-			else if ($_POST['reset_counter'] == 1) {
+			else if ($_POST['reset_counter'] == 1  && $this->verifyNonce($nonce)) {
 				$this->nospamnx_count = 0;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
-			else if ($_POST['update_blacklist'] == 1) {
+			else if ($_POST['update_blacklist'] == 1  && $this->verifyNonce($nonce)) {
 				$this->nospamnx_blacklist = $_POST['blacklist'];
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
-			else if ($_POST['update_cssname'] == 1) {
+			else if ($_POST['update_cssname'] == 1  && $this->verifyNonce($nonce)) {
 				$this->nospamnx_cssname = $_POST['css_name'];
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX CSS name was updated successfully.','nospamnx'));
 			}
-			else if ($_GET['resetcss'] == 1) {
+			else if ($_GET['resetcss'] == 1  && $this->verifyNonce($nonce)) {
 				$this->nospamnx_cssname = DEFAULTCSS;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX CSS name was reseted successfully.','nospamnx'));
@@ -286,6 +288,8 @@ if (!class_exists('NoSpamNX'))
 
 			//set confirmation text for reseting the counter
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');
+			
+			$nonce = wp_create_nonce('nospamnx-nonce');
 
 			?>
 							
@@ -305,7 +309,7 @@ if (!class_exists('NoSpamNX'))
 									<td><?php $this->nospamnxStats(); ?></td>
 								</tr>
 							</table>	
-							<form action="options-general.php?page=nospamnx" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
+							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
 								<input type="hidden" value="1" name="reset_counter">			
 								<p><input name="submit" class='button-primary' value="<?php echo __('Reset','nospamnx'); ?>" type="submit" /></p>
 							</form>				
@@ -318,7 +322,7 @@ if (!class_exists('NoSpamNX'))
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
 								<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "Block". If you want to see what might be blocked, select mark as spam.','nospamnx'); ?></p>
-								<form action="options-general.php?page=nospamnx" method="post">
+								<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 								<table class="form-table">						
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Mode','nospamnx'); ?></b></th>
@@ -346,7 +350,7 @@ if (!class_exists('NoSpamNX'))
 						<h3><?php echo __('CSS','nospamnx'); ?></h3>
 						<div class="inside">
 							<p><?php echo __('By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include its own stylesheet, enter the name of the class (e.g., hidebox) you would like to associate it with in the field below and to your global stylesheet (i.e., the one loaded by wordpress).','nospamnx'); ?></p>
-							<form action="options-general.php?page=nospamnx" method="post">
+							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">					    
 								<tr>
 									<th scope="row" valign="top"><b><?php echo __('CSS Name','nospamnx'); ?></b></th>								
@@ -364,8 +368,8 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
-							<p><?php echo __('The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern mateches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put "foo" in the list "foobar" will be blocked as well. Please use one value per line.','nospamnx'); ?></p>
-							<form action="options-general.php?page=nospamnx" method="post">
+							<p><?php echo __('The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put "foo" in the list "foobar" will be blocked as well. Please use one value per line.','nospamnx'); ?></p>
+							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">					    
 								<tr>
 									<td>
@@ -384,13 +388,20 @@ if (!class_exists('NoSpamNX'))
 			<?php		
 		}	
 		
+		function verifyNonce($nonce) {
+			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) wp_die(__('Security check failed.','nospamnx'));
+			
+			return true;
+		}
+		
 		function nospamnxStyle() {		
 			$css = $this->nospamnx_siteurl . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
 		function activate() {	
-			$this->deactivate();
+			if (RESETOPTIONS)
+				$this->deactivate();
 			
 			$options = array(
 				'nospamnx_names' 		=> $this->generateNames(),
