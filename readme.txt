@@ -4,13 +4,13 @@ Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.0
 Stable tag: 3.14
 Requires at least: 2.7
-Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden
+Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden, yawasp, nospamnx
 
 To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
 
 == Description ==
 
-Most AntiSpam Plugin change the name of one (or more) of you comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment field, but still is very effective. Furthermore Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
+There have been many new good ideas of fighting automated Spam in WordPress. Most of these Plugins (like the antecessor of NoSpamNX: Yawasp) change the name of one (or more) of your comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. Therefore, NoSpamNX does not change any of your comment fields, but still claims to be very effective. 
 
 Many Antispam Plugins focus on user interaction, e.g. captcha or Math calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX intend to handle automated comment-spam without these measures. It does not require JavaScript, Cookies, Sessions or a Database. It does not change any of your comment template fields, given you full compatibility with other WordPress- or Browser Plugins.
 
