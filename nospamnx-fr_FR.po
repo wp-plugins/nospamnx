@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mail On Update v2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-04 18:51+0100\n"
-"PO-Revision-Date: 2010-06-04 18:51+0100\n"
+"POT-Creation-Date: 2010-06-23 07:54+0100\n"
+"PO-Revision-Date: 2010-06-23 07:54+0100\n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,126 +16,130 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:78
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!"
-msgstr "Votre version de Wordpress est trop vieille. NoSpamNX nécessite au moins la version 2.7 de Wordpress."
+#: nospamnx.php:77
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!"
+msgstr "Votre version de Wordpress est trop vieille. NoSpamNX nécessite au moins la version 2.8 de Wordpress."
 
-#: nospamnx.php:139
+#: nospamnx.php:134
 msgid "Sorry, but your comment seems to be Spam."
 msgstr "Désolé, votre commentaire semble être du pourriel."
 
-#: nospamnx.php:239
+#: nospamnx.php:220
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Désolé, vous n'avez pas l'autorisation de modifier ces réglages."
 
-#: nospamnx.php:243
+#: nospamnx.php:224
 msgid "Referer-Check successfull! You may turn on Referer-Check."
 msgstr "La vérification de référent avec « Referer-Check » a réussi! Vous pouvez activer cette fonction."
 
-#: nospamnx.php:245
+#: nospamnx.php:226
 msgid "Referer-Check failed! The referer does not match WordPress option \"home\" or \"siteurl\"."
 msgstr ""
 
-#: nospamnx.php:267
+#: nospamnx.php:249
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Les paramètres de NoSpamNX ont été sauvegardés avec succès."
 
-#: nospamnx.php:272
+#: nospamnx.php:254
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Le compteur de SpamNX a été réinitialisé avec succès."
 
-#: nospamnx.php:277
+#: nospamnx.php:259
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "La liste noire de SpamNX a été réinitialisée avec succès."
 
-#: nospamnx.php:282
+#: nospamnx.php:264
 msgid "NoSpamNX CSS name was updated successfully."
 msgstr "La feuille de style CSS de NoSpamNX a été mise à jour avec succès."
 
-#: nospamnx.php:287
+#: nospamnx.php:269
 msgid "NoSpamNX CSS name was reseted successfully."
 msgstr "La feuille de style CSS de NoSpamNX a été réinitialisée avec succès."
 
-#: nospamnx.php:306
+#: nospamnx.php:288
 msgid "Are you sure you want to reset the counter?"
 msgstr "Êtes-vous certain de vouloir remettre le compteur à zéro?"
 
-#: nospamnx.php:312
+#: nospamnx.php:295
 msgid "NoSpamNX Settings"
 msgstr "Paramètres de NoSpamNX"
 
-#: nospamnx.php:316
+#: nospamnx.php:299
 msgid "Statistic"
 msgstr "Statistiques"
 
-#: nospamnx.php:321
+#: nospamnx.php:304
 msgid "Stopped Spambots"
 msgstr "Spambots interceptés"
 
-#: nospamnx.php:328
-#: nospamnx.php:371
+#: nospamnx.php:311
+#: nospamnx.php:354
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: nospamnx.php:336
+#: nospamnx.php:319
 msgid "Operating mode"
 msgstr "Mode de fonctionnement"
 
-#: nospamnx.php:338
+#: nospamnx.php:321
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
 msgstr "Par défaut, tous les spambots (robots à pourriel) sont identifiés comme du pourriel, mais le mode « Bloquer » est recommandé. Si vous voulez voir ce qui est intercepté, sélectionnez « Marquer en tant que pourriel »."
 
-#: nospamnx.php:342
+#: nospamnx.php:325
 msgid "Mode"
 msgstr "Mode"
 
-#: nospamnx.php:345
+#: nospamnx.php:328
 msgid "Block (recommended)"
 msgstr "Bloquer (mode recommandé)"
 
-#: nospamnx.php:347
+#: nospamnx.php:330
 msgid "Mark as Spam"
 msgstr "Marquer en tant que pourriel"
 
-#: nospamnx.php:351
+#: nospamnx.php:334
 msgid "Check HTTP Referer"
 msgstr "Vérifier le référent HTTP"
 
-#: nospamnx.php:352
+#: nospamnx.php:335
 msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
 msgstr "Si coché, NoSpamNX vérifiera si le référent correspond à l'adresse du blogue. Vérifier le fonctionnement de cette fonction en cliquant sur le lien suivant."
 
-#: nospamnx.php:356
-#: nospamnx.php:375
-#: nospamnx.php:395
+#: nospamnx.php:339
+#: nospamnx.php:358
+#: nospamnx.php:378
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: nospamnx.php:364
+#: nospamnx.php:347
 msgid "CSS"
 msgstr "Feuille de style CSS"
 
-#: nospamnx.php:366
+#: nospamnx.php:349
 msgid "By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include its own stylesheet, enter the name of the class (e.g., hidebox) you would like to associate it with in the field below and to your global stylesheet (i.e., the one loaded by wordpress)."
 msgstr ""
 
-#: nospamnx.php:370
+#: nospamnx.php:353
 msgid "CSS Name"
 msgstr "Feuille de style CSS"
 
-#: nospamnx.php:383
+#: nospamnx.php:366
 msgid "Blacklist"
 msgstr "Liste noire"
 
-#: nospamnx.php:385
+#: nospamnx.php:368
 msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
 msgstr "La liste noire de NoSpamNX est semblable à celle de Wordpress (elle est basée sur le même code). Toutefois, la liste noire de NoSpamNX vous permet de bloquer les commentaires contenant certaines valeurs au lieu de simplement les diriger vers la file d'attente des commentaires à modérer. Cette option n'est utile que si le mode « Bloquer » de NoSpamNX est utilisé. La liste noire de NoSpamNX compare les valeurs inscrites avec l'adresse IP, le nom de l'auteur, l'adresse de courriel et le champ d'adresse du commentaire. S'il y a correspondance, le commentaire sera bloqué. Tout comme la liste noire de Wordpress, celle de NoSpamNX tient compte des sous-chaînes de caractère. Par exemple, si vous inscrivez « Foo » dans la liste noire, l'entrée « Foobar » sera aussi bloquée. Inscrire une valeur par ligne."
 
-#: nospamnx.php:488
+#: nospamnx.php:389
+msgid "Security-Check failed."
+msgstr ""
+
+#: nospamnx.php:487
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX n'a pas encore intercepté de pourriel."
 
-#: nospamnx.php:491
+#: nospamnx.php:490
 #, php-format
 msgid "Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day)."
 msgid_plural "Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day)."

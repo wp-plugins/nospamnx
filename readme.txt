@@ -2,9 +2,9 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.0
-Stable tag: 3.14
-Requires at least: 2.7
-Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, login, register, user, users, template, secure, hidden, yawasp, nospamnx
+Stable tag: 3.15
+Requires at least: 2.8
+Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
 To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
 
@@ -36,7 +36,6 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * No need to manage spambot comments
 * No Database queries except for some WordPress Options
 * False-positives are nearly impossible
-* Less than 500 Lines of code
 
 
 = Available Languages  =
@@ -96,6 +95,12 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.15 =
+* Fixed Bug when activating plugin
+* Removed deactivation hook
+* Plugin now requires at least WordPress 2.8
+* Updated language files
 
 = 3.14 =
 * Added nonce fields

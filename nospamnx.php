@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.14
+Version: 3.15
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -24,9 +24,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
-define('REQWP27', version_compare($wp_version, '2.7', '>='));
+define('REQWP28', version_compare($wp_version, '2.8', '>='));
 define('DEFAULTCSS', 'lotsensurrt');
-define('RESETOPTIONS', false);
+define('UPDATEOPTIONS', false);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -48,7 +48,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
 				
-			if (REQWP27 != true) {
+			if (REQWP28 != true) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
 			}
@@ -56,14 +56,12 @@ if (!class_exists('NoSpamNX'))
 			//tell wp what to do when plugin is activated and uninstalled
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
-			if (function_exists('register_deactivation_hook'))
-				register_deactivation_hook(__FILE__, array(&$this, 'deactivate'));
 			if (function_exists('register_uninstall_hook'))
-				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));	
-				
+				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+
 			//load nospamnx options
 			$this->getOptions();
-
+			
 			//add nospamnx wordpress actions	
 			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
@@ -76,7 +74,7 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function wpVersionFail() {
-			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.7!','nospamnx'));
+			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!','nospamnx'));
 		}
 		
 		function addHiddenFields() {	
@@ -286,9 +284,8 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
-			//set confirmation text for reseting the counter
-			$confirm = __('Are you sure you want to reset the counter?','nospamnx');
-			
+			//set confirmation text for reseting the counter and nonce values
+			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
 			?>
@@ -389,7 +386,7 @@ if (!class_exists('NoSpamNX'))
 		}	
 		
 		function verifyNonce($nonce) {
-			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) wp_die(__('Security check failed.','nospamnx'));
+			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) wp_die(__('Security-Check failed.','nospamnx'));
 			
 			return true;
 		}
@@ -399,10 +396,7 @@ if (!class_exists('NoSpamNX'))
 			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
 		}
 		
-		function activate() {	
-			if (RESETOPTIONS)
-				$this->deactivate();
-			
+		function activate() {
 			$options = array(
 				'nospamnx_names' 		=> $this->generateNames(),
 				'nospamnx_count'		=> 0,
@@ -414,14 +408,26 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_home'			=> get_option('home'),
 				'nospamnx_siteurl'		=> get_option('siteurl')								
 			);
-
-			update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
-	     	update_option('nospamnx', $options);		
+			
+			$installed = 0;
+			@require_once ( ABSPATH . 'wp-admin/admin-functions.php' );	
+			if (function_exists('get_plugins')) {
+				$plugins = get_plugins();
+				if (array_key_exists("nospamnx/nospamnx.php",$plugins)) {
+					$installed = $plugins["nospamnx/nospamnx.php"]['Version']; 
+					(empty($installed)) ? $installed = 0 : false;
+				}
+			}
+			
+			if ($installed == 0) {
+				update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
+		     	update_option('nospamnx', $options);
+			}
+			else if (UPDATEOPTIONS) {
+				update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
+		     	update_option('nospamnx', $options);
+			}			
 		}	
-		
-		function deactivate() {
-			delete_option('nospamnx');		
-		}		
 		
 		function uninstall() {
 			delete_option('nospamnx');	
