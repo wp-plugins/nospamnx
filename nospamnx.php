@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.15
+Version: 3.16
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -80,7 +80,7 @@ if (!class_exists('NoSpamNX'))
 		function addHiddenFields() {	
 			$nospamnx = $this->nospamnx_names;
 			
-			//add hidden fields to the comment form
+			//output hidden fields to the comment form
 			if (rand(1,2) == 1)
 				echo '<p><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="'.$this->nospamnx_cssname.'" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="'.$this->nospamnx_cssname.'" /></p>';
 			else
@@ -351,7 +351,7 @@ if (!class_exists('NoSpamNX'))
 							<table class="form-table">					    
 								<tr>
 									<th scope="row" valign="top"><b><?php echo __('CSS Name','nospamnx'); ?></b></th>								
-									<td><input type="text" size="25" name="css_name" value="<?php echo $this->nospamnx_cssname; ?>" /><input type="text" value="<?php echo __('Reset','nospamnx'); ?>" class="button-secondary" onclick="location.href='options-general.php?page=nospamnx&resetcss=1'"></td>
+									<td><input type="text" size="25" name="css_name" value="<?php echo $this->nospamnx_cssname; ?>" /><input type="text" value="<?php echo __('Reset','nospamnx'); ?>" class="button-secondary" onclick="location.href='options-general.php?page=nospamnx&resetcss=1&_wpnonce=<?php echo $nonce ?>'"></td>
 								</tr>
 							</table>	
 							<input type="hidden" value="1" name="update_cssname">
@@ -409,26 +409,15 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_siteurl'		=> get_option('siteurl')								
 			);
 			
-			$installed = 0;
-			@require_once ( ABSPATH . 'wp-admin/admin-functions.php' );	
-			if (function_exists('get_plugins')) {
-				$plugins = get_plugins();
-				if (array_key_exists("nospamnx/nospamnx.php",$plugins)) {
-					$installed = $plugins["nospamnx/nospamnx.php"]['Version']; 
-					(empty($installed)) ? $installed = 0 : false;
-				}
-			}
-			
-			if ($installed == 0) {
+			if (UPDATEOPTIONS) {
 				update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
-		     	update_option('nospamnx', $options);
+		    	update_option('nospamnx', $options);				
+			} else {
+				add_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
+		    	add_option('nospamnx', $options);				
 			}
-			else if (UPDATEOPTIONS) {
-				update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
-		     	update_option('nospamnx', $options);
-			}			
 		}	
-		
+
 		function uninstall() {
 			delete_option('nospamnx');	
 			delete_option('nospamnx-blacklist');	

@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.0
-Stable tag: 3.15
+Stable tag: 3.16
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -27,15 +27,16 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 = Features in a nutshell =
 
 * Easy installation (just activate the plugin)
-* Compatible with WPtouch (Mobile Theme)
 * Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies, Sessions or a Database
 * Does not require any extra field for user input (e.g. Captcha, Pictures, etc.)
-* Optional Blacklist to block specific URLs, Domains, etc. (use it to block "handmade" Spam)
 * No need to manage spambot comments
 * No Database queries except for some WordPress Options
+* Compatible with WPtouch (Mobile Theme)
+* Optional Blacklist to block specific URLs, Domains, etc. (use it to block "handmade" Spam)
 * False-positives are nearly impossible
+* Less than 500 Lines of Code
 
 
 = Available Languages  =
@@ -53,7 +54,7 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 1. Unzip Plugin
 2. Copy the nospamnx folder to your wp-content/plugins folder
 3. Activate plugin
-4. (Optional) Adjust settings (settings -> NoSpamNX)
+4. (Optional) Adjust settings (Settings -> NoSpamNX)
 
 Done!
 
@@ -63,9 +64,9 @@ Done!
 
 Update at least to Version 3.14. Since this Version the Options are only reseted if new options are available.
 
-= After I updated to Version x.x the plugin seems broken! =
+= When using WPtouch (Mobile Theme), the hidden fields are visible! =
 
-In 99.9% this is because NoSpamNX misses some options. Deactivate and (re)activate the plugin.
+WPtouch seems not to handle a custom CSS Name. Please use the default NoSpamNX CSS Name. 
 
 = When I activate the plugin, the hidden fields are visible! =
 
@@ -95,6 +96,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.16 =
+* Fixed Bug when reseting CSS Name
+* Fixed Bug when activating plugin
+* Updated reademe
 
 = 3.15 =
 * Fixed Bug when activating plugin
