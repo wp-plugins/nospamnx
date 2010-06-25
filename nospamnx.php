@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.16
+Version: 3.17
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -67,10 +67,6 @@ if (!class_exists('NoSpamNX'))
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
-			
-			//check if we have to include the nospamnx css default style
-			if (empty($this->nospamnx_cssname) || (strtolower(trim($this->nospamnx_cssname)) == DEFAULTCSS))
-				add_action('wp_head', array(&$this, 'nospamnxStyle'));
 		}
 
 		function wpVersionFail() {
@@ -82,9 +78,9 @@ if (!class_exists('NoSpamNX'))
 			
 			//output hidden fields to the comment form
 			if (rand(1,2) == 1)
-				echo '<p><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="'.$this->nospamnx_cssname.'" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="'.$this->nospamnx_cssname.'" /></p>';
+				echo '<p><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none;" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none;" /></p>';
 			else
-				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" class="'.$this->nospamnx_cssname.'" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" class="'.$this->nospamnx_cssname.'" /></p>';						
+				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none;" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none;" /></p>';						
 		}
 		
 		function checkCommentForm() {															
@@ -258,16 +254,6 @@ if (!class_exists('NoSpamNX'))
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
-			else if ($_POST['update_cssname'] == 1  && $this->verifyNonce($nonce)) {
-				$this->nospamnx_cssname = $_POST['css_name'];
-				$this->setOptions();
-				$this->displayMessage(__('NoSpamNX CSS name was updated successfully.','nospamnx'));
-			}
-			else if ($_GET['resetcss'] == 1  && $this->verifyNonce($nonce)) {
-				$this->nospamnx_cssname = DEFAULTCSS;
-				$this->setOptions();
-				$this->displayMessage(__('NoSpamNX CSS name was reseted successfully.','nospamnx'));
-			}			
 			
 			//set checked values for radio buttons
 			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
@@ -341,25 +327,6 @@ if (!class_exists('NoSpamNX'))
 						</div>							
 					</div>
 				</div>
-				
-				<div id="poststuff" class="ui-sortable">
-					<div class="postbox opened">
-						<h3><?php echo __('CSS','nospamnx'); ?></h3>
-						<div class="inside">
-							<p><?php echo __('By default NoSpamNX will include a predefined CSS-Stylesheet to hide the inserted formfields. If you do not want NoSpamNX to include its own stylesheet, enter the name of the class (e.g., hidebox) you would like to associate it with in the field below and to your global stylesheet (i.e., the one loaded by wordpress).','nospamnx'); ?></p>
-							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
-							<table class="form-table">					    
-								<tr>
-									<th scope="row" valign="top"><b><?php echo __('CSS Name','nospamnx'); ?></b></th>								
-									<td><input type="text" size="25" name="css_name" value="<?php echo $this->nospamnx_cssname; ?>" /><input type="text" value="<?php echo __('Reset','nospamnx'); ?>" class="button-secondary" onclick="location.href='options-general.php?page=nospamnx&resetcss=1&_wpnonce=<?php echo $nonce ?>'"></td>
-								</tr>
-							</table>	
-							<input type="hidden" value="1" name="update_cssname">
-							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
-							</form>
-						</div>
-					</div>
-				</div>					
 				
 				<div id="poststuff" class="ui-sortable">
 					<div class="postbox opened">

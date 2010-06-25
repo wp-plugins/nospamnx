@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.0
-Stable tag: 3.16
+Stable tag: 3.17
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -96,6 +96,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.17 =
+* Removed Custom CSS Option (Fields are now hidden by display:none again)
 
 = 3.16 =
 * Fixed Bug when reseting CSS Name
