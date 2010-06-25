@@ -60,12 +60,16 @@ if (!class_exists('NoSpamNX'))
 
 			//load nospamnx options
 			$this->getOptions();
-			
+
 			//add nospamnx wordpress actions	
 			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));	
+			
+			//if ($this->nospamnx_urlblacklist == 1) {
+				//add_action('transition_comment_status', array(&$this, 'reportUrl'));
+			//}
 		}
 
 		function wpVersionFail() {
@@ -96,12 +100,6 @@ if (!class_exists('NoSpamNX'))
 						$_SERVER['REMOTE_ADDR']) == true)
 					$this->birdbrained();
 
-				//perform global url check if enabled
-				if ($this->nospamnx_urlblacklist == 1 && $this->urlCheck($_POST['url']) == true) {
-					add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
-					break;
-				}
-
 				//perform refer check if enabled
 				if ($this->nospamnx_checkreferer == 1 && $this->checkReferer() == false)
 					$this->birdbrained();
@@ -120,6 +118,10 @@ if (!class_exists('NoSpamNX'))
 				//check if the value of the second hidden field matches stored value
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();
+					
+				//perform global url check if enabled
+				if ($this->nospamnx_urlblacklist == 1 && $this->urlCheck($_POST['url']) == true)
+					add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			}
 		}
 		
@@ -191,22 +193,38 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function urlCheck($url) {	
-			if (function_exists('curl_init')) {
-				$url = sha1($url);
+			if (function_exists('curl_init') && function_exists('parse_url')) {
+				$parsedUrl = parse_url($url);
+				$url = $parsedUrl['host'];
+				$url = "http://nospamnx.svenkubiak.de/api.php?act=check&url=".sha1($url);
 				
 				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, 'http://nospamnx.svenkubiak.de/api.php');
+				curl_setopt($curl, CURLOPT_URL, $url);
 				curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-				curl_setopt($curl, CURLOPT_POST, true);
-				curl_setopt($curl, CURLOPT_POSTFIELDS, "act=check&url=".$url); 
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				$response = curl_exec($curl);
-				curl_close($curl);
-				
+
 				if ($response == 1)
 					return true;
+				
+				curl_close($curl);
 			}	
 			return false;
+		}
+		
+		function reportUrl($new_status, $old_status, $comment) {
+				if ($new_status = 'spam') {
+					echo var_dump($comment);
+			    	exit();					
+				} 
+
+				$url = "http://nospamnx.svenkubiak.de/api.php?act=add&url=".sha1($url);
+				
+				$curl = curl_init();
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				curl_close($curl);
 		}
 		
 		function generateNames() {		
@@ -275,12 +293,14 @@ if (!class_exists('NoSpamNX'))
 			}
 			else if ($_POST['update_blacklist'] == 1  && $this->verifyNonce($nonce)) {
 				$this->nospamnx_blacklist = $_POST['blacklist'];
+				$this->nospamnx_urlblacklist = ($_POST['urlblacklist'] == 1 ) ? 1 : 0;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}					
 			
 			//set checked values for radio buttons
 			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
+			($this->nospamnx_urlblacklist == 1)  ? 	$urlblacklist = 'checked=checked' : $urlblacklist = '';
 
 			//set checked values for operating mode
 			switch ($this->nospamnx_operate) {
@@ -361,7 +381,7 @@ if (!class_exists('NoSpamNX'))
 							<table class="form-table">		
 								<tr>
 									<th scope="row" valign="top"><b><?php echo __('Global URL Blacklist','nospamnx'); ?></b></th>
-									<td valign="top"><input type="checkbox" name="nospamnx_checkreferer" value="1"  <?php echo $checkreferer; ?> /><br /><?php echo __('If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link.','nospamnx'); ?> <a href="options-general.php?page=nospamnx&refcheck=1">Referer-Check</a></td>
+									<td valign="top"><input type="checkbox" name="urlblacklist" value="1"  <?php echo $urlblacklist; ?> /></td>
 								</tr>			    
 								<tr>
 									<th scope="row" valign="top"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></th>
@@ -481,19 +501,5 @@ if (!class_exists('NoSpamNX'))
 		}
 	}
 	$nospamnx = new NoSpamNX();
-}
-
-//API function
-function getNoSpamNXNames() {
-	$names = array();
-	$options = get_option('nospamnx');	
-	
-	$names = array(
-		'nospamnx-1-name' 	=> $nospamnx['nospamnx-1'],
-		'nospamnx-2-name'	=> $nospamnx['nospamnx-2'],
-		'nospamnx-2-value' 	=> $nospamnx['nospamnx-2-value']		
-	)
-	
-	return $names;
 }
 ?>

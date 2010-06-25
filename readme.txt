@@ -99,8 +99,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 = 4.0 =
 * Added Global Url Blacklist
-* Added API for Hidden field values
-* Removed CSS Feature (Hidden Fields are now again hidden via style tags)
+* Updated language files
+
+= 3.17 =
+* Removed Custom CSS Option (Fields are now hidden by display:none again)
 
 = 3.16 =
 * Fixed Bug when reseting CSS Name
