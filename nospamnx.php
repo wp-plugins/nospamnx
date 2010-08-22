@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.17
+Version: 3.18
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -101,6 +101,7 @@ if (!class_exists('NoSpamNX'))
 				if ($this->nospamnx_checkreferer == 1 && $this->checkReferer() == false)
 					$this->birdbrained();
 				
+				//get hidden field names for check
 				$nospamnx = $this->nospamnx_names;
 	
 				//check if first hidden field is in $_POST data
@@ -166,7 +167,7 @@ if (!class_exists('NoSpamNX'))
 			foreach ((array)$words as $word ) {
 				$word = trim($word);
 
-				//skipp through empty lines
+				//skip through empty lines
 				if (empty($word))
 					continue;
 
@@ -215,6 +216,7 @@ if (!class_exists('NoSpamNX'))
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
+			//check referere if neccessary	
 		    if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
 					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
@@ -223,7 +225,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			
 			$nonce = $_REQUEST['_wpnonce'];
-			//do we have to update settings?
+			//do we have to update general settings?
 			if ($_POST['save_settings'] == 1 && $this->verifyNonce($nonce)) {
 				//which operation mode do we have to save?
 				switch($_POST['nospamnx_operate']) {

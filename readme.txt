@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
-Tested up to: 3.0
-Stable tag: 3.17
+Tested up to: 3.0.1
+Stable tag: 3.18
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -97,13 +97,18 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 3.18 =
+* Minor Code cleanup
+* Updated Language Files
+* Updated Screenshots
+
 = 3.17 =
 * Removed Custom CSS Option (Fields are now hidden by display:none again)
 
 = 3.16 =
 * Fixed Bug when reseting CSS Name
 * Fixed Bug when activating plugin
-* Updated reademe
+* Updated readme
 
 = 3.15 =
 * Fixed Bug when activating plugin
@@ -115,16 +120,16 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 * Added nonce fields
 * Added check, that options are only reseted if option-fields have changed
 * Updated language files
-* Updated reademe 
+* Updated readme 
 
 = 3.13 =
 * Fixed Bug that could mark first comment after Plugin Update as Spam
 * Added Support for SSL for Referer-Check
-* Updated reademe
+* Updated readme
 
 = 3.12 =
 * Changed Error- and Info-Message to new Stylesheets
-* Updated reademe
+* Updated readme
 
 = 3.11 =
 * Fixed Bug that could cause visibility of hidden fields
