@@ -78,11 +78,11 @@ First, deactivate and re-active the Plugin. Then go to Settings -> NoSpamNX and 
 
 = What is the difference to other Anti-Spambots plugins? =
 
-Most "new" AntiSpam Plugin change the name of one (or more) of you comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment field, but still is very effective. Furthermore Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
+Most "new" AntiSpam Plugin change the name of one or more of your comment form fields. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment form fields, but still is very effective. Furthermore Spambots are stopped within the plugin. You don't see them, and most important, you don't have to moderate them (if you don't want to)!
 
 = Does the plugin block Ping-/Trackback Spam as well? =
 
-No, the plugin focus on automated Spambots only and I have no plans of changing that. There are some really good Plugins in the WordPress Repository for that.
+No, the plugin focus on automated Spambots only and I have no plans of changing that. There are some really good Plugins in the WordPress Repository which can do that for you.
 
 = What about false-positives? =
 
