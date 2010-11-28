@@ -186,48 +186,80 @@ if (!class_exists('NoSpamNX'))
 			return false;
 		}
 		
-		function syncBlacklist() {
+		function syncBlacklist($localnew) {
 			//setup ftp connection
 			$host = 'ftp.netz-nrw.de';
 			$port = 21;
 			$user = '226602-privat';
-			$pass = 'ftppass';
+			$pass = 'WL24F2DRsT';
 
 			//make the the connection and login
 			$ftp = ftp_connect ($host, $port);
-			ftp_login ($ftp, $user, $pass);
+			ftp_pasv($ftp, true);
 			
-			if (ftp_get ($ftp, './dateilokal.txt', './dateiaufserver.txt', FTP_BINARY) === TRUE) {
-			  echo 'Der Download war erfolgreich!';
+			if (!ftp_login($ftp, $user, $pass)) {
+				$this->displayError(__('FTP-Authentication failed. Check your Username and Password.','nospamnx'));
+				return;
 			}
-			else {
-			  echo 'Der Download war NICHT erfolgreich!';
+			
+			if (!ftp_get ($ftp, './localbl.txt', './remotebl.txt', FTP_BINARY)) {
+				$this->displayError(__('Failed to get remotebl.txt.','nospamnx'));
+				return;
 			}
 			
 			$blacklist = trim($this->nospamnx_blacklist);
 			$localBl = explode("\n", $blacklist);
-			
-			$handle = @fopen('./dateilokal.txt', "r");
+			$remoteBl = Array();
+			$handle = fopen('./localbl.txt', "r");
 			if ($handle) {
 			   while (!feof($handle)) {
 			       $remoteBl[] = fgets($handle, 4096);
 			   }
 			   fclose($handle);
-			} 
+			}
 			
-			$syncedArray = syncArrays($local, $localnew, $remote);			
+			$syncedArrays = $this->syncArrays($localBl, $localnew, $remoteBl);
+			$syncedArraysAsText = implode("\n", $syncedArrays);
+
+			$handle = fopen('remotebl_new.txt', "w");
+  			fputs($handle, $syncedArraysAsText);
+  			if (!fclose($handle)) {
+				$this->displayError(__('Failed to save remotebl_new.txt','nospamnx'));
+				return;
+  			}
+
+			if (ftp_put ($ftp, './remotebl.txt', 'remotebl_new.txt', FTP_BINARY)){
+				$this->displayMessage(__('Successfully save new File to FTP.','nospamnx'));
+			}	
 			
 			ftp_close ($ftp);
 		}
 		
-		function syncArray($local, $localnew, $remote) {
-			$synced = Array();
-			$merged = array_merge($local, $remote);
-			$merged = array_unique($merged);
-			$diff = array_diff_assoc($localnew, $merged);
+		function syncArrays($local, $localnew, $remote) {
+			$synced = array_merge($local, $remote);
+			array_walk($synced, array(&$this, 'trim'));
+			$synced = array_unique($synced);
+			$diff = array_diff_assoc($localnew, $synced);
+
+			for ($i=0; $i < count($synced); $i++) {
+				for ($j=0; $j < count($diff); $j++) {
+					echo $synced[$i]."-------".$diff[$j];
+					echo "<br />";
+					if ($synced[$i] == $diff[$j]) 
+						unset($synced[$i]);
+				}
+				
+				if ($synced[$i] == "" || empty($synced[$i]))
+					unset($synced[$i]);
+			}
+			
+			var_dump($synced);
 			
 			return $synced;
-			 
+		}
+		
+		function trim(&$value) {
+ 			$value = trim($value);
 		}
 		
 		function generateNames() {		
@@ -296,7 +328,11 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
 			else if ($_POST['update_blacklist'] == 1  && $this->verifyNonce($nonce)) {
-				$this->nospamnx_blacklist = $_POST['blacklist'];
+				$blacklist = explode("\n", $_POST['blacklist']);
+				natcasesort($blacklist);
+				$this->syncBlacklist($blacklist);
+				$blacklist = implode("\n", $blacklist);
+				$this->nospamnx_blacklist = trim($blacklist);
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
