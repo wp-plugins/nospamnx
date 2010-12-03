@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.19
+Version: 3.20
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -216,7 +216,7 @@ if (!class_exists('NoSpamNX'))
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 				
-			//check referere if neccessary	
+			//check referer if neccessary	
 		    if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
 					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
@@ -252,9 +252,11 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
 			else if ($_POST['update_blacklist'] == 1  && $this->verifyNonce($nonce)) {
+				//order blacklist array
 				$blacklist = explode("\n", $_POST['blacklist']);
 				natcasesort($blacklist);
 				$blacklist = implode("\n", $blacklist);
+				
 				$this->nospamnx_blacklist = trim($blacklist);
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
@@ -285,16 +287,29 @@ if (!class_exists('NoSpamNX'))
 				<div id="icon-options-general" class="icon32"></div>
 				<h2><?php echo __('NoSpamNX Settings','nospamnx'); ?></h2>
 			
-				<div id="poststuff" class="ui-sortable">
+				<div id="poststuff" class="ui-sortable meta-box-sortables">
 					<div class="postbox opened">
 						<h3><?php echo __('Statistic','nospamnx'); ?></h3>
 						<div class="inside">
 							<table class="form-table">
 								<tr>
-									<th scope="row" valign="top">
-									<b><?php echo __('Stopped Spambots','nospamnx'); ?></b>	
-									</th>
-									<td><?php $this->nospamnxStats(); ?></td>
+									<td width="500"><b><?php $this->nospamnxStats(); ?></b></td>
+									<td>
+									<script type="text/javascript">
+									/* <![CDATA[ */
+									    (function() {
+									        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+									        
+									        s.type = 'text/javascript';
+									        s.async = true;
+									        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+									        
+									        t.parentNode.insertBefore(s, t);
+									    })();
+									/* ]]> */
+									</script>
+									<a class="FlattrButton" style="display:none;" href="http://www.svenkubiak.de/nospamnx/"></a>
+									</td>
 								</tr>
 							</table>	
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
@@ -305,7 +320,7 @@ if (!class_exists('NoSpamNX'))
 					</div>
 				</div>
 			
-				<div id="poststuff" class="ui-sortable">
+				<div id="poststuff" class="ui-sortable meta-box-sortables">
 					<div class="postbox opened">		
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
@@ -333,7 +348,7 @@ if (!class_exists('NoSpamNX'))
 					</div>
 				</div>
 				
-				<div id="poststuff" class="ui-sortable">
+				<div id="poststuff" class="ui-sortable meta-box-sortables">
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
@@ -351,7 +366,7 @@ if (!class_exists('NoSpamNX'))
 							</form>									
 						</div>
 					</div>
-				</div>			
+				</div>	
 						
 			</div>	
 			<?php		

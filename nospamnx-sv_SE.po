@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-22 10:21+0100\n"
+"POT-Creation-Date: 2010-12-03 20:08+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
+"Last-Translator: Sven Kubiak <sk@svenkubiak.com>\n"
 "Language-Team: EzBizNiz.com <mats@ezbizniz.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,85 +45,84 @@ msgstr ""
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "NoSpamNX-räknaren nollställdes."
 
-#: nospamnx.php:257
+#: nospamnx.php:262
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr ""
 
-#: nospamnx.php:276
+#: nospamnx.php:281
 msgid "Are you sure you want to reset the counter?"
 msgstr "Är du säker att du vill nollställa räknaren?"
 
-#: nospamnx.php:283
+#: nospamnx.php:288
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX-inställningar"
 
-#: nospamnx.php:287
+#: nospamnx.php:292
 msgid "Statistic"
 msgstr "Statistik"
 
-#: nospamnx.php:292
-msgid "Stopped Spambots"
-msgstr "Stoppade Spam-bottar"
-
-#: nospamnx.php:299
+#: nospamnx.php:317
 msgid "Reset"
 msgstr "Nolställ"
 
-#: nospamnx.php:307
+#: nospamnx.php:325
 msgid "Operating mode"
 msgstr "Funktionalitetsmode"
 
-#: nospamnx.php:309
+#: nospamnx.php:327
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
 msgstr ""
 
-#: nospamnx.php:313
+#: nospamnx.php:331
 msgid "Mode"
 msgstr "Läge"
 
-#: nospamnx.php:316
+#: nospamnx.php:334
 msgid "Block (recommended)"
 msgstr "Blockera (rekommenderas)"
 
-#: nospamnx.php:318
+#: nospamnx.php:336
 msgid "Mark as Spam"
 msgstr "Markera som Spam"
 
-#: nospamnx.php:322
+#: nospamnx.php:340
 msgid "Check HTTP Referer"
 msgstr "Kolla HTTP-referer"
 
-#: nospamnx.php:323
+#: nospamnx.php:341
 msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
 msgstr "Om denna är aktiverad kommer NoSpamNX kolla om referern för en kommentar matchar din blogg-URL. Var god kolla funktionaliteten för denna funktion genom att använda följande länk."
 
-#: nospamnx.php:327
-#: nospamnx.php:347
+#: nospamnx.php:345
+#: nospamnx.php:365
 msgid "Save"
 msgstr "Spara"
 
-#: nospamnx.php:335
+#: nospamnx.php:353
 msgid "Blacklist"
 msgstr "Svartlista"
 
-#: nospamnx.php:337
+#: nospamnx.php:355
 msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
 msgstr ""
 
-#: nospamnx.php:358
+#: nospamnx.php:376
 msgid "Security-Check failed."
 msgstr ""
 
-#: nospamnx.php:445
+#: nospamnx.php:463
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr ""
 
-#: nospamnx.php:448
+#: nospamnx.php:466
 #, php-format
 msgid "Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day)."
 msgid_plural "Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day)."
 msgstr[0] ""
 msgstr[1] ""
+
+#~ msgid "Stopped Spambots"
+#~ msgstr "Stoppade Spam-bottar"
 
 #~ msgid " has stopped %s birdbrained Spambot since it last activation."
 
