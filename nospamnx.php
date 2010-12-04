@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.20
+Version: 3.21
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -85,8 +85,9 @@ if (!class_exists('NoSpamNX'))
 		
 		function checkCommentForm() {															
 			//check if we are in wp-comments-post.php
-			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php')
+			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php') {
 				return;
+			}
 			else {		
 				//perform blacklist check
 				if ($this->blacklistCheck(
@@ -120,7 +121,6 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function birdbrained() {		
-			//count spambot and save
 			$this->nospamnx_count++;
 			$this->setOptions();
 			
@@ -132,7 +132,6 @@ if (!class_exists('NoSpamNX'))
 		}	
 
 		function checkReferer() {
-			//check if referer isnt empty
 			if (empty($_SERVER['HTTP_REFERER']))
 				return false;
 
@@ -160,10 +159,7 @@ if (!class_exists('NoSpamNX'))
 			if ($blacklist == '' || empty($blacklist))
 				return false;
 		
-			//split the values from each line
 			$words = explode("\n", $blacklist);
-
-			//loop through values and check if pattern matches
 			foreach ((array)$words as $word ) {
 				$word = trim($word);
 
@@ -215,8 +211,10 @@ if (!class_exists('NoSpamNX'))
 		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
-				
-			//check referer if neccessary	
+
+			$nonce = $_REQUEST['_wpnonce'];
+
+			//test referer if neccessary	
 		    if ($_GET['refcheck'] == 1) {
 				if ($this->checkReferer() == true)
 					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
@@ -224,7 +222,6 @@ if (!class_exists('NoSpamNX'))
 					$this->displayError(__('Referer-Check failed! The referer does not match WordPress option "home" or "siteurl".','nospamnx'));
 			}
 			
-			$nonce = $_REQUEST['_wpnonce'];
 			//do we have to update general settings?
 			if ($_POST['save_settings'] == 1 && $this->verifyNonce($nonce)) {
 				//which operation mode do we have to save?
@@ -239,10 +236,9 @@ if (!class_exists('NoSpamNX'))
 						$this->nospamnx_operate = 'block';		
 				}	
 
-				//do we have to check the http referer?
+				//do we have to save settings for http referer check?
 				($_POST['nospamnx_checkreferer'] == 1) ? $this->nospamnx_checkreferer = 1 : $this->nospamnx_checkreferer = 0;	
 				
-				//save options and display success message
 				$this->setOptions();
 				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";			
 			}
@@ -277,7 +273,7 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
-			//set confirmation text for reseting the counter and nonce values
+			//set confirmation text for reseting the counter and nonce value
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
@@ -291,27 +287,28 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">
 						<h3><?php echo __('Statistic','nospamnx'); ?></h3>
 						<div class="inside">
-							<table class="form-table">
+							<table>
 								<tr>
-									<td width="500"><b><?php $this->nospamnxStats(); ?></b></td>
+									<td valign="top"><p><b><?php $this->nospamnxStats(); ?></b></p></td>
 									<td>
-									<script type="text/javascript">
-									/* <![CDATA[ */
-									    (function() {
-									        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-									        
-									        s.type = 'text/javascript';
-									        s.async = true;
-									        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-									        
-									        t.parentNode.insertBefore(s, t);
-									    })();
-									/* ]]> */
-									</script>
-									<a class="FlattrButton" style="display:none;" href="http://www.svenkubiak.de/nospamnx/"></a>
+										<script type="text/javascript">
+										/* <![CDATA[ */
+										    (function() {
+										        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+										        
+										        s.type = 'text/javascript';
+										        s.async = true;
+										        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+										        
+										        t.parentNode.insertBefore(s, t);
+										    })();
+										/* ]]> */
+										</script>
+										<a class="FlattrButton" style="display:none;" href="http://www.svenkubiak.de/nospamnx/"></a>
 									</td>
 								</tr>
-							</table>	
+							</table>
+										
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
 								<input type="hidden" value="1" name="reset_counter">			
 								<p><input name="submit" class='button-primary' value="<?php echo __('Reset','nospamnx'); ?>" type="submit" /></p>
@@ -330,10 +327,10 @@ if (!class_exists('NoSpamNX'))
 										<tr>
 											<th scope="row" valign="top"><b><?php echo __('Mode','nospamnx'); ?></b></th>
 											<td>					
-											<input type="hidden" value="true" name="nospamnx_mode">
-											<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
-											<br />
-											<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
+												<input type="hidden" value="true" name="nospamnx_mode">
+												<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
+												<br />
+												<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
 											</td>									
 										</tr>
 										<tr>
@@ -356,9 +353,7 @@ if (!class_exists('NoSpamNX'))
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">					    
 								<tr>
-									<td>
-									<textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea>
-									</td>
+									<td><textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea></td>
 								</tr>
 							</table>	
 							<input type="hidden" value="1" name="update_blacklist">
@@ -459,8 +454,9 @@ if (!class_exists('NoSpamNX'))
 		function displayStats($dashboard=false) {
 			if ($dashboard) {echo "<p>";}
 
-			if ($this->nospamnx_count <= 0)
+			if ($this->nospamnx_count <= 0) {
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
+			}
 			else {
 					printf(__ngettext(
 						"Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day).",
