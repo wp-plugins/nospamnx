@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.21
+Version: 3.22
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 
@@ -135,19 +135,25 @@ if (!class_exists('NoSpamNX'))
 			if (empty($_SERVER['HTTP_REFERER']))
 				return false;
 
-			//check if referer matches 'home' or 'siteurl' (http or https)
+			/**
+			 * Fix by John A Thomson (nospamnx@allayit.com)
+			 * Referer Check now works when WordPress is installed in Sub-Directory 
+			 */
+				
 			if (preg_match("|https|",$_SERVER['HTTP_REFERER'])) {
 				$homessl = preg_replace('/http/', 'https', $this->nospamnx_home);
 				$siteurlssl = preg_replace('/http/', 'https', $this->nospamnx_siteurl);
 				
-				preg_match('@^(?:https://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$matchssl);
-				if ($matchssl[0] != $homessl && $matchssl[0] != $siteurlssl)
-					return false;	
+				preg_match('@^(?:https://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);
+				preg_match('@^(?:https://)?([^/]+)@i',$homessl,$homematch);
+				preg_match('@^(?:https://)?([^/]+)@i',$siteurlssl,$siteurlmatch);				
 			} else {
 				preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);
-				if ($match[0] != $this->nospamnx_home && $match[0] != $this->nospamnx_siteurl) {
-					return false;	
-				}
+				preg_match('@^(?:http://)?([^/]+)@i',$this->nospamnx_home,$homematch);
+				preg_match('@^(?:http://)?([^/]+)@i',$this->nospamnx_siteurl,$siteurlmatch);
+			}
+			if ($match[0] != $homematch[0] && $match[0] != $siteurlmatch[0]) {
+				return false;	
 			} 
 			
 			return true;

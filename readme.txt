@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
-Tested up to: 3.0.2
-Stable tag: 3.21
+Tested up to: 3.0.3
+Stable tag: 3.22
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -89,6 +89,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 3.22 =
+* Fixed Bug with Referer-Check when Blog is installed in Sub-Directory
 
 = 3.21 =
 * Minor Code cleanup
