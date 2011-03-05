@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
-Tested up to: 3.0.3
-Stable tag: 3.22
+Tested up to: 3.1
+Stable tag: 4.0.0
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -12,31 +12,30 @@ To protect your Blog from automated spambots, this plugin adds additional formfi
 
 There have been many new good ideas of fighting automated Spam in WordPress. Most of these Plugins (like the antecessor of NoSpamNX: Yawasp) change the name of one (or more) of your comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. Therefore, NoSpamNX does not change any of your comment fields, but still claims to be very effective. 
 
-Many Antispam Plugins focus on user interaction, e.g. captcha or Math calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions, check each comment against common spam phrases or modify your comment template. NoSpamNX intend to handle automated comment-spam without these measures. It does not require JavaScript, Cookies, Sessions or a Database. It does not change any of your comment template fields, given you full compatibility with other WordPress- or Browser Plugins.
+Many Antispam Plugins focus on user interaction, e.g. captcha or calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions. NoSpamNX intend to handle automated comment-spam-protection without these measures. It does not require JavaScript, Cookies or Sessions. It does not change any of your comment template fields, given you more compatibility with other WordPress- or Browser Plugins.
 
-NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which 99.9% of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a blacklist.
+NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which most of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a local Blacklist or (if you have multiple Blogs) on a global Blacklist. This comes very handy when fighting againt "handmade" Spam.
 	
-The user must no longer fill out any additional fields in the comment form, and you can focus on blogging and your readers comments!
-
 
 = Requirements =
 
-Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
+Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
 
 
 = Features in a nutshell =
 
 * Easy installation (just activate the plugin)
+* Easy configuration (only two options)
+* Local Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
+* Global Blacklist for multiple WordPress Blogs
 * Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
-* Does not require JavaScript, Cookies, Sessions or a Database
-* Does not require any extra field for user input (e.g. Captcha, Pictures, etc.)
-* No need to manage spambot comments
-* No Database queries except for WordPress Options
+* Does not require JavaScript, Cookies or Sessions
+* Does not require any extra field for user input (e.g. Captcha, Calculations, Pictures, etc.)
+* No need to manage spambot comments (if you don't want to)
+* No Database queries except for some few WordPress Options
 * Compatible with WPtouch (Mobile Theme)
-* Optional Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
 * False-positives are nearly impossible
-* Less than 500 Lines of Code
 
 
 = Available Languages  =
@@ -44,8 +43,6 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 * German
 * English
 * Spanish (Thanks to Samuel Aguilera)
-* Chinese (Thanks to Donald Z)
-* Swedish (Thanks to Mats Bergsten)
 * French (Thanks to Sylvain Ménard)
 * Italian (Thanks to Gianni Diurno)
 * Russian (Thanks to minimus)
@@ -57,7 +54,6 @@ Make sure your theme loads <code>wp_head</code> and <code>comment_form</code> ac
 3. Activate plugin
 4. (Optional) Adjust settings (Settings -> NoSpamNX)
 
-Done!
 
 == Frequently Asked Questions ==
 
@@ -89,6 +85,16 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.0.0 =
+* Improved Spambot-Protection
+* Added local and global Blacklist
+* Referer Check is now built-in
+* Removed all deprecated variables
+* Removed Translations with less than 60% translation
+* Code cleanup
+* Updated Screenshots
+* Updated readme
 
 = 3.22 =
 * Fixed Bug with Referer-Check when Blog is installed in Sub-Directory

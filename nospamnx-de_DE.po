@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-03 20:07+0100\n"
+"POT-Creation-Date: 2011-02-13 12:57+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.com>\n"
 "Language-Team: Sven Kubiak <mail@svenkubiak.de>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:73
+#: nospamnx.php:69
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!"
 msgstr "Dein WordPress ist zu alt. NoSpamNX ben&ouml;tigt mind. WordPress 2.8!"
 
-#: nospamnx.php:131
+#: nospamnx.php:133
 msgid "Sorry, but your comment seems to be Spam."
 msgstr "Sorry, aber dein Kommentar scheint Spam zu sein."
 
@@ -29,97 +29,140 @@ msgstr "Sorry, aber dein Kommentar scheint Spam zu sein."
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Sorry, aber Du hast keine Berechtigung um Einstellungen zu &auml;ndern."
 
-#: nospamnx.php:222
-msgid "Referer-Check successfull! You may turn on Referer-Check."
-msgstr "Referer-Check erfolgreich! Du kannst den Referer-Check aktivieren."
-
-#: nospamnx.php:224
-msgid "Referer-Check failed! The referer does not match WordPress option \"home\" or \"siteurl\"."
-msgstr "Referer-Check fehlgeschlagen! Der Referer stimmt nicht mit der WordPress option \"home\" oder \"siteurl\" überein."
-
-#: nospamnx.php:247
+#: nospamnx.php:233
 msgid "NoSpamNX settings were saved successfully."
 msgstr "NoSpamNX Einstellungen wurden erfolgreich gespeichert."
 
-#: nospamnx.php:252
+#: nospamnx.php:238
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "NoSpamNX Z&auml;hler wurde erfolgreich zur&uuml;ckgesetzt."
 
-#: nospamnx.php:262
+#: nospamnx.php:249
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "NoSpamNX Blacklist wurde erfolgreich aktualisiert."
 
-#: nospamnx.php:281
+#: nospamnx.php:264
 msgid "Are you sure you want to reset the counter?"
 msgstr "Bist du sicher, dass du den Z&auml;hler zur&uuml;cksetzen m&ouml;chtest?"
 
-#: nospamnx.php:288
+#: nospamnx.php:271
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX Einstellungen"
 
-#: nospamnx.php:292
+#: nospamnx.php:275
 msgid "Statistic"
 msgstr "Statistik"
 
-#: nospamnx.php:317
+#: nospamnx.php:299
 msgid "Reset"
 msgstr "Zur&uuml;cksetzen"
 
-#: nospamnx.php:325
+#: nospamnx.php:307
 msgid "Operating mode"
 msgstr "Funktionsweise"
 
-#: nospamnx.php:327
-msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"Block\". If you want to see what might be blocked, select mark as spam."
-msgstr "Standardm&auml;ßig werden alle Spambots als Spam markiert. Wenn Du sehen m&ouml;chtest was blockiert wird, w&auml;hle als Spam markieren."
+#: nospamnx.php:309
+msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
+msgstr "Standardm&auml;ßig werden alle Spambots als Spam markiert, aber die empfohlene Einstellung ist \"blockieren\". Wenn Du unsicher bist was blockiert werden k&ouml;nnnte, w&auml;hle zun&auml;chst \"Als Spam markieren\" und wechsle dann sp&auml;ter zu \"blockieren\"."
 
-#: nospamnx.php:331
+#: nospamnx.php:313
 msgid "Mode"
 msgstr "Modus"
 
-#: nospamnx.php:334
+#: nospamnx.php:316
 msgid "Block (recommended)"
 msgstr "Blockieren (empfohlen)"
 
-#: nospamnx.php:336
+#: nospamnx.php:318
 msgid "Mark as Spam"
 msgstr "Als Spam markieren"
 
-#: nospamnx.php:340
-msgid "Check HTTP Referer"
-msgstr "Pr&uuml;fe HTTP Referer"
-
-#: nospamnx.php:341
-msgid "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link."
-msgstr "Wenn aktiviert, pr&uuml;ft NoSpamNX ob der Referer eines Kommentares mit deiner Blog-URL &uuml;bereinstimmt. Bitte pr&uuml;fe die einwandfreie Funktionsweise dieser Option, mit dem folgenden Link."
-
-#: nospamnx.php:345
-#: nospamnx.php:365
+#: nospamnx.php:323
+#: nospamnx.php:368
 msgid "Save"
 msgstr "Speichern"
 
-#: nospamnx.php:353
+#: nospamnx.php:331
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: nospamnx.php:355
-msgid "The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put \"foo\" in the list \"foobar\" will be blocked as well. Please use one value per line."
-msgstr "Die NoSpamNX Blacklist ist vergleichbar mit der WordPress Blacklist (sie basiert auf dem gleichen Code). Die NoSpamNX Blacklist erm&ouml;glicht aber Kommentare mit bestimmten Werten zu blockieren, anstatt diese in die Moderation zu verschieben. Diese Option macht also nur Sinn, wenn NoSpamNX im Modus \"Blockieren\" benutzt wird. Die NoSpamNX Blacklist pr&uuml;ft die angegebenen Werte gegen die IP-Adresse, den Autor, die E-Mail-Adresse, das Kommentarfeld und die URL eines Kommentares. Wenn ein Muster erkannt wird, wird der Kommentar blockiert. Wie die WordPress Blacklist benutzt auch die NoSpamNX Blacklist Teilstrings, d.h. wenn \"foo\" in der Liste steht, wird auch \"foobar\" blockiert. Bitte benutze ein Wert pro Zeile."
+#: nospamnx.php:336
+msgid "Both local and global Blacklist are case-insensitive and match substrings!"
+msgstr "Sowohl die lokale, als auch die globale Blacklist sind case-insensitive und reagieren auf Teilwörter!"
 
-#: nospamnx.php:376
+#: nospamnx.php:339
+msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line."
+msgstr "Die lokale Blacklist ist vergleichbar mit der WordPress Blacklist. Allerdings ist es mit der lokalen Blacklist m&ouml;glich, Kommentare mit bestimmten Werten zu blockieren, anstatt diese in die Moderation zu verschieben. Die lokale Blacklist macht also nur Sinn, wenn NoSpamNX im Modus 'blockieren' arbeitet. Die lokale Blacklist pr&uuml;ft die eigegebenen Werte gegen die IP-Adresse, den Autor, die E-Mail-Adresse, den Kommentar und das URL-Feld. Wenn eine &Uuml;bereinstimmung gefunden wird, wird der Kommentar blockiert. Bitte benutze einen Wert pro Zeile."
+
+#: nospamnx.php:340
+msgid ""
+"The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
+"\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL."
+msgstr ""
+"Die globale Blacklist erm&ouml;glicht es dir eine Blacklist f&uuml;r mehrere WordPress Blogs zu benutzen. Du musst einen Ort festlegen, an dem du die Blacklist speichern m&ouml;chtest (z.B. Webspace, Dropbox, etc. - aber nur HTTP!), und diesen Ort in das Feld \"Update URL\" eintragen. Wie du deine Blacklist aufbaust (z.B. PHP-Skript mit Datenbank, einfache Textdatei, etc.) ist dir &uuml;berlassen. Du musst allerdings sicherstellen, dass die Update URL einen Wert pro Zeile separiert durch \"\\n"
+"\" zur&uuml;ckliefert. F&uuml;ge deine Update URL in alle Blogs ein, in denen du damit arbeiten m&ouml;chtest und setze den Aktualisierungszeitraum entsprechend deinen Anforderungen. Die globale Blacklist wird durch das Hinzuf&uuml;gen einer Update URL aktiviert."
+
+#: nospamnx.php:343
+msgid "Local Blacklist"
+msgstr "Lokale Blacklist"
+
+#: nospamnx.php:344
+msgid "Global Blacklist"
+msgstr "Globale Blacklist"
+
+#: nospamnx.php:352
+#: nospamnx.php:354
+msgid "Last update"
+msgstr "Letzte Aktualisierung"
+
+#: nospamnx.php:360
+msgid "Update URL (e.g. http://www.mydomain.com/myblacklist.txt)"
+msgstr "Update URL (z.B. http://www.meinedomain.de/meineblacklist.txt)"
+
+#: nospamnx.php:364
+msgid "Update every"
+msgstr "Aktualisere alle"
+
+#: nospamnx.php:364
+msgid "minutes."
+msgstr "Minuten."
+
+#: nospamnx.php:380
 msgid "Security-Check failed."
 msgstr "Sicherheitscheck gescheitert."
 
-#: nospamnx.php:463
+#: nospamnx.php:529
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX hat bisher keine dummen Spambots aufgehalten."
 
-#: nospamnx.php:466
+#: nospamnx.php:533
 #, php-format
-msgid "Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day)."
-msgid_plural "Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day)."
-msgstr[0] "Seit seiner letzten Aktivierung am %s hat %s %s dummen Spambot gestoppt (%s pro Tag)."
-msgstr[1] "Seit seiner letzten Aktivierung am %s hat %s %s dumme Spambots gestoppt (%s pro Tag)."
+msgid "Since %s %s has stopped %s birdbrained Spambot (%s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (%s per Day)."
+msgstr[0] "Seit dem %s hat %s %s dummen Spambot gestoppt (%s pro Tag)."
+msgstr[1] "Seit dem %s hat %s %s dumme Spambots gestoppt (%s pro Tag)."
+
+#~ msgid "Referer-Check successfull! You may turn on Referer-Check."
+#~ msgstr "Referer-Check erfolgreich! Du kannst den Referer-Check aktivieren."
+
+#~ msgid ""
+#~ "Referer-Check failed! The referer does not match WordPress option \"home"
+#~ "\" or \"siteurl\"."
+#~ msgstr ""
+#~ "Referer-Check fehlgeschlagen! Der Referer stimmt nicht mit der WordPress "
+#~ "option \"home\" oder \"siteurl\" überein."
+
+#~ msgid "Check HTTP Referer"
+#~ msgstr "Pr&uuml;fe HTTP Referer"
+
+#~ msgid ""
+#~ "If enabled, NoSpamNX checks if the referer of a comment matches your Blog-"
+#~ "URL. Please check the correct functionality of this feature, using the "
+#~ "following Link."
+#~ msgstr ""
+#~ "Wenn aktiviert, pr&uuml;ft NoSpamNX ob der Referer eines Kommentares mit "
+#~ "deiner Blog-URL &uuml;bereinstimmt. Bitte pr&uuml;fe die einwandfreie "
+#~ "Funktionsweise dieser Option, mit dem folgenden Link."
 
 #~ msgid "Stopped Spambots"
 #~ msgstr "Aufgehaltene Spambots"

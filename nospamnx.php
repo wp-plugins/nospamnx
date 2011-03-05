@@ -3,11 +3,12 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 3.22
+Version: 4.0.0
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
+Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
-Copyright 2008-2010 Sven Kubiak
+Copyright 2008-2011 Sven Kubiak
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,9 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
-define('REQWP28', version_compare($wp_version, '2.8', '>='));
-define('DEFAULTCSS', 'lotsensurrt');
-define('UPDATEOPTIONS', false);
+define('NXREQWP28', version_compare($wp_version, '2.8', '>='));
 
 if (!class_exists('NoSpamNX'))
 {
@@ -36,37 +35,35 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_count;
 		var $nospamnx_operate;
 		var $nospamnx_blacklist;
-		var $nospamnx_cssname;
-		var $nospamnx_checkreferer;
+		var $nospamnx_blacklist_global;		
+		var $nospamnx_blacklist_global_url;			
+		var $nospamnx_blacklist_global_update;
+		var $nospamnx_blacklist_global_lu;				
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
 		var $nospamnx_home;
-		var $nospamnx_siteurl;		
-		var $nospamnx_version;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
-				load_plugin_textdomain('nospamnx', PLUGINDIR.'/nospamnx');
+				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename( __FILE__ )));
 				
-			if (REQWP28 != true) {
+			if (NXREQWP28 != true) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
 			}
 
-			//tell wp what to do when plugin is activated and uninstalled
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
 				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
-
-			//load nospamnx options
+				
 			$this->getOptions();
-			
-			//add nospamnx wordpress actions	
+			$this->loadGlobalBlacklist();				
+
 			add_action('init', array(&$this, 'checkCommentForm'));		
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
-			add_action('comment_form', array(&$this, 'addHiddenFields'));	
+			add_action('comment_form', array(&$this, 'addHiddenFields'));
 		}
 
 		function wpVersionFail() {
@@ -76,30 +73,37 @@ if (!class_exists('NoSpamNX'))
 		function addHiddenFields() {	
 			$nospamnx = $this->nospamnx_names;
 			
-			//output hidden fields to the comment form
-			if (rand(1,2) == 1)
-				echo '<p><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none;" /><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none;" /></p>';
-			else
-				echo '<p><input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" style="display:none;" /><input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" style="display:none;" /></p>';						
+			if (rand(1,2) == 1) {
+				echo '<p style="display:none;">';
+				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
+				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
+				echo '<input type="hidden" name="nx-comment-url" value="'.$this->getDomain($this->nospamnx_home).'" />';
+				echo '</p>';
+			}
+			else {
+				echo '<p style="display:none;">';
+				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
+				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
+				echo '<input type="hidden" name="nx-comment-url" value="'.$this->getDomain($this->nospamnx_home).'" />';
+				echo '</p>';
+			}						
 		}
 		
 		function checkCommentForm() {															
-			//check if we are in wp-comments-post.php
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php') {
 				return;
 			}
 			else {		
-				//perform blacklist check
+				if ($this->checkReferer($_POST['nx-comment-url']) == false)
+					$this->birdbrained();
+				
+				//perform local and global blacklist check
 				if ($this->blacklistCheck(
 						trim($_POST['author']),
 						trim($_POST['email']),
 						trim($_POST['url']),
 						$_POST['comment'],
 						$_SERVER['REMOTE_ADDR']) == true)
-					$this->birdbrained();
-				
-				//check if referer check is enabled and check referer
-				if ($this->nospamnx_checkreferer == 1 && $this->checkReferer() == false)
 					$this->birdbrained();
 				
 				//get hidden field names for check
@@ -124,65 +128,60 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_count++;
 			$this->setOptions();
 			
-			//check in which mode we are and block or mark as spam
 			if ($this->nospamnx_operate == 'mark')
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			else
 				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 		}	
 
-		function checkReferer() {
-			if (empty($_SERVER['HTTP_REFERER']))
+		function checkReferer($url) {
+			$domain = $this->getDomain($this->nospamnx_home);
+			if (empty($domain) || $domain == '')
+				return true;
+				
+			if (empty($_SERVER['HTTP_REFERER']) || empty($url))
 				return false;
 
-			/**
-			 * Fix by John A Thomson (nospamnx@allayit.com)
-			 * Referer Check now works when WordPress is installed in Sub-Directory 
-			 */
-				
-			if (preg_match("|https|",$_SERVER['HTTP_REFERER'])) {
-				$homessl = preg_replace('/http/', 'https', $this->nospamnx_home);
-				$siteurlssl = preg_replace('/http/', 'https', $this->nospamnx_siteurl);
-				
-				preg_match('@^(?:https://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);
-				preg_match('@^(?:https://)?([^/]+)@i',$homessl,$homematch);
-				preg_match('@^(?:https://)?([^/]+)@i',$siteurlssl,$siteurlmatch);				
-			} else {
-				preg_match('@^(?:http://)?([^/]+)@i',$_SERVER['HTTP_REFERER'],$match);
-				preg_match('@^(?:http://)?([^/]+)@i',$this->nospamnx_home,$homematch);
-				preg_match('@^(?:http://)?([^/]+)@i',$this->nospamnx_siteurl,$siteurlmatch);
-			}
-			if ($match[0] != $homematch[0] && $match[0] != $siteurlmatch[0]) {
-				return false;	
-			} 
+			$referer 	= strtolower(trim($this->getDomain($_SERVER['HTTP_REFERER'])));
+			$url 		= strtolower(trim($url));
 			
-			return true;
+			if ($referer == $url)
+				return true;
+			else
+				return false;
 		}
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
-			$blacklist = trim($this->nospamnx_blacklist);
+			$blacklist = array(
+				0 => trim($this->nospamnx_blacklist),
+				1 => trim($this->nospamnx_blacklist_global)												
+			);
 			
-			if ($blacklist == '' || empty($blacklist))
-				return false;
-		
-			$words = explode("\n", $blacklist);
-			foreach ((array)$words as $word ) {
-				$word = trim($word);
+			$author		= strtolower($author);
+			$email 		= strtolower($email);
+			$url 		= strtolower($url);
+			$comment 	= strtolower($comment);
 
-				//skip through empty lines
-				if (empty($word))
-					continue;
-
-				$word = preg_quote($word, '#');
-				$pattern = "#$word#i";
-			
-				//check word against comment form values
-				if (preg_match($pattern, $author)
-					|| preg_match($pattern, $email)
-					|| preg_match($pattern, $url)
-					|| preg_match($pattern, $remoteip)
-					|| preg_match($pattern, $comment))
-				return true;
+			for ($i=0; $i <= 1; $i++) {
+				$words = explode("\n", $blacklist[$i]);
+				
+				foreach ((array)$words as $word ) {
+					$word = trim($word);
+	
+					if (empty($word))
+						continue;
+	
+					$word = strtolower($word);
+					$word = preg_quote($word, '#');
+					$pattern = "#$word#i";
+				
+					if (preg_match($pattern, $author)
+						|| preg_match($pattern, $email)
+						|| preg_match($pattern, $url)
+						|| preg_match($pattern, $remoteip)
+						|| preg_match($pattern, $comment))
+					return true;
+				}
 			}
 			
 			return false;
@@ -203,7 +202,7 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function nospamnxAdminMenu() {
-			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));	
+			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));
 		}
 		
 		function displayMessage($message) {
@@ -213,24 +212,17 @@ if (!class_exists('NoSpamNX'))
 		function displayError($message) {
 			echo "<div id='message' class='error'><p>".$message."</p></div>";
 		}
-
+		
 		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'));
 
-			$nonce = $_REQUEST['_wpnonce'];
-
-			//test referer if neccessary	
-		    if ($_GET['refcheck'] == 1) {
-				if ($this->checkReferer() == true)
-					$this->displayMessage(__('Referer-Check successfull! You may turn on Referer-Check.','nospamnx'));
-				else
-					$this->displayError(__('Referer-Check failed! The referer does not match WordPress option "home" or "siteurl".','nospamnx'));
-			}
+			(isset($_REQUEST['_wpnonce'])) 		? $nonce = $_REQUEST['_wpnonce'] : $nonce = '';
+			(isset($_POST['save_settings'])) 	? $save_settings = $_POST['save_settings'] : $save_settings = '';
+			(isset($_POST['reset_counter'])) 	? $reset_counter = $_POST['reset_counter'] : $reset_counter = '';
+			(isset($_POST['update_blacklist'])) ? $update_blacklist = $_POST['update_blacklist'] : $update_blacklist = '';
 			
-			//do we have to update general settings?
-			if ($_POST['save_settings'] == 1 && $this->verifyNonce($nonce)) {
-				//which operation mode do we have to save?
+			if ($save_settings == 1 && $this->verifyNonce($nonce)) {
 				switch($_POST['nospamnx_operate']) {
 					case 'block':
 						$this->nospamnx_operate = 'block';
@@ -239,33 +231,27 @@ if (!class_exists('NoSpamNX'))
 						$this->nospamnx_operate = 'mark';
 					break;
 					default:
-						$this->nospamnx_operate = 'block';		
-				}	
-
-				//do we have to save settings for http referer check?
-				($_POST['nospamnx_checkreferer'] == 1) ? $this->nospamnx_checkreferer = 1 : $this->nospamnx_checkreferer = 0;	
-				
+						$this->nospamnx_operate = 'mark';		
+				}			
 				$this->setOptions();
-				echo "<div id='message' class='updated fade'><p>".__('NoSpamNX settings were saved successfully.','nospamnx')."</p></div>";			
+				$this->displayMessage(__('NoSpamNX settings were saved successfully.','nospamnx'));		
 			}
-			else if ($_POST['reset_counter'] == 1  && $this->verifyNonce($nonce)) {
+			else if ($reset_counter == 1 && $this->verifyNonce($nonce)) {
 				$this->nospamnx_count = 0;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
-			else if ($_POST['update_blacklist'] == 1  && $this->verifyNonce($nonce)) {
-				//order blacklist array
+			else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
 				$blacklist = explode("\n", $_POST['blacklist']);
 				natcasesort($blacklist);
 				$blacklist = implode("\n", $blacklist);
-				
+
 				$this->nospamnx_blacklist = trim($blacklist);
+				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
+				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
-			
-			//set checked values for radio buttons
-			($this->nospamnx_checkreferer == 1)  ? 	$checkreferer = 'checked=checked' : $checkreferer = '';
 
 			//set checked values for operating mode
 			switch ($this->nospamnx_operate) {
@@ -279,12 +265,11 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
-			//set confirmation text for reseting the counter and nonce value
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
 			?>
-							
+
 			<div class="wrap">
 				<div id="icon-options-general" class="icon32"></div>
 				<h2><?php echo __('NoSpamNX Settings','nospamnx'); ?></h2>
@@ -301,11 +286,9 @@ if (!class_exists('NoSpamNX'))
 										/* <![CDATA[ */
 										    (function() {
 										        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-										        
 										        s.type = 'text/javascript';
 										        s.async = true;
 										        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-										        
 										        t.parentNode.insertBefore(s, t);
 										    })();
 										/* ]]> */
@@ -327,7 +310,7 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">		
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
-								<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "Block". If you want to see what might be blocked, select mark as spam.','nospamnx'); ?></p>
+								<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "block". If you are uncertain what will be blocked, select "Mark as Spam" at first and switch to "block" later on.','nospamnx'); ?></p>
 								<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 								<table class="form-table">						
 										<tr>
@@ -338,11 +321,7 @@ if (!class_exists('NoSpamNX'))
 												<br />
 												<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
 											</td>									
-										</tr>
-										<tr>
-											<th scope="row" valign="top"><b><?php echo __('Check HTTP Referer','nospamnx'); ?></b></th>
-											<td valign="top"><input type="checkbox" name="nospamnx_checkreferer" value="1"  <?php echo $checkreferer; ?> /><br /><?php echo __('If enabled, NoSpamNX checks if the referer of a comment matches your Blog-URL. Please check the correct functionality of this feature, using the following Link.','nospamnx'); ?> <a href="options-general.php?page=nospamnx&refcheck=1">Referer-Check</a></td>									
-										</tr>																	
+										</tr>																
 								</table>
 								<input type="hidden" value="1" name="save_settings">
 								<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
@@ -355,12 +334,39 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
-							<p><?php echo __('The NoSpamNX Blacklist is comparable to the WordPress Blacklist (it is based on the same code). However, the NoSpamNX Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, this option only makes sense when using NoSpamNX in blocking mode. The NoSpamNX Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Like the WordPress Blacklist the NoSpamNX Blacklist uses substrings, so if you put "foo" in the list "foobar" will be blocked as well. Please use one value per line.','nospamnx'); ?></p>
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
-							<table class="form-table">					    
+							<table class="form-table">
 								<tr>
-									<td><textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea></td>
+									<td colspan="2" valign="top"><b><?php echo __('Both local and global Blacklist are case-insensitive and match substrings!','nospamnx'); ?></b></td>
+								</tr>							
+								<tr>
+									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line.','nospamnx'); ?></td>
+									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL.','nospamnx'); ?>
+								</tr>								
+								<tr>
+									<td width="50%"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></td>
+									<td width="50%"><b><?php echo __('Global Blacklist','nospamnx'); ?></b></td>
+								</tr>												    
+								<tr>
+									<td width="50%" valign="top"><textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea></td>
+									<td width="50%" valign="top"><textarea name="blacklist_global" readonly class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist_global; ?></textarea>
+									<br />
+									<?php 
+										if (empty($this->nospamnx_blacklist_global_lu))
+											echo __('Last update','nospamnx').": -";
+										else 
+											echo __('Last update','nospamnx').": ".date_i18n("M j, Y @ G:i", $this->nospamnx_blacklist_global_lu + 3600, true);
+									?>
+									</td>
 								</tr>
+								<tr>
+									<td width="50%">&nbsp;</td>
+									<td width="50%"><b><?php echo __('Update URL (e.g. http://www.mydomain.com/myblacklist.txt)','nospamnx'); ?></b><br /><input type="text" name="blacklist_global_url" value="<?php echo $this->nospamnx_blacklist_global_url; ?>" class="large-text code" /></td>
+								</tr>							
+								<tr>
+									<td width="50%">&nbsp;</td>
+									<td width="50%"><b><?php echo __('Update every','nospamnx'); ?>&nbsp;<input type="text" name="blacklist_global_update" value="<?php echo $this->nospamnx_blacklist_global_update; ?>" size="5"/>&nbsp;<?php echo __('minutes.','nospamnx'); ?></b></td>
+								</tr>															
 							</table>	
 							<input type="hidden" value="1" name="update_blacklist">
 							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
@@ -370,6 +376,7 @@ if (!class_exists('NoSpamNX'))
 				</div>	
 						
 			</div>	
+			
 			<?php		
 		}	
 		
@@ -379,65 +386,94 @@ if (!class_exists('NoSpamNX'))
 			return true;
 		}
 		
-		function nospamnxStyle() {		
-			$css = $this->nospamnx_siteurl . '/' . PLUGINDIR . '/nospamnx/nospamnx.css';		
-			echo "<link rel=\"stylesheet\" href=\"$css\" type=\"text/css\" />\n";
-		}
-		
 		function activate() {
-			$options = array(
-				'nospamnx_names' 		=> $this->generateNames(),
-				'nospamnx_count'		=> 0,
-				'nospamnx_operate'		=> 'mark',
-				'nospamnx_checkreferer'	=> 0,	
-				'nospamnx_cssname'		=> DEFAULTCSS,
-				'nospamnx_activated'	=> time(),
-				'nospamnx_dateformat'	=> get_option('date_format'),
-				'nospamnx_home'			=> get_option('home'),
-				'nospamnx_siteurl'		=> get_option('siteurl')								
-			);
-			
-			if (UPDATEOPTIONS) {
-				update_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
-		    	update_option('nospamnx', $options);				
-			} else {
-				add_option('nospamnx-blacklist', get_option('nospamnx-blacklist'));
-		    	add_option('nospamnx', $options);				
+	    	if (get_option('nospamnx') == false) {
+				$options = array(
+					'nospamnx_names' 					=> $this->generateNames(),
+					'nospamnx_count'					=> 0,
+					'nospamnx_operate'					=> 'mark',
+					'nospamnx_activated'				=> time(),
+					'nospamnx_dateformat'				=> get_option('date_format'),
+					'nospamnx_home'						=> get_option('home'),
+					'nospamnx_blacklist_global_lu'		=> 0,
+					'nospamnx_blacklist_global_url'		=> '',
+					'nospmanx_blacklist_global_update'	=> ''												
+				);
+				add_option('nospamnx', $options);
+	    	}	
+			else {
+				$options = get_option('nospamnx');
+
+				if (!array_key_exists('nospamnx_names',$options))
+					$options['nospamnx_names'] = $this->generateNames();
+					
+				if (!array_key_exists('nospamnx_count',$options))
+					$options['nospamnx_count'] = 0;
+					
+				if (!array_key_exists('nospamnx_operate',$options))
+					$options['nospamnx_operate'] = 'mark';					
+
+				if (!array_key_exists('nospamnx_activated',$options))
+					$options['nospamnx_activated'] = time();
+
+				if (!array_key_exists('nospamnx_dateformat',$options))
+					$options['nospamnx_dateformat'] = get_option('date_format');						
+
+				if (!array_key_exists('nospamnx_home',$options))
+					$options['nospamnx_home'] = get_option('home');
+
+				if (!array_key_exists('nospamnx_blacklist_global_lu',$options))
+					$options['nospamnx_blacklist_global_lu'] = 0;
+
+				if (!array_key_exists('nospamnx_blacklist_global_url',$options))
+					$options['nospamnx_blacklist_global_url'] = '';
+
+				if (!array_key_exists('nospmanx_blacklist_global_update',$options))
+					$options['nospmanx_blacklist_global_update'] = '';					
+					
+				update_option('nospamnx', $options);			
 			}
+			
+			if (get_option('nospamnx-blacklist') == false)
+				add_option('nospamnx-blacklist-global', '');
+			
+			if (get_option('nospamnx-blacklist') == false)
+				add_option('nospamnx-blacklist', '');
 		}	
 
-		function uninstall() {
+		static function uninstall() {
 			delete_option('nospamnx');	
-			delete_option('nospamnx-blacklist');	
+			delete_option('nospamnx-blacklist');
+			delete_option('nospamnx-blacklist-global');	
 		}
 		
 		function getOptions() {
 			$options = get_option('nospamnx');
 				
-			$this->nospamnx_names 			= $options['nospamnx_names'];
-			$this->nospamnx_count			= $options['nospamnx_count'];
-			$this->nospamnx_operate			= $options['nospamnx_operate'];
-			$this->nospamnx_cssname			= $options['nospamnx_cssname'];			
-			$this->nospamnx_checkreferer	= $options['nospamnx_checkreferer'];
-			$this->nospamnx_activated		= $options['nospamnx_activated'];
-			$this->nospamnx_dateformat		= $options['nospamnx_dateformat'];
-			$this->nospamnx_home			= $options['nospamnx_home'];
-			$this->nospamnx_siteurl			= $options['nospamnx_siteurl'];			
-			$this->nospamnx_version			= $options['nospamnx_version'];
-			$this->nospamnx_blacklist		= get_option('nospamnx-blacklist');
+			$this->nospamnx_names 					= $options['nospamnx_names'];
+			$this->nospamnx_count					= $options['nospamnx_count'];
+			$this->nospamnx_operate					= $options['nospamnx_operate'];
+			$this->nospamnx_activated				= $options['nospamnx_activated'];
+			$this->nospamnx_dateformat				= $options['nospamnx_dateformat'];
+			$this->nospamnx_home					= $options['nospamnx_home'];
+			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
+			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
+			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
+			$this->nospamnx_blacklist_global		= get_option('nospamnx-blacklist-global');													
+			$this->nospamnx_blacklist				= get_option('nospamnx-blacklist');		
 		}
 		
 		function setOptions() {
 			$options = array(
-				'nospamnx_names'		=> $this->nospamnx_names,
-				'nospamnx_count'		=> $this->nospamnx_count,
-				'nospamnx_operate'		=> $this->nospamnx_operate,
-				'nospamnx_cssname'		=> $this->nospamnx_cssname,		
-				'nospamnx_checkreferer'	=> $this->nospamnx_checkreferer,
-				'nospamnx_activated'	=> $this->nospamnx_activated,
-				'nospamnx_dateformat'	=> $this->nospamnx_dateformat,
-				'nospamnx_home'			=> $this->nospamnx_home,
-				'nospamnx_siteurl'		=> $this->nospamnx_siteurl,			
+				'nospamnx_names'					=> $this->nospamnx_names,
+				'nospamnx_count'					=> $this->nospamnx_count,
+				'nospamnx_operate'					=> $this->nospamnx_operate,	
+				'nospamnx_activated'				=> $this->nospamnx_activated,
+				'nospamnx_dateformat'				=> $this->nospamnx_dateformat,
+				'nospamnx_home'						=> $this->nospamnx_home,
+				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
+				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,	
+				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu			
 			);
 			
 			update_option('nospamnx-blacklist', $this->nospamnx_blacklist);
@@ -457,6 +493,39 @@ if (!class_exists('NoSpamNX'))
 			return ceil($this->nospamnx_count / $days);
 		}
 		
+		function getDomain($url) {
+			$string = ereg_replace('www\.','',$url);
+			$domain = parse_url($string);
+			
+			return $domain["host"];
+		}
+		
+		function loadGlobalBlacklist() {
+			if (!function_exists('curl_init') || empty($this->nospamnx_blacklist_global_url))
+				return;
+
+			$time = time();
+			if ((($time - $this->nospamnx_blacklist_global_lu)) < ($this->nospamnx_blacklist_global_update * 60))
+				return;	
+				
+			$curl = curl_init();
+			curl_setopt($curl,CURLOPT_URL,$this->nospamnx_blacklist_global_url);
+			curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,10);
+			curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
+			$buffer = curl_exec($curl);
+			
+			if(curl_errno($curl) != 0) {
+				curl_close($curl);	
+		    	return;
+			}
+			curl_close($curl);
+
+			update_option('nospamnx-blacklist-global', $buffer);
+			$this->nospamnx_blacklist_global = $buffer;
+			$this->nospamnx_blacklist_global_lu = $time;
+			$this->setOptions();
+		}		
+		
 		function displayStats($dashboard=false) {
 			if ($dashboard) {echo "<p>";}
 
@@ -464,15 +533,15 @@ if (!class_exists('NoSpamNX'))
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			}
 			else {
-					printf(__ngettext(
-						"Since its last activation on %s %s has stopped %s birdbrained Spambot (%s per Day).",
-						"Since its last activation on %s %s has stopped %s birdbrained Spambots (%s per Day).",
-						$this->nospamnx_count, 'nospamnx'),
-						date_i18n($this->nospamnx_dateformat, $this->nospamnx_activated),
-						'<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>',
-						$this->nospamnx_count,
-						$this->getStatsPerDay()
-					);
+				printf(__ngettext(
+					"Since %s %s has stopped %s birdbrained Spambot (%s per Day).",
+					"Since %s %s has stopped %s birdbrained Spambots (%s per Day).",
+					$this->nospamnx_count, 'nospamnx'),
+					date_i18n($this->nospamnx_dateformat, $this->nospamnx_activated),
+					'<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>',
+					$this->nospamnx_count,
+					$this->getStatsPerDay()
+				);
 			}
 			
 			if ($dashboard) {echo "</p>";}			
