@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.1
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -19,7 +19,7 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 
 = Requirements =
 
-Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly!
+Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly! Furthermore, NoSpamNX requires at least PHP 5.0!
 
 
 = Features in a nutshell =
@@ -85,6 +85,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.0.2 =
+* Added PHP Version Check
+* Improved Referer-Check
+* Updated Spanish Translation
 
 = 4.0.1 =
 * Updated Russian Translation

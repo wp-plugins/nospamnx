@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.1
+Version: 4.0.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
 define('NXREQWP28', version_compare($wp_version, '2.8', '>='));
+define('NXREQPHP5', version_compare(PHP_VERSION, '5.0.0', '>='));
 
 if (!class_exists('NoSpamNX'))
 {
@@ -46,6 +47,11 @@ if (!class_exists('NoSpamNX'))
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename( __FILE__ )));
+				
+			if (NXREQPHP5 != true) {
+				add_action('admin_notices', array(&$this, 'phpVersionFail'));
+				return;
+			}				
 				
 			if (NXREQWP28 != true) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
@@ -69,6 +75,10 @@ if (!class_exists('NoSpamNX'))
 		function wpVersionFail() {
 			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!','nospamnx'));
 		}
+		
+		function phpVersionFail() {
+			$this->displayError(__('Your PHP is to old. NoSpamNX requires at least PHP 5.0!','nospamnx'));
+		}		
 		
 		function addHiddenFields() {	
 			$nospamnx = $this->nospamnx_names;
@@ -136,7 +146,7 @@ if (!class_exists('NoSpamNX'))
 
 		function checkReferer($url) {
 			$domain = $this->getDomain($this->nospamnx_home);
-			if (empty($domain) || $domain == '')
+			if (empty($domain) || $domain == '' || trim($domain) == 'localhost')
 				return true;
 				
 			if (empty($_SERVER['HTTP_REFERER']) || empty($url))
