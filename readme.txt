@@ -19,7 +19,9 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 
 = Requirements =
 
-Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly! Furthermore, NoSpamNX requires at least PHP 5.0!
+Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly! 
+
+<b>Furthermore, NoSpamNX requires at least PHP 5.0!</b>
 
 
 = Features in a nutshell =
