@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.2
+Version: 4.0.3
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
 define('NXREQWP28', version_compare($wp_version, '2.8', '>='));
-define('NXREQPHP5', version_compare(PHP_VERSION, '5.0.0', '>='));
 
 if (!class_exists('NoSpamNX'))
 {
@@ -47,11 +46,6 @@ if (!class_exists('NoSpamNX'))
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename( __FILE__ )));
-				
-			if (NXREQPHP5 != true) {
-				add_action('admin_notices', array(&$this, 'phpVersionFail'));
-				return;
-			}				
 				
 			if (NXREQWP28 != true) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
@@ -76,10 +70,6 @@ if (!class_exists('NoSpamNX'))
 			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!','nospamnx'));
 		}
 		
-		function phpVersionFail() {
-			$this->displayError(__('Your PHP is to old. NoSpamNX requires at least PHP 5.0!','nospamnx'));
-		}		
-		
 		function addHiddenFields() {	
 			$nospamnx = $this->nospamnx_names;
 			
@@ -87,14 +77,12 @@ if (!class_exists('NoSpamNX'))
 				echo '<p style="display:none;">';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
-				echo '<input type="hidden" name="nx-comment-url" value="'.$this->getDomain($this->nospamnx_home).'" />';
 				echo '</p>';
 			}
 			else {
 				echo '<p style="display:none;">';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
-				echo '<input type="hidden" name="nx-comment-url" value="'.$this->getDomain($this->nospamnx_home).'" />';
 				echo '</p>';
 			}						
 		}
@@ -104,9 +92,6 @@ if (!class_exists('NoSpamNX'))
 				return;
 			}
 			else {		
-				if ($this->checkReferer($_POST['nx-comment-url']) == false)
-					$this->birdbrained();
-				
 				//perform local and global blacklist check
 				if ($this->blacklistCheck(
 						trim($_POST['author']),
@@ -143,23 +128,6 @@ if (!class_exists('NoSpamNX'))
 			else
 				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 		}	
-
-		function checkReferer($url) {
-			$domain = $this->getDomain($this->nospamnx_home);
-			if (empty($domain) || $domain == '' || trim($domain) == 'localhost')
-				return true;
-				
-			if (empty($_SERVER['HTTP_REFERER']) || empty($url))
-				return false;
-
-			$referer 	= strtolower(trim($this->getDomain($_SERVER['HTTP_REFERER'])));
-			$url 		= strtolower(trim($url));
-			
-			if ($referer == $url)
-				return true;
-			else
-				return false;
-		}
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
 			$blacklist = array(
@@ -451,7 +419,7 @@ if (!class_exists('NoSpamNX'))
 				add_option('nospamnx-blacklist', '');
 		}	
 
-		static function uninstall() {
+		function uninstall() {
 			delete_option('nospamnx');	
 			delete_option('nospamnx-blacklist');
 			delete_option('nospamnx-blacklist-global');	

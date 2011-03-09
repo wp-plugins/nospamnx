@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.1
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
 
@@ -87,6 +87,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.0.3 =
+* Removed PHP Version Check
+* Removed Referer-Check
+* Removes static in uninstall_hook
 
 = 4.0.2 =
 * Added PHP Version Check
