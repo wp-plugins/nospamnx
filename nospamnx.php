@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.4
+Version: 4.0.5
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
 define('NXREQWP28', version_compare($wp_version, '2.8', '>='));
+define('NXCURLTO', 5);
 
 if (!class_exists('NoSpamNX'))
 {
@@ -41,7 +42,6 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_blacklist_global_lu;				
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
-		var $nospamnx_home;
 		var $nospamnx_dnsbl;
 		
 		function nospamnx() {		
@@ -118,7 +118,7 @@ if (!class_exists('NoSpamNX'))
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();
 					
-				//check dnsbl if enabled
+				//last line of defense - check dnsbl if enabled
 				if ($this->nospamnx_dnsbl == 1 && $this->checkDNSBl($_SERVER['REMOTE_ADDR']) == true)
 					$this->birdbrained(true);					
 			}
@@ -131,7 +131,7 @@ if (!class_exists('NoSpamNX'))
 			if ($this->nospamnx_operate == 'mark')
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			else {
-				if ($bnsbl)
+				if (!$dnsbl)
 					wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 				else
 					wp_die(__('Sorry, but your IP is blacklisted by dnsbl.tornevall.org','nospamnx'));
@@ -241,18 +241,14 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
 			else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
-				$blacklist = explode("\n", $_POST['blacklist']);
-				natcasesort($blacklist);
-				$blacklist = implode("\n", $blacklist);
-
-				$this->nospamnx_blacklist = trim($blacklist);
+				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
 				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
 				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
 
-			//set checked values for operating mode
+			//set current form value for operating mode
 			switch ($this->nospamnx_operate) {
 				case 'block':
 					$block = 'checked';
@@ -264,7 +260,9 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
+			//set current form value for dnsbl
 			($this->nospamnx_dnsbl == 1) ? $dnsbl = "checked" : $dnsbl = "";
+			
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
@@ -400,7 +398,6 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_operate'					=> 'mark',
 					'nospamnx_activated'				=> time(),
 					'nospamnx_dateformat'				=> get_option('date_format'),
-					'nospamnx_home'						=> get_option('home'),
 					'nospmanx_dnsbl'					=> false,
 					'nospamnx_blacklist_global_lu'		=> 0,
 					'nospamnx_blacklist_global_url'		=> '',
@@ -425,9 +422,6 @@ if (!class_exists('NoSpamNX'))
 
 				if (!array_key_exists('nospamnx_dateformat',$options))
 					$options['nospamnx_dateformat'] = get_option('date_format');						
-
-				if (!array_key_exists('nospamnx_home',$options))
-					$options['nospamnx_home'] = get_option('home');
 
 				if (!array_key_exists('nospamnx_blacklist_global_lu',$options))
 					$options['nospamnx_blacklist_global_lu'] = 0;
@@ -465,7 +459,6 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_operate					= $options['nospamnx_operate'];
 			$this->nospamnx_activated				= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat				= $options['nospamnx_dateformat'];
-			$this->nospamnx_home					= $options['nospamnx_home'];
 			$this->nospamnx_dnsbl					= $options['nospamnx_dnsbl'];			
 			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
@@ -481,7 +474,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'					=> $this->nospamnx_operate,	
 				'nospamnx_activated'				=> $this->nospamnx_activated,
 				'nospamnx_dateformat'				=> $this->nospamnx_dateformat,
-				'nospamnx_home'						=> $this->nospamnx_home,
 				'nospamnx_dnsbl'					=> $this->nospamnx_dnsbl,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,	
@@ -505,13 +497,6 @@ if (!class_exists('NoSpamNX'))
 			return ceil($this->nospamnx_count / $days);
 		}
 		
-		function getDomain($url) {
-			$string = ereg_replace('www\.','',$url);
-			$domain = parse_url($string);
-			
-			return $domain["host"];
-		}
-		
 		function loadGlobalBlacklist() {
 			if (!function_exists('curl_init') || empty($this->nospamnx_blacklist_global_url))
 				return;
@@ -522,7 +507,7 @@ if (!class_exists('NoSpamNX'))
 				
 			$curl = curl_init();
 			curl_setopt($curl,CURLOPT_URL,$this->nospamnx_blacklist_global_url);
-			curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,10);
+			curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,NXCURLTO);
 			curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
 			$buffer = curl_exec($curl);
 			
@@ -531,13 +516,20 @@ if (!class_exists('NoSpamNX'))
 		    	return;
 			}
 			curl_close($curl);
-
-			update_option('nospamnx-blacklist-global', $buffer);
-			$this->nospamnx_blacklist_global = $buffer;
+			
+			update_option('nospamnx-blacklist-global', $this->sortBlacklist($buffer));
+			$this->nospamnx_blacklist_global = $blacklist;
 			$this->nospamnx_blacklist_global_lu = $time;
 			$this->setOptions();
 		}		
 		
+		function sortBlacklist($blacklist) {
+			$sortedBlacklist = explode("\n", $blacklist);
+			natcasesort($sortedBlacklist);
+			
+			return implode("\n", $sortedBlacklist);
+		}
+			
 		function displayStats($dashboard=false) {
 			if ($dashboard) {echo "<p>";}
 
