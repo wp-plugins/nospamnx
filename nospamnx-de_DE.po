@@ -87,7 +87,7 @@ msgstr "DNSBL"
 
 #: nospamnx.php:330
 msgid "Check comment IP-Address against dnsbl.tornevall.org (recommended)"
-msgstr "Prüfe die IP-Adresse eines Kommentares gegen dnsbl.torneball.org (empfohlen)"
+msgstr "Prüfe die IP-Adresse eines Kommentares gegen dnsbl.tornevall.org (empfohlen)"
 
 #: nospamnx.php:335
 #: nospamnx.php:380
