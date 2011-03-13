@@ -2,9 +2,9 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.1
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 Requires at least: 2.8
-Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx
+Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
 To protect your Blog from automated spambots, this plugin adds additional formfields (hidden to human-users) to your comment form. 
 
@@ -21,8 +21,6 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 
 Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly! 
 
-<b>Furthermore, NoSpamNX requires at least PHP 5.0!</b>
-
 
 = Features in a nutshell =
 
@@ -30,6 +28,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Easy configuration (only two options)
 * Local Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
+* Optional DNSBL Check (dnsbl.tornevall.org)
 * Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
@@ -45,7 +44,6 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * German
 * English
 * Spanish (Thanks to Samuel Aguilera)
-* French (Thanks to Sylvain Ménard)
 * Italian (Thanks to Gianni Diurno)
 * Russian (Thanks to minimus)
 
@@ -87,6 +85,12 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.0.4 =
+* Added DNSNL Check (dnsbl.tornevall.org)
+* Removed French translation (< 60% translated)
+* Updated language files
+* Updated readme
 
 = 4.0.3 =
 * Removed PHP Version Check
