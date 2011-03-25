@@ -3,8 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.5
-Author: Sven Kubiak
+Version: 4.0.6
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
@@ -42,7 +41,6 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_blacklist_global_lu;				
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
-		var $nospamnx_dnsbl;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
@@ -116,25 +114,18 @@ if (!class_exists('NoSpamNX'))
 					$this->birdbrained();
 				//check if the value of the second hidden field matches stored value
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
-					$this->birdbrained();
-					
-				//last line of defense - check dnsbl if enabled
-				if ($this->nospamnx_dnsbl == 1 && $this->checkDNSBl($_SERVER['REMOTE_ADDR']) == true)
-					$this->birdbrained(true);					
+					$this->birdbrained();				
 			}
 		}
 		
-		function birdbrained($dnsbl=false) {		
+		function birdbrained() {		
 			$this->nospamnx_count++;
 			$this->setOptions();
 			
 			if ($this->nospamnx_operate == 'mark')
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			else {
-				if (!$dnsbl)
-					wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
-				else
-					wp_die(__('Sorry, but your IP is blacklisted by dnsbl.tornevall.org','nospamnx'));
+				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
 			}
 		}	
 
@@ -173,17 +164,6 @@ if (!class_exists('NoSpamNX'))
 			
 			return false;
 		}
-		
-		function checkDNSBl($ip) {
-			$rev_ip = implode(array_reverse(explode('.', $ip)), '.');
-			$response = array();
-			
-			$response = (gethostbynamel($rev_ip . '.' . 'opm.tornevall.org'));
-			if (!empty($response))
-				return true;
-			
-			return false;			
-		}		
 		
 		function generateNames() {		
 			$nospamnx = array(
@@ -231,7 +211,6 @@ if (!class_exists('NoSpamNX'))
 					default:
 						$this->nospamnx_operate = 'mark';		
 				}			
-				($_POST['nospamnx_dnsbl'] == 1) ? $this->nospamnx_dnsbl = 1 : $this->nospamnx_dnsbl = 0;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX settings were saved successfully.','nospamnx'));		
 			}
@@ -260,9 +239,6 @@ if (!class_exists('NoSpamNX'))
 					$block = 'checked';
 			}
 
-			//set current form value for dnsbl
-			($this->nospamnx_dnsbl == 1) ? $dnsbl = "checked" : $dnsbl = "";
-			
 			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
@@ -320,12 +296,6 @@ if (!class_exists('NoSpamNX'))
 												<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
 											</td>									
 										</tr>
-										<tr>
-											<th scope="row" valign="top"><b><?php echo __('DNSBL','nospamnx'); ?></b></th>
-											<td>					
-												<input type="checkbox" name="nospamnx_dnsbl" <?php echo $dnsbl ?> value="1"> <?php echo __('Check comment IP-Address against dnsbl.tornevall.org (recommended)','nospamnx'); ?>
-											</td>									
-										</tr>																										
 								</table>
 								<input type="hidden" value="1" name="save_settings">
 								<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
@@ -398,7 +368,6 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_operate'					=> 'mark',
 					'nospamnx_activated'				=> time(),
 					'nospamnx_dateformat'				=> get_option('date_format'),
-					'nospmanx_dnsbl'					=> false,
 					'nospamnx_blacklist_global_lu'		=> 0,
 					'nospamnx_blacklist_global_url'		=> '',
 					'nospmanx_blacklist_global_update'	=> ''												
@@ -432,9 +401,6 @@ if (!class_exists('NoSpamNX'))
 				if (!array_key_exists('nospmanx_blacklist_global_update',$options))
 					$options['nospmanx_blacklist_global_update'] = '';	
 
-				if (!array_key_exists('nospmanx_dnsbl',$options))
-					$options['nospmanx_dnsbl'] = false;						
-					
 				update_option('nospamnx', $options);			
 			}
 			
@@ -459,7 +425,6 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_operate					= $options['nospamnx_operate'];
 			$this->nospamnx_activated				= $options['nospamnx_activated'];
 			$this->nospamnx_dateformat				= $options['nospamnx_dateformat'];
-			$this->nospamnx_dnsbl					= $options['nospamnx_dnsbl'];			
 			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
 			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
@@ -474,7 +439,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'					=> $this->nospamnx_operate,	
 				'nospamnx_activated'				=> $this->nospamnx_activated,
 				'nospamnx_dateformat'				=> $this->nospamnx_dateformat,
-				'nospamnx_dnsbl'					=> $this->nospamnx_dnsbl,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,	
 				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu			

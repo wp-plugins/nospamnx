@@ -4,8 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-13 08:16+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.com>\n"
-"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao[at]gmail[dot]com>\n"
+"Language-Team: Gianni Diurno | gidibao.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgstr "Pare che il tuo commento sia spam."
 
 #: nospamnx.php:137
 msgid "Sorry, but your IP is blacklisted by dnsbl.tornevall.org"
-msgstr ""
+msgstr "Il tuo IP é presente nella blacklist del servizio dnsbl.tornevall.org"
 
 #: nospamnx.php:216
 msgid "Sorry, but you have no permissions to change settings."
@@ -87,7 +87,7 @@ msgstr "DNSBL"
 
 #: nospamnx.php:330
 msgid "Check comment IP-Address against dnsbl.tornevall.org (recommended)"
-msgstr ""
+msgstr "Verifica l'indirizzo IP del commento via dnsbl.tornevall.org (raccomandato)"
 
 #: nospamnx.php:335
 #: nospamnx.php:380

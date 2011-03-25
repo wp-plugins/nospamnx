@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
 Tested up to: 3.1
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -61,10 +61,6 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 Update at least to NoSpamNX Version 3.14. Since this Version the Options are only reseted if new options are available.
 
-= When I activate the plugin, the hidden fields are visible! =
-
-Make sure that the template you are using calls <code>wp_head</code> before the closing HEAD tag. See http://is.gd/tazh for more information.
-
 = What is the difference to other Anti-Spambot plugins? =
 
 Most "new" Anti-Spambot change the name of one or more of your comment form fields. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment form fields, but still is very effective.
@@ -86,13 +82,17 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
+= 4.0.6 =
+* Removed DNSBL Check (temporarily) 
+* Updated Italian Translation
+
 = 4.0.5 =
 * Wrong Message was displayed when a comment was blocked
 * Global Blacklist is now sorted
 * Code cleanup
 
 = 4.0.4 =
-* Added DNSNL Check (dnsbl.tornevall.org)
+* Added DNSBL Check (dnsbl.tornevall.org)
 * Removed French translation (< 60% translated)
 * Updated language files
 * Updated readme
