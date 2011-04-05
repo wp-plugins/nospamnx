@@ -93,7 +93,7 @@ if (!class_exists('NoSpamNX'))
 			else {		
 				//perform local and global blacklist check
 				$blackedword = "";
-				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$_POST['comment'],$_SERVER['REMOTE_ADDR']);
+				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$_POST['kromment'],$_SERVER['REMOTE_ADDR']);			
 				if ($blackedword != "")
 					$this->birdbrained($blackedword);
 				
