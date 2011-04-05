@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.6
+Version: 4.0.7
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
@@ -92,13 +92,10 @@ if (!class_exists('NoSpamNX'))
 			}
 			else {		
 				//perform local and global blacklist check
-				if ($this->blacklistCheck(
-						trim($_POST['author']),
-						trim($_POST['email']),
-						trim($_POST['url']),
-						$_POST['comment'],
-						$_SERVER['REMOTE_ADDR']) == true)
-					$this->birdbrained();
+				$blackedword = "";
+				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$_POST['comment'],$_SERVER['REMOTE_ADDR']);
+				if ($blackedword != "")
+					$this->birdbrained($blackedword);
 				
 				//get hidden field names for check
 				$nospamnx = $this->nospamnx_names;
@@ -118,14 +115,21 @@ if (!class_exists('NoSpamNX'))
 			}
 		}
 		
-		function birdbrained() {		
+		function birdbrained($blackedword="") {		
 			$this->nospamnx_count++;
 			$this->setOptions();
-			
-			if ($this->nospamnx_operate == 'mark')
+
+			if ($this->nospamnx_operate == 'mark') {
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
-			else {
-				wp_die(__('Sorry, but your comment seems to be Spam.','nospamnx'));
+			} else if ($blackedword != "") {
+				$message  = "<p>Sorry, aber das Wort <b>".$blackedword."</b> ist in diesem Blog blacklisted.</b></p>";
+				$message .= "<p>Sorry, but you the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
+				$message .= "<p><a href='javascript:history.back()'>Zurück | Back</a></p>";
+				wp_die($message);			
+			} else {
+				$message  = "<p>Sorry, aber Dein Kommentar scheint Spam zu sein.</p>";
+				$message .= "<p>Sorry, but your comment seems to be Spam.</p>";
+				wp_die($message);
 			}
 		}	
 
@@ -158,11 +162,11 @@ if (!class_exists('NoSpamNX'))
 						|| preg_match($pattern, $url)
 						|| preg_match($pattern, $remoteip)
 						|| preg_match($pattern, $comment))
-					return true;
+					return $word;
 				}
 			}
 			
-			return false;
+			return "";
 		}
 		
 		function generateNames() {		
@@ -216,6 +220,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			else if ($reset_counter == 1 && $this->verifyNonce($nonce)) {
 				$this->nospamnx_count = 0;
+				$this->nospamnx_activated = time();
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
