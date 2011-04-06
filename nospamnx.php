@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.7
+Version: 4.0.8
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
@@ -38,7 +38,8 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_blacklist_global;		
 		var $nospamnx_blacklist_global_url;			
 		var $nospamnx_blacklist_global_update;
-		var $nospamnx_blacklist_global_lu;				
+		var $nospamnx_blacklist_global_lu;
+		var $nospamnx_showblocked;						
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
 		
@@ -122,12 +123,14 @@ if (!class_exists('NoSpamNX'))
 			if ($this->nospamnx_operate == 'mark') {
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			} else if ($blackedword != "") {
-				$message  = "<p>Sorry, aber das Wort <b>".$blackedword."</b> ist in diesem Blog blacklisted.</b></p>";
-				$message .= "<p>Sorry, but you the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
-				$message .= "<p><a href='javascript:history.back()'>Zurück | Back</a></p>";
-				wp_die($message);			
+				if ($this->nospamnx_showblocked == 1) {
+					$message .= "<p>Sorry, but you the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
+					$message .= "<p><a href='javascript:history.back()'>Zurück | Back</a></p>";
+				} else {
+					$message .= "<p>Sorry, but your comment seems to be Spam.</p>";
+				}
+				wp_die($message);					
 			} else {
-				$message  = "<p>Sorry, aber Dein Kommentar scheint Spam zu sein.</p>";
 				$message .= "<p>Sorry, but your comment seems to be Spam.</p>";
 				wp_die($message);
 			}
@@ -225,6 +228,7 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			}
 			else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
+				$this->nospamnx_showblocked = $_POST['showblocked'];
 				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
 				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
 				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
@@ -316,8 +320,12 @@ if (!class_exists('NoSpamNX'))
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">
 								<tr>
+									<td valign="top"><b><?php echo __('Display the string which has been blocked','nospamnx'); ?></b></td>
+									<td valign="top"><input type="checkbox" <?php if ($this->nospamnx_showblocked == 1) {echo "checked";}?> name="showblocked" value="1" /></td>
+								</tr>
+								<tr>
 									<td colspan="2" valign="top"><b><?php echo __('Both local and global Blacklist are case-insensitive and match substrings!','nospamnx'); ?></b></td>
-								</tr>							
+								</tr>	
 								<tr>
 									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line.','nospamnx'); ?></td>
 									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL.','nospamnx'); ?>
@@ -374,6 +382,7 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_activated'				=> time(),
 					'nospamnx_dateformat'				=> get_option('date_format'),
 					'nospamnx_blacklist_global_lu'		=> 0,
+					'nospamnx_showblocked'				=> 0,
 					'nospamnx_blacklist_global_url'		=> '',
 					'nospmanx_blacklist_global_update'	=> ''												
 				);
@@ -405,6 +414,9 @@ if (!class_exists('NoSpamNX'))
 
 				if (!array_key_exists('nospmanx_blacklist_global_update',$options))
 					$options['nospmanx_blacklist_global_update'] = '';	
+					
+				if (!array_key_exists('nospamnx_showblocked',$options))
+					$options['nospamnx_showblocked'] = 0;					
 
 				update_option('nospamnx', $options);			
 			}
@@ -433,6 +445,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
 			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
+			$this->nospamnx_showblocked				= $options['nospamnx_showblocked'];
 			$this->nospamnx_blacklist_global		= get_option('nospamnx-blacklist-global');													
 			$this->nospamnx_blacklist				= get_option('nospamnx-blacklist');		
 		}
@@ -444,6 +457,7 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_operate'					=> $this->nospamnx_operate,	
 				'nospamnx_activated'				=> $this->nospamnx_activated,
 				'nospamnx_dateformat'				=> $this->nospamnx_dateformat,
+				'nospamnx_showblocked'				=> $this->nospamnx_showblocked,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,	
 				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu			

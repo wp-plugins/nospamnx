@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: http://www.svenkubiak.de/nospamnx-en
-Tested up to: 3.1
-Stable tag: 4.0.7
+Tested up to: 3.1.1
+Stable tag: 4.0.8
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -81,6 +81,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.0.8 =
+* Fixed bug when using the blacklist
+* Added option for showing blocked string
+* Updated language files
 
 = 4.0.7 =
 * Fixed bug when Counter was reseted
