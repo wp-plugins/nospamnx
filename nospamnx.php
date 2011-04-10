@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.0.8
+Version: 4.1.0
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
@@ -42,6 +42,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_showblocked;						
 		var $nospamnx_activated;
 		var $nospamnx_dateformat;		
+		var $nospamnx_commentfield;
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain'))
@@ -64,6 +65,9 @@ if (!class_exists('NoSpamNX'))
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));
+
+			$this->signCommentField();
+			add_filter('comment_form_field_comment', array(&$this, 'replaceCommentField'));
 		}
 
 		function wpVersionFail() {
@@ -113,9 +117,42 @@ if (!class_exists('NoSpamNX'))
 				//check if the value of the second hidden field matches stored value
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();				
+
+				$this->checkCommentField();
 			}
 		}
 		
+		function signCommentField() {
+			global $wp_version;
+			if (version_compare($wp_version, '3.0') >= 0)
+				$this->nospamnx_commentid = substr(md5(AUTH_KEY ? AUTH_KEY : get_bloginfo('url')), 0, 10);
+		}
+
+		function replaceCommentField($field) {
+			if ($this->nospamnx_commentid) {
+				$new_field = preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2comment-" . $this->nospamnx_commentid . "$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $field, 1);
+				if (strcmp($field, $new_field))
+					$new_field .= '<input type="hidden" name="comment-replaced" value="true">';
+				return $new_field;
+			}
+			else
+				return $field;
+		}
+
+		function checkCommentField() {
+			if (isset($_POST['comment-replaced'])) {
+				$hidden_field = $_POST['comment'];
+				$plugin_field = $_POST['comment-' . $this->nospamnx_commentid];
+				if (empty($hidden_field) && !empty($plugin_field))
+					$_POST['comment'] = $plugin_field;
+				else {
+					$_POST['comment'] .= "\n[EXTRA]\n" . $plugin_field . "\n";
+					$this->nospamnx_extra++;
+					$this->birdbrained();
+				}
+			}
+		}
+
 		function birdbrained($blackedword="") {		
 			$this->nospamnx_count++;
 			$this->setOptions();
