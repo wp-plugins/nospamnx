@@ -273,7 +273,6 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
 
-			//set current form value for operating mode
 			switch ($this->nospamnx_operate) {
 				case 'block':
 					$block = 'checked';
