@@ -3,7 +3,8 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.1.0
+Version: 4.1.1
+Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 
@@ -25,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 global $wp_version;
 define('NXREQWP28', version_compare($wp_version, '2.8', '>='));
+define('NXISWP30', version_compare($wp_version, '3.0', '>='));
 define('NXCURLTO', 5);
 
 if (!class_exists('NoSpamNX'))
@@ -96,13 +98,16 @@ if (!class_exists('NoSpamNX'))
 				return;
 			}
 			else {		
-				//perform local and global blacklist check
+				if (isset($_POST['comment-' . $this->nospamnx_commentid]))
+					$comment = $_POST['comment-' . $this->nospamnx_commentid];
+				else 
+					$comment = $_POST['comment'];
+				
 				$blackedword = "";
-				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$_POST['comment'],$_SERVER['REMOTE_ADDR']);
+				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$comment,$_SERVER['REMOTE_ADDR']);
 				if ($blackedword != "")
 					$this->birdbrained($blackedword);
 				
-				//get hidden field names for check
 				$nospamnx = $this->nospamnx_names;
 	
 				//check if first hidden field is in $_POST data
@@ -123,9 +128,8 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function signCommentField() {
-			global $wp_version;
-			if (version_compare($wp_version, '3.0') >= 0)
-				$this->nospamnx_commentid = substr(md5(AUTH_KEY ? AUTH_KEY : get_bloginfo('url')), 0, 10);
+			if (NXISWP30)
+				$this->nospamnx_commentid = $this->generateRandomString();
 		}
 
 		function replaceCommentField($field) {
@@ -133,6 +137,7 @@ if (!class_exists('NoSpamNX'))
 				$new_field = preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2comment-" . $this->nospamnx_commentid . "$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $field, 1);
 				if (strcmp($field, $new_field))
 					$new_field .= '<input type="hidden" name="comment-replaced" value="true">';
+				
 				return $new_field;
 			}
 			else
@@ -143,9 +148,9 @@ if (!class_exists('NoSpamNX'))
 			if (isset($_POST['comment-replaced'])) {
 				$hidden_field = $_POST['comment'];
 				$plugin_field = $_POST['comment-' . $this->nospamnx_commentid];
-				if (empty($hidden_field) && !empty($plugin_field))
+				if (empty($hidden_field) && !empty($plugin_field)) {
 					$_POST['comment'] = $plugin_field;
-				else {
+				} else {
 					$_POST['comment'] .= "\n[EXTRA]\n" . $plugin_field . "\n";
 					$this->nospamnx_extra++;
 					$this->birdbrained();
@@ -162,7 +167,7 @@ if (!class_exists('NoSpamNX'))
 			} else if ($blackedword != "") {
 				if ($this->nospamnx_showblocked == 1) {
 					$message .= "<p>Sorry, but you the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
-					$message .= "<p><a href='javascript:history.back()'>Zurück | Back</a></p>";
+					$message .= "<p><a href='javascript:history.back()'>Zurï¿½ck | Back</a></p>";
 				} else {
 					$message .= "<p>Sorry, but your comment seems to be Spam.</p>";
 				}
@@ -423,8 +428,7 @@ if (!class_exists('NoSpamNX'))
 					'nospmanx_blacklist_global_update'	=> ''												
 				);
 				add_option('nospamnx', $options);
-	    	}	
-			else {
+	    	} else {
 				$options = get_option('nospamnx');
 
 				if (!array_key_exists('nospamnx_names',$options))
