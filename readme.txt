@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.2.1
-Stable tag: 4.1.1
+Stable tag: 4.1.2
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -28,7 +28,6 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Easy configuration (only two options)
 * Local Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
-* Optional DNSBL Check (dnsbl.tornevall.org)
 * Does not require any modification on your comment template
 * Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
@@ -82,6 +81,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.1.1 =
+* Fixed Bug when using WordPress Default Theme (TwentyTen) and WordPress >= 3.0
 
 = 4.1.1 =
 * Added Hebrew Translation
