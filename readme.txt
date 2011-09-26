@@ -28,12 +28,10 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Easy configuration (only two options)
 * Local Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
-* Does not require any modification on your comment template
-* Does not change any of your comment formfields (giving you more compatibility with other plugins and templates)
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha, Calculations, Pictures, etc.)
 * No need to manage spambot comments (if you don't want to)
-* No Database queries except for some few WordPress Options
+* No Database queries except for a few WordPress Options
 * Compatible with WPtouch (Mobile Theme)
 * False-positives are nearly impossible
 
@@ -82,7 +80,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Changelog ==
 
-= 4.1.1 =
+= 4.1.2 =
 * Fixed Bug when using WordPress Default Theme (TwentyTen) and WordPress >= 3.0
 
 = 4.1.1 =
