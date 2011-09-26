@@ -106,11 +106,11 @@ if (!class_exists('NoSpamNX'))
 				else 
 					$comment = $_POST['comment'];
 				
-				$blackedword = "";
+				//do blacklist check
 				$blackedword = $this->blacklistCheck(trim($_POST['author']),trim($_POST['email']),trim($_POST['url']),$comment,$_SERVER['REMOTE_ADDR']);
 				if ($blackedword != "")
 					$this->birdbrained($blackedword);
-				
+
 				$nospamnx = $this->nospamnx_names;
 	
 				//check if first hidden field is in $_POST data
@@ -126,7 +126,7 @@ if (!class_exists('NoSpamNX'))
 				else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value'])
 					$this->birdbrained();				
 
-				//check comment field again (by Marcel Bokhorst)
+				//check comment field (by Marcel Bokhorst)
 				$this->checkCommentField();
 			}
 		}
@@ -138,9 +138,9 @@ if (!class_exists('NoSpamNX'))
 					$new_field .= '<input type="hidden" name="comment-replaced" value="true">';
 				
 				return $new_field;
-			}
-			else
+			} else {
 				return $field;
+			}
 		}
 
 		function checkCommentField() {
@@ -166,7 +166,7 @@ if (!class_exists('NoSpamNX'))
 			} else if ($blackedword != "") {
 				if ($this->nospamnx_showblocked == 1) {
 					$message .= "<p>Sorry, but you the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
-					$message .= "<p><a href='javascript:history.back()'>Zur�ck | Back</a></p>";
+					$message .= "<p><a href='javascript:history.back()'>Back</a></p>";
 				} else {
 					$message .= "<p>Sorry, but your comment seems to be Spam.</p>";
 				}
@@ -261,14 +261,12 @@ if (!class_exists('NoSpamNX'))
 				}			
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX settings were saved successfully.','nospamnx'));		
-			}
-			else if ($reset_counter == 1 && $this->verifyNonce($nonce)) {
+			} else if ($reset_counter == 1 && $this->verifyNonce($nonce)) {
 				$this->nospamnx_count = 0;
 				$this->nospamnx_activated = time();
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
-			}
-			else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
+			} else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
 				$this->nospamnx_showblocked = $_POST['showblocked'];
 				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
 				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
@@ -333,22 +331,22 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">		
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
-								<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "block". If you are uncertain what will be blocked, select "Mark as Spam" at first and switch to "block" later on.','nospamnx'); ?></p>
-								<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
-								<table class="form-table">						
-										<tr>
-											<th scope="row" valign="top"><b><?php echo __('Mode','nospamnx'); ?></b></th>
-											<td>					
-												<input type="hidden" value="true" name="nospamnx_mode">
-												<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
-												<br />
-												<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
-											</td>									
-										</tr>
-								</table>
-								<input type="hidden" value="1" name="save_settings">
-								<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
-								</form>
+							<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "block". If you are uncertain what will be blocked, select "Mark as Spam" at first and switch to "block" later on.','nospamnx'); ?></p>
+							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
+							<table class="form-table">						
+									<tr>
+										<th scope="row" valign="top"><b><?php echo __('Mode','nospamnx'); ?></b></th>
+										<td>					
+											<input type="hidden" value="true" name="nospamnx_mode">
+											<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
+											<br />
+											<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
+										</td>									
+									</tr>
+							</table>
+							<input type="hidden" value="1" name="save_settings">
+							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
+							</form>
 						</div>							
 					</div>
 				</div>
@@ -533,7 +531,7 @@ if (!class_exists('NoSpamNX'))
 			curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
 			$buffer = curl_exec($curl);
 			
-			if(curl_errno($curl) != 0) {
+			if (curl_errno($curl) != 0) {
 				curl_close($curl);	
 		    	return;
 			}
@@ -557,8 +555,7 @@ if (!class_exists('NoSpamNX'))
 
 			if ($this->nospamnx_count <= 0) {
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
-			}
-			else {
+			} else {
 				printf(__ngettext(
 					"Since %s %s has stopped %s birdbrained Spambot (%s per Day).",
 					"Since %s %s has stopped %s birdbrained Spambots (%s per Day).",
