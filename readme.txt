@@ -45,6 +45,12 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Russian (Thanks to minimus)
 * Hebrew (Thanks to Amiad)
 
+
+= Known Issues =
+
+* Does not work with OpenID
+
+
 == Installation ==
 
 1. Unzip Plugin
@@ -55,13 +61,17 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 == Frequently Asked Questions ==
 
-= After I updated to Version x.x the Options are reseted! =
+= After I updated to a new Version all comments are marked as Spam! =
+
+The best way to deal with this Problem, is to deactive and re-install the Plugin. 
+
+= I use OpenID and after Installation all comments are marked as Spam! =
+
+NoSpamNX does not work with OpenID.
+
+= After I updated to a new Version the Options are reseted! =
 
 Update at least to NoSpamNX Version 3.14. Since this Version the Options are only reseted if new options are available.
-
-= What is the difference to other Anti-Spambot plugins? =
-
-Most "new" Anti-Spambot change the name of one or more of your comment form fields. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. NoSpamNX does not change any of your comment form fields, but still is very effective.
 
 = Does the plugin block Ping-/Trackback Spam as well? =
 
@@ -81,7 +91,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 4.1.3 =
-* Minor Code Changes (Thanks to Tom)
+* Minor Code improvements (Thanks to Thomas Bier)
 
 = 4.1.2 =
 * Fixed Bug when using WordPress Default Theme (TwentyTen) and WordPress >= 3.0
