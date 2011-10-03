@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.1.2
+Version: 4.1.3
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -58,7 +58,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('register_activation_hook'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			if (function_exists('register_uninstall_hook'))
-				register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+				register_uninstall_hook(__FILE__, array('NoSpamNX', 'uninstall'));
 				
 			$this->getOptions();
 			$this->loadGlobalBlacklist();				
@@ -228,7 +228,7 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function nospamnxAdminMenu() {
-			add_options_page('NoSpamNX', 'NoSpamNX', 8, 'nospamnx', array(&$this, 'nospamnxOptionPage'));
+			add_options_page('NoSpamNX', 'NoSpamNX', 'manage_options', 'nospamnx', array(&$this, 'nospamnxOptionPage'));
 		}
 		
 		function displayMessage($message) {
@@ -267,7 +267,7 @@ if (!class_exists('NoSpamNX'))
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
 			} else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
-				$this->nospamnx_showblocked = $_POST['showblocked'];
+				$this->nospamnx_showblocked = (isset($_POST['showblocked'])) ? $_POST['showblocked'] : 0;
 				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
 				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
 				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
@@ -275,6 +275,9 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}			
 
+			$mark = '';
+			$block = '';
+			
 			switch ($this->nospamnx_operate) {
 				case 'block':
 					$block = 'checked';
@@ -295,7 +298,7 @@ if (!class_exists('NoSpamNX'))
 				<div id="icon-options-general" class="icon32"></div>
 				<h2><?php echo __('NoSpamNX Settings','nospamnx'); ?></h2>
 			
-				<div id="poststuff" class="ui-sortable meta-box-sortables">
+				<div id="poststuff">
 					<div class="postbox opened">
 						<h3><?php echo __('Statistic','nospamnx'); ?></h3>
 						<div class="inside">
@@ -325,9 +328,7 @@ if (!class_exists('NoSpamNX'))
 							</form>				
 						</div>
 					</div>
-				</div>
 			
-				<div id="poststuff" class="ui-sortable meta-box-sortables">
 					<div class="postbox opened">		
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
 						<div class="inside">							
@@ -349,9 +350,7 @@ if (!class_exists('NoSpamNX'))
 							</form>
 						</div>							
 					</div>
-				</div>
 				
-				<div id="poststuff" class="ui-sortable meta-box-sortables">
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
@@ -399,7 +398,6 @@ if (!class_exists('NoSpamNX'))
 						</div>
 					</div>
 				</div>	
-						
 			</div>	
 			
 			<?php		
@@ -557,8 +555,8 @@ if (!class_exists('NoSpamNX'))
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			} else {
 				printf(__ngettext(
-					"Since %s %s has stopped %s birdbrained Spambot (%s per Day).",
-					"Since %s %s has stopped %s birdbrained Spambots (%s per Day).",
+					"Since %s %s has stopped %s birdbrained Spambot (~ %s per Day).",
+					"Since %s %s has stopped %s birdbrained Spambots (~ %s per Day).",
 					$this->nospamnx_count, 'nospamnx'),
 					date_i18n($this->nospamnx_dateformat, $this->nospamnx_activated),
 					'<a href="http://www.svenkubiak.de/nospamnx">NoSpamNX</a>',
