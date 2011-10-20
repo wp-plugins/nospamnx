@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.2.1
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -89,6 +89,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.1.4 =
+* Fixed invalid HTML
 
 = 4.1.3 =
 * Minor Code improvements (Thanks to Thomas Bier)

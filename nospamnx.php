@@ -135,7 +135,7 @@ if (!class_exists('NoSpamNX'))
 			if (!empty($this->nospamnx_commentid)) {
 				$new_field = preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2comment-" . $this->nospamnx_commentid . "$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $field, 1);
 				if (strcmp($field, $new_field))
-					$new_field .= '<input type="hidden" name="comment-replaced" value="true">';
+					$new_field .= '<input type="hidden" name="comment-replaced" value="true" />';
 				
 				return $new_field;
 			} else {

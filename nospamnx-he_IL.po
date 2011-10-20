@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-10 09:02+0100\n"
-"PO-Revision-Date: 2011-09-23 07:31+0100\n"
+"POT-Creation-Date: 2011-10-03 17:42+0100\n"
+"PO-Revision-Date: 2011-10-03 17:42+0100\n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Hebrew\n"
-"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: he\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.7.0\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -23,63 +23,63 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:74
+#: nospamnx.php:78
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!"
 msgstr "גרסת הוורדפרס שלך ישנה. NoSpamNX דורש לפחות את וורדפרס 2.8."
 
-#: nospamnx.php:240
+#: nospamnx.php:244
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "מצטערים, אבל אין לך הרשאות לשנות את ההגדרות."
 
-#: nospamnx.php:259
+#: nospamnx.php:263
 msgid "NoSpamNX settings were saved successfully."
 msgstr "ההגדרות נשמרו בהצלחה."
 
-#: nospamnx.php:265
+#: nospamnx.php:268
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "המונה אופס בהצלחה."
 
-#: nospamnx.php:273
+#: nospamnx.php:275
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "הרשימה השחורה עודכנה בהצלחה."
 
-#: nospamnx.php:288
+#: nospamnx.php:292
 msgid "Are you sure you want to reset the counter?"
 msgstr "אתה בטוח שברצונך לאפס את המונה?"
 
-#: nospamnx.php:295
+#: nospamnx.php:299
 msgid "NoSpamNX Settings"
 msgstr "הגדרות NoSpamNX"
 
-#: nospamnx.php:299
+#: nospamnx.php:303
 msgid "Statistic"
 msgstr "סטטיסטיקה"
 
-#: nospamnx.php:323
+#: nospamnx.php:327
 msgid "Reset"
 msgstr "אפס"
 
-#: nospamnx.php:331
+#: nospamnx.php:333
 msgid "Operating mode"
 msgstr "מצב הפעלה"
 
-#: nospamnx.php:333
+#: nospamnx.php:335
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "כבררת מחדל כל הבוטים יסומנו כתגובות זבל, אבל המצב המומלץ הוא \"חסימה\". אם אתה עדיין לא סומך על החסימה, בחר בינתיים \"סמן כתגובות זבל\" ועבור ל\"חסימה\" מאוחר יותר."
 
-#: nospamnx.php:337
+#: nospamnx.php:339
 msgid "Mode"
 msgstr "מצב"
 
-#: nospamnx.php:340
+#: nospamnx.php:342
 msgid "Block (recommended)"
 msgstr "חסימה (מומלץ)"
 
-#: nospamnx.php:342
+#: nospamnx.php:344
 msgid "Mark as Spam"
 msgstr "סמן כתגובות זבל"
 
-#: nospamnx.php:347
+#: nospamnx.php:349
 #: nospamnx.php:396
 msgid "Save"
 msgstr "שמור"
@@ -133,19 +133,19 @@ msgstr "עדכן כל"
 msgid "minutes."
 msgstr "דקות."
 
-#: nospamnx.php:408
+#: nospamnx.php:407
 msgid "Security-Check failed."
 msgstr "בדיקת אבטחה נכשלה."
 
-#: nospamnx.php:557
+#: nospamnx.php:555
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX עדיין לא עצר בוטים טיפשים."
 
-#: nospamnx.php:561
+#: nospamnx.php:558
 #, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (%s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (%s per Day)."
-msgstr[0] "מאז %s %s נחסמו %s בוטים טיפשים (%s ביום)."
+msgid "Since %s %s has stopped %s birdbrained Spambot (~ %s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (~ %s per Day)."
+msgstr[0] "מאז %s %s נחסמו %s בוטים טיפשים (~ %s ביום)."
 msgstr[1] ""
 
 #~ msgid "Sorry, but your comment seems to be Spam."

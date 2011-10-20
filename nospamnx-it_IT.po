@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-10 09:02+0100\n"
+"POT-Creation-Date: 2011-10-03 17:42+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.com>\n"
+"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Gianni Diurno | gidibao.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,63 +17,63 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:74
+#: nospamnx.php:78
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!"
 msgstr "La tua versione di WordPress é datata. NoSpamNX richiede WordPress 2.8 o superiore!"
 
-#: nospamnx.php:240
+#: nospamnx.php:244
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Non hai i permessi necessari per modificare le impostazioni."
 
-#: nospamnx.php:259
+#: nospamnx.php:263
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Le impostazioni di NoSpamNX sono state sqalvate con successo."
 
-#: nospamnx.php:265
+#: nospamnx.php:268
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Il contatore di NoSpamNX é stato azzerato con successo."
 
-#: nospamnx.php:273
+#: nospamnx.php:275
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "La blacklist di NoSpamNX Blacklist é stata aggiornata con successo."
 
-#: nospamnx.php:288
+#: nospamnx.php:292
 msgid "Are you sure you want to reset the counter?"
 msgstr "Sei certo di volere azzerare il contatore?"
 
-#: nospamnx.php:295
+#: nospamnx.php:299
 msgid "NoSpamNX Settings"
 msgstr "Impostazioni NoSpamNX"
 
-#: nospamnx.php:299
+#: nospamnx.php:303
 msgid "Statistic"
 msgstr "Statistica"
 
-#: nospamnx.php:323
+#: nospamnx.php:327
 msgid "Reset"
 msgstr "Azzera"
 
-#: nospamnx.php:331
+#: nospamnx.php:333
 msgid "Operating mode"
 msgstr "Modalità operativa"
 
-#: nospamnx.php:333
+#: nospamnx.php:335
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "Sebbene utti gli Spambot saranno segnalati come Spam (predefinito), la modalità preferibile é \"blocco\". Qualora non fossi certo di cosa sarà bloccato, seleziona prima \"Segnala come spam\" quindi, passa a \"blocco\" in un secondo tempo."
 
-#: nospamnx.php:337
+#: nospamnx.php:339
 msgid "Mode"
 msgstr "Modalità"
 
-#: nospamnx.php:340
+#: nospamnx.php:342
 msgid "Block (recommended)"
 msgstr "Blocco (raccomandato)"
 
-#: nospamnx.php:342
+#: nospamnx.php:344
 msgid "Mark as Spam"
 msgstr "Segnala come spam"
 
-#: nospamnx.php:347
+#: nospamnx.php:349
 #: nospamnx.php:396
 msgid "Save"
 msgstr "Salva"
@@ -127,19 +127,19 @@ msgstr "Aggiorna ogni"
 msgid "minutes."
 msgstr "minuti."
 
-#: nospamnx.php:408
+#: nospamnx.php:407
 msgid "Security-Check failed."
 msgstr "Verifica-sicurezza fallita."
 
-#: nospamnx.php:557
+#: nospamnx.php:555
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX non ha ancora bloccato nessun Spambot."
 
-#: nospamnx.php:561
+#: nospamnx.php:558
 #, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (%s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (%s per Day)."
-msgstr[0] "A partire dal %s %s ha bloccato %s Spambot (%s al giorno)."
+msgid "Since %s %s has stopped %s birdbrained Spambot (~ %s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (~ %s per Day)."
+msgstr[0] "A partire dal %s %s ha bloccato %s Spambot (~ %s al giorno)."
 msgstr[1] "A partire dal %s %s ha bloccato %s Spambot (%s al giorno)."
 
 #~ msgid "Sorry, but your comment seems to be Spam."
