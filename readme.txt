@@ -2,7 +2,7 @@ f=== Plugin Name ===
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.2.1
-Stable tag: 4.1.4
+Stable tag: 4.1.5
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -44,6 +44,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Italian (Thanks to Gianni Diurno)
 * Russian (Thanks to minimus)
 * Hebrew (Thanks to Amiad)
+* Belarusian (Thanks to Alexander Ovsov)
 
 
 = Known Issues =
@@ -89,6 +90,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.1.5 =
+* Added Belarusian translation
 
 = 4.1.4 =
 * Fixed invalid HTML
