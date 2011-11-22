@@ -1,4 +1,4 @@
-f=== Plugin Name ===
+=== Plugin Name ===
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.2.1
