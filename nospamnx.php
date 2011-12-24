@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
 Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
-Version: 4.1.5
+Version: 4.1.6
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -50,7 +50,7 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('load_plugin_textdomain'))
 				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename( __FILE__ )));
 				
-			if (NXREQWP28 != true) {
+			if (!NXREQWP28) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
 			}
@@ -67,6 +67,7 @@ if (!class_exists('NoSpamNX'))
 			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));		
 			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
 			add_action('comment_form', array(&$this, 'addHiddenFields'));
+			add_filter('plugin_action_links', array(&$this, 'nospamnxSettingsLink'), 9, 2);
 
 			if (NXISWP30) {
 				$this->nospamnx_commentid = substr(md5(AUTH_KEY ? AUTH_KEY : get_bloginfo('url')), 0, 10);
@@ -80,14 +81,12 @@ if (!class_exists('NoSpamNX'))
 		
 		function addHiddenFields() {	
 			$nospamnx = $this->nospamnx_names;
-			
 			if (rand(1,2) == 1) {
 				echo '<p style="display:none;">';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
 				echo '</p>';
-			}
-			else {
+			} else {
 				echo '<p style="display:none;">';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
@@ -98,8 +97,7 @@ if (!class_exists('NoSpamNX'))
 		function checkCommentForm() {															
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php') {
 				return;
-			}
-			else {		
+			} else {		
 				//if using wordpress default, the comment field has another name (by Marcel Bokhorst)
 				if (NXISWP30 && isset($_POST['comment-' . $this->nospamnx_commentid]))
 					$comment = $_POST['comment-' . $this->nospamnx_commentid];
@@ -238,6 +236,14 @@ if (!class_exists('NoSpamNX'))
 		function displayError($message) {
 			echo "<div id='message' class='error'><p>".$message."</p></div>";
 		}
+		
+		function nospamnxSettingsLink($links, $file) {
+			if ($file == 'nospamnx/nospamnx.php' && function_exists("admin_url")) {
+				$settings_link = '<a href="' . admin_url('options-general.php?page=nospamnx' ). '">' . __('Settings') . '</a>';
+				array_push($links, $settings_link);
+			}
+			return $links;
+		}		
 		
 		function nospamnxOptionPage() {	
 			if (!current_user_can('manage_options'))
@@ -509,7 +515,6 @@ if (!class_exists('NoSpamNX'))
 		function getStatsPerDay() {
 			$secs = time() - $this->nospamnx_activated;
 			$days = ($secs / (24*3600));
-
 			($days <= 1) ? $days = 1 : $days = floor($days);
 
 			return ceil($this->nospamnx_count / $days);

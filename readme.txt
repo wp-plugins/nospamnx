@@ -2,11 +2,11 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.0
-Stable tag: 4.1.5
+Stable tag: 4.1.6
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
-To protect your Blog from automated spambots, this plugin adds additional formfields (hidden to human-users) to your comment form. 
+To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
 
 == Description ==
 
@@ -90,6 +90,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 4.1.6 =
+* Added Link to Plugin Settings
+* Added Plugin Banner
 
 = 4.1.5 =
 * Added Belarusian translation
