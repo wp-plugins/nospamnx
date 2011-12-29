@@ -6,7 +6,7 @@ Stable tag: 4.1.6
 Requires at least: 2.8
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
-To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields (hidden to human-users) to your comment form. These Fields are checked every time a new comment is posted. 
+To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form.
 
 == Description ==
 
