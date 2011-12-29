@@ -2,7 +2,7 @@
 /*
 Plugin Name: NoSpamNX
 Plugin URI: http://www.svenkubiak.de/nospamnx-en
-Description: To protect your Blog from automated spambots, which fill you comments with junk, this plugin adds additional formfields to your comment form. 
+Description: To protect your Blog from automated spambots, this plugin adds hidden formfields to your comment form. 
 Version: 4.1.6
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
