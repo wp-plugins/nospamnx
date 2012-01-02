@@ -1,6 +1,4 @@
-- Remove all pre 3.x legacy code
 - Add option to block ip ranges
 - update screenshots
 - check translations
 - update readme
-- Add top 10 spam words for blacklist (anonymous submitting) -> play app
