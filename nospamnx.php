@@ -40,7 +40,6 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_blacklist_global_url;			
 		var $nospamnx_blacklist_global_update;
 		var $nospamnx_blacklist_global_lu;
-		var $nospamnx_showblocked;						
 		var $nospamnx_activated;	
 		var $nospamnx_commentid;
 		var $nospamnx_salt;
@@ -98,6 +97,10 @@ if (!class_exists('NoSpamNX'))
 			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php') {
 				return;
 			} else {		
+				//first line of defense -> blacklist
+				$this->blacklistCheck($_POST['author'],$_POST['email'],$_POST['url'],$_POST['comment'],$_SERVER['REMOTE_ADDR']);
+				
+				//second line of defense -> comment field (by Marcel Bokhorst)
 				if (isset($_POST['comment-replaced'])) {
 					$hidden_field = $_POST['comment'];
 					$plugin_field = $_POST['comment-' . $this->nospamnx_commentid];
@@ -107,12 +110,8 @@ if (!class_exists('NoSpamNX'))
 						$this->birdbrained();
 					}
 				}
-				
-				$blackedword = $this->blacklistCheck($_POST['author'],$_POST['email'],$_POST['url'],$_POST['comment'],$_SERVER['REMOTE_ADDR']);
-				if ($blackedword != "") {
-					$this->birdbrained($blackedword);
-				}
 
+				//third line of defenese -> hidden fields and timestamp
 				$nospamnx = $this->nospamnx_names;
 				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST)) {
 					$this->birdbrained();
@@ -144,7 +143,7 @@ if (!class_exists('NoSpamNX'))
 			}
 		}
 
-		function birdbrained($blackedword="") {		
+		function birdbrained() {		
 			$this->nospamnx_count++;
 			$this->setOptions();
 
@@ -152,11 +151,7 @@ if (!class_exists('NoSpamNX'))
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 				$message = "<p>Sorry, but your comment has been marked as Spam.</p>";
 			} else {
-				if ($blackedword != "" && $this->nospamnx_showblocked == 1) {
-					$message = "<p>Sorry, but the word <b>".$blackedword."</b> is blacklisted on this Blog.</p>";
-				} else {
-					$message = "<p>Sorry, but your comment seems to be Spam and has been blocked.</p>";
-				}
+				$message = "<p>Sorry, but your comment seems to be Spam and has been blocked.</p>";
 			}
 			$message .= "<p><a href='javascript:history.back()'>Back</a></p>";
 			wp_die($message);
@@ -188,16 +183,14 @@ if (!class_exists('NoSpamNX'))
 					$word = strtolower($word);
 					$word = preg_quote($word, '#');
 					$pattern = "#$word#i";
-					if (preg_match($pattern, $author)
-						|| preg_match($pattern, $email)
-						|| preg_match($pattern, $url)
-						|| preg_match($pattern, $remoteip)
-						|| preg_match($pattern, $comment))
-					return $word;
+					if (preg_match($pattern, $author)   ||
+						preg_match($pattern, $email)    ||
+						preg_match($pattern, $url)      ||
+						preg_match($pattern, $remoteip) ||
+						preg_match($pattern, $comment))
+					return $this->birdbrained();
 				}
 			}
-			
-			return "";
 		}
 		
 		function generateNames() {		
@@ -246,31 +239,32 @@ if (!class_exists('NoSpamNX'))
 			(isset($_POST['reset_counter'])) 	? $reset_counter = $_POST['reset_counter'] : $reset_counter = '';
 			(isset($_POST['update_blacklist'])) ? $update_blacklist = $_POST['update_blacklist'] : $update_blacklist = '';
 			
-			if ($save_settings == 1 && $this->verifyNonce($nonce)) {
-				switch($_POST['nospamnx_operate']) {
-					case 'block':
-						$this->nospamnx_operate = 'block';
-					break;
-					case 'mark':
-						$this->nospamnx_operate = 'mark';
-					break;
-					default:
-						$this->nospamnx_operate = 'mark';		
-				}			
-				$this->setOptions();
-				$this->displayMessage(__('NoSpamNX settings were saved successfully.','nospamnx'));		
-			} else if ($reset_counter == 1 && $this->verifyNonce($nonce)) {
-				$this->nospamnx_count = 0;
-				$this->nospamnx_activated = time();
-				$this->setOptions();
-				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));			
-			} else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
-				$this->nospamnx_showblocked = (isset($_POST['showblocked'])) ? $_POST['showblocked'] : 0;
-				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
-				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
-				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
-				$this->setOptions();
-				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
+			if ($this->verifyNonce($nonce)) {
+				if ($save_settings == 1) {
+					switch($_POST['nospamnx_operate']) {
+						case 'block':
+							$this->nospamnx_operate = 'block';
+							break;
+						case 'mark':
+							$this->nospamnx_operate = 'mark';
+							break;
+						default:
+							$this->nospamnx_operate = 'mark';
+					}
+					$this->setOptions();
+					$this->displayMessage(__('NoSpamNX settings were saved successfully.','nospamnx'));
+				} else if ($reset_counter == 1) {
+					$this->nospamnx_count = 0;
+					$this->nospamnx_activated = time();
+					$this->setOptions();
+					$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));
+				} else if ($update_blacklist == 1) {
+					$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
+					$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
+					$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
+					$this->setOptions();
+					$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
+				}				
 			}			
 
 			$mark = '';
@@ -354,10 +348,6 @@ if (!class_exists('NoSpamNX'))
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">
 								<tr>
-									<td valign="top"><b><?php echo __('Display the string which has been blocked','nospamnx'); ?></b></td>
-									<td valign="top"><input type="checkbox" <?php if ($this->nospamnx_showblocked == 1) { echo "checked"; }?> name="showblocked" value="1" /></td>
-								</tr>
-								<tr>
 									<td colspan="2" valign="top"><b><?php echo __('Both local and global Blacklist are case-insensitive and match substrings!','nospamnx'); ?></b></td>
 								</tr>	
 								<tr>
@@ -416,7 +406,6 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_blacklist_global_url'		=> '',
 					'nospmanx_blacklist_global_update'	=> '',	
 					'nospamnx_blacklist_global_lu'		=> 0,				
-					'nospamnx_showblocked'				=> 0,
 					'nospamnx_activated'				=> time(),
 					'nospamnx_commentid'				=> $this->generateRandomString(),
 					'nospamnx_salt'						=> $this->generateRandomString()												
@@ -443,9 +432,6 @@ if (!class_exists('NoSpamNX'))
 				if (!array_key_exists('nospamnx_blacklist_global_lu',$options)) {
 					$options['nospamnx_blacklist_global_lu'] = 0;
 				}
-				if (!array_key_exists('nospamnx_showblocked',$options)) {
-					$options['nospamnx_showblocked'] = 0;					
-				}				
 				if (!array_key_exists('nospamnx_activated',$options)) {
 					$options['nospamnx_activated'] = time();
 				}				
@@ -476,7 +462,6 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
 			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
-			$this->nospamnx_showblocked				= $options['nospamnx_showblocked'];
 			$this->nospamnx_activated				= $options['nospamnx_activated'];
 			$this->nospamnx_commentid				= $options['nospamnx_commentid'];						
 			$this->nospamnx_salt					= $options['nospamnx_salt'];		
@@ -492,7 +477,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
 				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu,	
-				'nospamnx_showblocked'				=> $this->nospamnx_showblocked,	
 				'nospamnx_activated'				=> $this->nospamnx_activated,
 				'nospamnx_commentid'				=> $this->nospamnx_commentid,
 				'nospamnc_salt'						=> $this->nospamnx_salt

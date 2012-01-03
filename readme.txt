@@ -94,7 +94,14 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 = 5.0.0 =
 * NoSpamNX now requires at least WordPress 3.0
 * Removed all legacy code for WordPress < 3.0
-
+* Added timestamp for new comment
+* Updated readme
+* Updated translations
+* Updated Screenshots
+* Updated faq
+* Removed option to show blocked word from blacklist
+* Blacklist can now block IP-Ranges  
+* Code cleanup
 
 = 4.1.6 =
 * Added Link to Plugin Settings
