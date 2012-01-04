@@ -48,12 +48,10 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('load_plugin_textdomain')) {
 				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename(__FILE__)));
 			}
-				
 			if (!NXISWP30) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
 				return;
 			}
-
 			if (function_exists('register_activation_hook')) {
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			}
@@ -80,10 +78,9 @@ if (!class_exists('NoSpamNX'))
 		function addHiddenFields() {	
 			$time = time();
 			$nospamnx = $this->nospamnx_names;
-			
 			echo '<p style="display:none;">';
 			echo '<input type="text" name="nxts" value="'.$time.'" />';
-			echo '<input type="text" name="nxts_signed" value="'.sha1($time + $this->nospamnx_salt).'" />';
+			echo '<input type="text" name="nxts_signed" value="'.sha1($time . $this->nospamnx_salt).'" />';
 			if (rand(1,2) == 1) {
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
@@ -124,7 +121,7 @@ if (!class_exists('NoSpamNX'))
 					$this->birdbrained();				
 				} else if (!array_key_exists('nxts',$_POST) || !array_key_exists('nxts_signed',$_POST)) {
 					$this->birdbrained();
-				} else if (sha1($_POST['nxts'] + $this->nospamnx_salt) != $_POST['nxts_signed']) {
+				} else if (sha1($_POST['nxts'] . $this->nospamnx_salt) != $_POST['nxts_signed']) {
 					$this->birdbrained();
 				} else if (time() < $_POST['nxts'] + 5) {
 					$this->birdbrained();
@@ -161,8 +158,8 @@ if (!class_exists('NoSpamNX'))
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
 			$blacklist = array(
-				0 => trim($this->nospamnx_blacklist),
-				1 => trim($this->nospamnx_blacklist_global)												
+				0 => $this->nospamnx_blacklist,
+				1 => $this->nospamnx_blacklist_global												
 			);
 			
 			$author		= trim($author);
@@ -424,7 +421,6 @@ if (!class_exists('NoSpamNX'))
 		
 		function verifyNonce($nonce) {
 			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) { wp_die(__('Security-Check failed.','nospamnx')); }
-			
 			return true;
 		}
 	
@@ -474,7 +470,6 @@ if (!class_exists('NoSpamNX'))
 				}								
 				update_option('nospamnx', $options);			
 			}
-			
 			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist-global', ''); }
 			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist', ''); }
 		}	
@@ -561,7 +556,6 @@ if (!class_exists('NoSpamNX'))
 			
 		function displayStats($dashboard=false) {
 			if ($dashboard) { echo "<p>"; }
-
 			if ($this->nospamnx_count <= 0) {
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			} else {
