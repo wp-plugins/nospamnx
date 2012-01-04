@@ -1,12 +1,12 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
-Tested up to: 3.3.0
+Tested up to: 3.3.1
 Stable tag: 5.0.0
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
-To protect your Blog from automated spambots, this plugin adds hidden formfields to your comment form.
+To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
 
 == Description ==
 
@@ -19,14 +19,14 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 
 = Requirements =
 
-Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex (see http://is.gd/1lezf), otherwise NoSpamNX will not work properly! 
+Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex - see http://is.gd/1lezf - otherwise NoSpamNX will not work properly! 
 
 
 = Features in a nutshell =
 
 * Easy installation (just activate the plugin)
 * Easy configuration (only two options)
-* Local Blacklist to block specific Phrases, URLs, Domains, etc. (use it to block "handmade" Spam)
+* Local Blacklist to block specific Phrases, URLs, Domains, IP-Ranges, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
 * Does not require JavaScript, Cookies or Sessions
 * Does not require any extra field for user input (e.g. Captcha, Calculations, Pictures, etc.)
@@ -64,15 +64,19 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 = After I updated to a new Version all comments are marked as Spam! =
 
-The best way to deal with this Problem, is to deactive and re-install the Plugin. 
+The best way to deal with this Problem, is to uninstall the Plugin via the WordPress Backend and re-install the Plugin. 
+
+= After I updated to a new Version the Options are reseted! =
+
+Update to at least Version 3.14. Since this Version the Options are not rested when the plugin is updated.
 
 = I use OpenID and after Installation all comments are marked as Spam! =
 
 NoSpamNX does not work with OpenID.
 
-= After I updated to a new Version the Options are reseted! =
+= Can I block IP-Adresses and IP-Ranges with the built-in blacklist? =
 
-Update at least to NoSpamNX Version 3.14. Since this Version the Options are only reseted if new options are available.
+Yes, just add an IP-Address (e.g. 10.23.23.4) in the Blacklist or use CIDR-Notation (e.g. 10.43.8.67/28) to block IP-Ranges.
 
 = Does the plugin block Ping-/Trackback Spam as well? =
 
@@ -93,14 +97,13 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 = 5.0.0 =
 * NoSpamNX now requires at least WordPress 3.0
-* Removed all legacy code for WordPress < 3.0
-* Added timestamp for new comment
-* Updated readme
-* Updated translations
-* Updated Screenshots
-* Updated faq
+* Added timestamp check for new comment
 * Removed option to show blocked word from blacklist
-* Blacklist can now block IP-Ranges  
+* Blacklist can now block IP-Ranges based on CIDR (e.g. 10.43.8.67/28)
+* Updated readme
+* Updated Translations
+* Updated Screenshots
+* Updated FAQ
 * Code cleanup
 
 = 4.1.6 =
