@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX ru_RU\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-03 17:42+0100\n"
+"POT-Creation-Date: 2012-01-14 10:14+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Web Geeks\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,84 +17,92 @@ msgstr ""
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: nospamnx.php:78
-msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 2.8!"
-msgstr "У Вас занадта старая версія WordPress. Для звычайнай працы ўбудовы NoSpamNX патрабуецца, прынамсі, WordPress версіі 2.8!"
+#: nospamnx.php:75
+msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 3.0!"
+msgstr "У Вас занадта старая версія WordPress. Для звычайнай працы ўбудовы NoSpamNX патрабуецца, прынамсі, WordPress версіі 3.0!"
 
 #: nospamnx.php:244
+msgid "Settings"
+msgstr "Параметры NoSpamNX"
+
+#: nospamnx.php:252
+msgid "FAQ"
+msgstr ""
+
+#: nospamnx.php:253
+msgid "Donate"
+msgstr "Ахвяраванні"
+
+#: nospamnx.php:262
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Выбачыце, але ў Вас няма правоў на змену параметраў."
 
-#: nospamnx.php:263
+#: nospamnx.php:282
 msgid "NoSpamNX settings were saved successfully."
 msgstr "Параметры NoSpamNX былі паспяхова захаваны."
 
-#: nospamnx.php:268
+#: nospamnx.php:287
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Сведчанні лічыльніка NoSpamNX былі паспяхова скінуты."
 
-#: nospamnx.php:275
+#: nospamnx.php:293
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "Чорны спіс NoSpamNX быў паспяхова захаваны."
 
-#: nospamnx.php:292
+#: nospamnx.php:309
 msgid "Are you sure you want to reset the counter?"
 msgstr "Вы ўпэўнены, што жадаеце скінуць сведчанні лічыльніка?"
 
-#: nospamnx.php:299
+#: nospamnx.php:316
 msgid "NoSpamNX Settings"
 msgstr "Параметры NoSpamNX"
 
-#: nospamnx.php:303
+#: nospamnx.php:320
 msgid "Statistic"
 msgstr "Статыстыка"
 
-#: nospamnx.php:327
+#: nospamnx.php:344
 msgid "Reset"
 msgstr "Скінуць"
 
-#: nospamnx.php:333
+#: nospamnx.php:350
 msgid "Operating mode"
 msgstr "Рэжым апрацоўкі"
 
-#: nospamnx.php:335
+#: nospamnx.php:352
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "Па змаўчанні ўсё спам-боты, пазначаюцца як спам, аднак рэжым \"Блакаванне\" больш пераважны. Калі вы не ўпэўнены, што менавіта будзе заблакавана, для пачатку абярыце пункт \"Пазначыць як спам\", Вы заўсёды можаце перайсці на рэжым \"Блакаванне\" у будучыні."
 
-#: nospamnx.php:339
+#: nospamnx.php:356
 msgid "Mode"
 msgstr "Рэжым"
 
-#: nospamnx.php:342
+#: nospamnx.php:359
 msgid "Block (recommended)"
 msgstr "Блакаванне (рэкамендуецца)"
 
-#: nospamnx.php:344
+#: nospamnx.php:361
 msgid "Mark as Spam"
 msgstr "Пазначыць як спам"
 
-#: nospamnx.php:349
-#: nospamnx.php:396
+#: nospamnx.php:366
+#: nospamnx.php:410
 msgid "Save"
 msgstr "Захаваць"
 
-#: nospamnx.php:355
+#: nospamnx.php:372
 msgid "Blacklist"
 msgstr "Чорны спіс"
 
-#: nospamnx.php:360
-msgid "Display the string which has been blocked"
-msgstr ""
-
-#: nospamnx.php:364
+#: nospamnx.php:377
 msgid "Both local and global Blacklist are case-insensitive and match substrings!"
 msgstr "І лакальны і глабальны Чорны спіс з'яўляюцца неадчувальным да рэгістра і складаюцца з радкоў адпаведнасці!"
 
-#: nospamnx.php:367
+#: nospamnx.php:380
 msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line."
 msgstr "Лакальны Чорны спіс сумяшчальны з Чорным спісам WordPress. Аднак, лакальны Чорны спіс дазваляе Вам блакаваць каментары, якія змяшчаюць вызначаныя значэнні, замест таго, каб змяшчаць іх у чаргу мадэравання. Такім чынам, лакальны чорны спіс мае сэнс толькі пры выкарыстанні NoSpamNX у рэжыме блакавання. Лакальны Чорны спіс правярае дадзеныя значэнні па IP-адрасу, аўтару, e-mail, каментару і полю URL каментара. Калі ўзор будзе адпавядаць прысутнаму ў спісе, то каментар будзе блакаваны. Калі ласка, выкарыстоўвайце адно значэнне на радок."
 
-#: nospamnx.php:368
+#: nospamnx.php:381
 msgid ""
 "The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
 "\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL."
@@ -102,44 +110,44 @@ msgstr ""
 "Глабальны Чорны спіс дае Вам магчымасць выкарыстоўваць адзін Чорны спіс для мноства блогаў WordPress. Вы павінны паказаць месца, дзе Вы захоўваеце свой Чорны спіс (напрыклад: Webspace, Dropbox, і г.д. - але толькі HTTP) увядучы URL у поле \"URL абнаўленні\". У якім менавіта выглядзе Вы стварылі свой Чорны спіс (сцэнар PHP з базай дадзеных, просты тэкставы файл, і г.д.) не мае значэнні, але Вы павінны пераканацца, што запыт па ўведзеным Вамі \"URL абнаўленні\",  вяртае масіў значэнняў у выглядзе тэксту (адно значэнне на радок, падзельнік - \"\\n"
 "\"). Пакажыце \"URL абнаўленні\" ва ўсіх Вашых Блогах, дзе Вы жадаеце мець свой Чорны спіс, і устанавите чашчыню абнаўлення паводле Вашых запатрабаванняў. Глабальны Чорны спіс будзе актываваны, пасля ўводу значэння \"URL абнаўленні\"."
 
-#: nospamnx.php:371
+#: nospamnx.php:384
 msgid "Local Blacklist"
 msgstr "Лакальны Чорны Спіс"
 
-#: nospamnx.php:372
+#: nospamnx.php:385
 msgid "Global Blacklist"
 msgstr "Глабальны Чорны спіс"
 
-#: nospamnx.php:380
-#: nospamnx.php:382
+#: nospamnx.php:393
+#: nospamnx.php:395
 msgid "Last update"
 msgstr "Апошняе абнаўленне"
 
-#: nospamnx.php:388
+#: nospamnx.php:402
 msgid "Update URL (e.g. http://www.mydomain.com/myblacklist.txt)"
 msgstr "URL абнаўленні (напрыклад: http://www.mydomain.com/myblacklist.txt)"
 
-#: nospamnx.php:392
+#: nospamnx.php:406
 msgid "Update every"
 msgstr "Абнаўляць кожныя"
 
-#: nospamnx.php:392
+#: nospamnx.php:406
 msgid "minutes."
 msgstr "мінуць."
 
-#: nospamnx.php:407
+#: nospamnx.php:421
 msgid "Security-Check failed."
 msgstr "Праверка бяспекі не атрымалася."
 
-#: nospamnx.php:555
+#: nospamnx.php:558
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX пакуль не спыніў ніводнага спамбота."
 
-#: nospamnx.php:558
+#: nospamnx.php:561
 #, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (~ %s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (~ %s per Day)."
-msgstr[0] "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (~ %s у дзень)."
+msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
+msgstr[0] "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (approx. %s у дзень)."
 msgstr[1] "З моманту апошняй актывацыі %s %s было спынена %s спамбота (%s у дзень)."
 msgstr[2] "З моманту апошняй актывацыі %s %s было спынена %s спамботов (%s у дзень)."
 
@@ -162,8 +170,8 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 #~ "Referer-Check failed! The referer does not match WordPress option \"home"
 #~ "\" or \"siteurl\"."
 #~ msgstr ""
-#~ "Праверка крыніцы немагчымая! Крыніца не адпавядае Wordpress "
-#~ "параметру \"home\" ці \"siteurl\"."
+#~ "Праверка крыніцы немагчымая! Крыніца не адпавядае Wordpress параметру "
+#~ "\"home\" ці \"siteurl\"."
 
 #~ msgid "Check HTTP Referer"
 #~ msgstr "Праверка крыніцы HTTP"
@@ -248,9 +256,9 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 #~ "NoSpamNX is currently inactive! Some required PHP functions are not "
 #~ "available. See Settings -> NoSpamNX -> Information for more details."
 #~ msgstr ""
-#~ "Праца NoSpamNX у наш час заблакавана! Некаторыя неабходныя "
-#~ "функцыі PHP недаступныя. Гл. Параметры-> NoSpamNX->Інфармацыя для "
-#~ "атрыманні больш падрабязнай інфармацыі."
+#~ "Праца NoSpamNX у наш час заблакавана! Некаторыя неабходныя функцыі PHP "
+#~ "недаступныя. Гл. Параметры-> NoSpamNX->Інфармацыя для атрыманні больш "
+#~ "падрабязнай інфармацыі."
 
 #~ msgid "Debug"
 #~ msgstr "Адладкавая інфармацыя"
@@ -269,9 +277,6 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 #~ "Праблемы з NoSpamNX? Не саромейцеся напісаць мне па электроннай пошце (%"
 #~ "s) ці шануйце каментары на старонцы ўбудовы. Не забудзьцеся прыкласці "
 #~ "адладкавую інфармацыю да свайго запыту."
-
-#~ msgid "Donation"
-#~ msgstr "Ахвяраванні"
 
 #~ msgid ""
 #~ "Developing, maintaining and supporting this plugin requires time. You can "
@@ -293,8 +298,8 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 #~ "You can block an IP-Address of a catched Spambot for 1 hour, 24 hours or "
 #~ "indefinitely. This IP-Address can not post any comments during this time."
 #~ msgstr ""
-#~ "Вы можаце блакаваць IP адрас \"злоўленага на месцы злачынства\" спам-"
-#~ "бота на 1 гадзіна, на 24 гадзіны ці назаўжды. З гэтага IP адрасу не атрымаецца "
+#~ "Вы можаце блакаваць IP адрас \"злоўленага на месцы злачынства\" спам-бота "
+#~ "на 1 гадзіна, на 24 гадзіны ці назаўжды. З гэтага IP адрасу не атрымаецца "
 #~ "адправіць ніводны каментар у плыні абранага інтэрвалу часу."
 
 #~ msgid "Block IP-Address"
@@ -413,11 +418,11 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 #~ "(versteckt vor einem \"echten\" Benutzer ) hinzu. Die meisten Spambots "
 #~ "tappen in diese Falle und f&uuml;llen das Feld blind aus.  Um diese Falle "
 #~ "so gut wie m&ouml;glich zu machen, muss dieses versteckte Feld nahezu "
-#~ "identisch zu einem echten Formularfeld sein. Dazu hat es standardm&auml;"
-#~ "?ig die id mit dem Wert \"Author\". Allerdings d&uuml;rfen ids keinen "
-#~ "Wert doppelt belegen, so dass dies zu einem nicht striktem HTML f&uuml;"
-#~ "hrt. Du kannst nun selbst entscheiden, ob du mehr Schutz, aber kein "
-#~ "striktes HTML, oder weniger Schutz, aber striktes HTML m&ouml;chtest."
+#~ "identisch zu einem echten Formularfeld sein. Dazu hat es standardm&auml;?"
+#~ "ig die id mit dem Wert \"Author\". Allerdings d&uuml;rfen ids keinen Wert "
+#~ "doppelt belegen, so dass dies zu einem nicht striktem HTML f&uuml;hrt. Du "
+#~ "kannst nun selbst entscheiden, ob du mehr Schutz, aber kein striktes "
+#~ "HTML, oder weniger Schutz, aber striktes HTML m&ouml;chtest."
 
 #~ msgid "Name of the hidden Formfield"
 #~ msgstr "Name des versteckten Feldes"
