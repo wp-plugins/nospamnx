@@ -89,8 +89,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 == Screenshots ==
 
-1. NoSpamNX statistic on Dashboard
-2. NoSpamNX settings
+1. Statistic on Dashboard
+2. Settings
+3. Local Blacklist
+4. Global Blacklist
 
 
 == Changelog ==

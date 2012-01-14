@@ -143,17 +143,15 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function birdbrained() {		
-			$this->nospamnx_count++;
-			$this->setOptions();
-
 			if ($this->nospamnx_operate == 'mark') {
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
-				$message = "<p>Sorry, but your comment has been marked as Spam.</p>";
 			} else {
+				$this->nospamnx_count++;
+				$this->setOptions();
 				$message = "<p>Sorry, but your comment seems to be Spam and has been blocked.</p>";
+				$message .= "<p><a href='javascript:history.back()'>Back</a></p>";
+				wp_die($message);
 			}
-			$message .= "<p><a href='javascript:history.back()'>Back</a></p>";
-			wp_die($message);
 		}	
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
