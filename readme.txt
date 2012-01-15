@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
-Stable tag: 5.0.0
+Stable tag: 5.0.1
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
 
@@ -96,6 +96,14 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.0.1 =
+* Fixed Bug when Plugin is activated (Thanks to Steve Munro)
+* Fixed typo when options are stored
+* Added specific message when comment is posted to fast
+* Changed Response Code to 403 when comment is blocked (Thanks to Marcel Bokhorst)
+* Changed Response Code to 403 when user has no permissions to change settings
+* Changed Response Code to 403 when nonce-check fails
 
 = 5.0.0 =
 * NoSpamNX now requires at least WordPress 3.0

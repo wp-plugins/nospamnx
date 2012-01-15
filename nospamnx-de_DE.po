@@ -31,7 +31,7 @@ msgstr "FAQ"
 
 #: nospamnx.php:253
 msgid "Donate"
-msgstr "Spende"
+msgstr "Flattr"
 
 #: nospamnx.php:262
 msgid "Sorry, but you have no permissions to change settings."
