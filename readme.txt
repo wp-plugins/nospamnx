@@ -4,7 +4,7 @@ Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
 Stable tag: 5.0.2
 Requires at least: 3.0
-Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, dnsbl
+Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
 To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
 
@@ -33,6 +33,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * No need to manage spambot comments (if you don't want to)
 * No Database queries except for a few WordPress Options
 * Compatible with WPtouch (Mobile Theme)
+* Compatible with WordPress Multi-Site feature (see FAQ)
 * False-positives are nearly impossible
 
 
@@ -51,6 +52,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 = Known Issues =
 
 * Does not work with OpenID
+* Does not work with BuddyPress
 
 
 == Installation ==
@@ -74,6 +76,14 @@ Update to at least Version 3.14. Since this Version the Options are not rested w
 = I use OpenID and after Installation all comments are marked as Spam! =
 
 NoSpamNX does not work with OpenID.
+
+= I use BuddyPress and after Installation all comments are marked as Spam! =
+
+NoSpamNX does not work with BuddyPress.
+
+= Does NoSpamNX work with WordPress Multi-Site feature? =
+
+Yes, but you have to activate the plugin for each site individually.
 
 = Can I block IP-Adresses and IP-Ranges with the built-in blacklist? =
 
