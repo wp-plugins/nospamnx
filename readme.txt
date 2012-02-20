@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
-Stable tag: 5.0.2
+Stable tag: 5.0.3
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -107,6 +107,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.0.3 =
+* Change Uninstall Hook to static function call (Thanks to Tom Braider)
 
 = 5.0.2 =
 * Added Turkish translation
