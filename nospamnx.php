@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.0.3
+Version: 5.1.0
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -69,6 +69,8 @@ if (!class_exists('NoSpamNX'))
 			add_filter('comment_form_field_comment', array(&$this, 'replaceCommentField'));
 			add_filter('plugin_action_links', array('NoSpamNX', 'nospamnxSettingsLinks'),9999,2);
 			add_filter('plugin_row_meta', array('NoSpamNX', 'nospamnxPluginLinks'),9999,2);			
+			add_action('bbp_theme_after_topic_form', array(&$this, 'addHiddenFields'));
+			add_action('bbp_theme_after_reply_form', array(&$this, 'addHiddenFields'));
 		}
 
 		function wpVersionFail() {
@@ -92,9 +94,7 @@ if (!class_exists('NoSpamNX'))
 		}
 		
 		function checkCommentForm() {															
-			if (basename($_SERVER['PHP_SELF']) != 'wp-comments-post.php') {
-				return;
-			} else {					
+			if (basename($_SERVER['PHP_SELF']) == 'wp-comments-post.php' ||	(isset($_POST['action']) &&	($_POST['action'] == 'bbp-new-topic' ||	$_POST['action'] == 'bbp-new-reply'))) {
 				//first line of defense -> replaced comment field (by Marcel Bokhorst)
 				if (isset($_POST['comment-replaced'])) {
 					$hidden_field = $_POST['comment'];
@@ -107,8 +107,20 @@ if (!class_exists('NoSpamNX'))
 				}
 				
 				//second line of defense -> local and global blacklist
-				$this->blacklistCheck($_POST['author'],$_POST['email'],$_POST['url'],$_POST['comment'],$_SERVER['REMOTE_ADDR']);
+				$author = isset($_POST['author']) 	? $_POST['author'] : null;
+				$email = isset($_POST['email']) 	? $_POST['email'] : null;
+				$url = isset($_POST['url']) 		? $_POST['url'] : null;
+				$comment = isset($_POST['comment']) ? $_POST['comment'] : null;
+				
+				//bbPress check (by Marcel Bokhorst)
+				$author = isset($_POST['bbp_anonymous_name']) ? $_POST['bbp_anonymous_name'] : $author;
+				$email = isset($_POST['bbp_anonymous_email']) ? $_POST['bbp_anonymous_email'] : $email;
+				$url = isset($_POST['bbp_anonymous_website']) ? $_POST['bbp_anonymous_website'] : $url;
+				$comment = isset($_POST['bbp_topic_content']) ? $_POST['bbp_topic_content'] : $comment;
+				$comment = isset($_POST['bbp_reply_content']) ? $_POST['bbp_reply_content'] : $comment;
 
+				$this->blacklistCheck($author, $email, $url, $comment, $_SERVER['REMOTE_ADDR']);
+				
 				//third line of defense -> hidden fields and timestamp
 				$nospamnx = $this->nospamnx_names;
 				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST)) {

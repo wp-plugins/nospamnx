@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
-Stable tag: 5.0.3
+Stable tag: 5.1.0
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -32,6 +32,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Does not require any extra field for user input (e.g. Captcha, Calculations, Pictures, etc.)
 * No need to manage spambot comments (if you don't want to)
 * No Database queries except for a few WordPress Options
+* Compatible with bbPress
 * Compatible with WPtouch (Mobile Theme)
 * Compatible with WordPress Multi-Site feature (see FAQ)
 * False-positives are nearly impossible
@@ -107,6 +108,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.0 =
+* Added compatibitly to bbPress (Thanks to Marcel Bokhorst)
+* Minor Code cleanup
+* Updated readme
 
 = 5.0.3 =
 * Change Uninstall Hook to static function call (Thanks to Tom Braider)
