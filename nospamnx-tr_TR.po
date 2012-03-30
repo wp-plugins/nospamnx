@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in Turkish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 08:39+0100\n"
+"POT-Creation-Date: 2012-03-30 14:19+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: kazancexpert.com <kazancexpert@gmail.com>\n"
@@ -21,127 +21,133 @@ msgstr ""
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 3.0!"
 msgstr "Wordpress sürümünüz çok eski. NoSpamNX en az WordPress 3.0 gerektirir!"
 
-#: nospamnx.php:270
+#: nospamnx.php:268
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
-#: nospamnx.php:278
+#: nospamnx.php:276
 msgid "FAQ"
-msgstr ""
+msgstr "SSS"
 
-#: nospamnx.php:279
+#: nospamnx.php:277
 msgid "Donate"
-msgstr ""
+msgstr "Bağış"
 
-#: nospamnx.php:288
+#: nospamnx.php:286
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Özür dilerim, fakat ayarları değiştirmek için yetkiniz yok."
 
-#: nospamnx.php:308
+#: nospamnx.php:306
 msgid "NoSpamNX settings were saved successfully."
 msgstr "NoSpamNX başarıyla kaydedildi."
 
-#: nospamnx.php:313
+#: nospamnx.php:311
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "NoSpamNX sayacı başarıyla sıfırlandı."
 
-#: nospamnx.php:320
+#: nospamnx.php:318
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "NoSpamNX karalistesi başarıyla güncellendi."
 
-#: nospamnx.php:336
+#: nospamnx.php:334
 msgid "Are you sure you want to reset the counter?"
 msgstr "Sayacı sıfırlamak istediğine emin misin?"
 
-#: nospamnx.php:343
+#: nospamnx.php:341
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX Ayarları"
 
-#: nospamnx.php:347
+#: nospamnx.php:345
 msgid "Statistic"
 msgstr "İstatistik"
 
-#: nospamnx.php:371
+#: nospamnx.php:369
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: nospamnx.php:377
+#: nospamnx.php:375
 msgid "Operating mode"
 msgstr "Çalışma Modu"
 
-#: nospamnx.php:379
+#: nospamnx.php:377
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "Varsayılan olarak tüm Spambotlar Spam olarak işaretlenir, fakat tavsiye edilen \"blok\" modudur. Neyin bloke edildiğinden şüpheliyseniz, ilk önce \"Spam olarak işaretle\" seçin ve sonra \"blok\" olarak ayarlayın."
 
-#: nospamnx.php:383
+#: nospamnx.php:381
 msgid "Mode"
 msgstr "Mod"
 
-#: nospamnx.php:386
+#: nospamnx.php:384
 msgid "Block (recommended)"
 msgstr "Blok (tavsiye edilen)"
 
-#: nospamnx.php:388
+#: nospamnx.php:386
 msgid "Mark as Spam"
 msgstr "Spam olarak işaretle"
 
-#: nospamnx.php:393
-#: nospamnx.php:437
+#: nospamnx.php:391
+#: nospamnx.php:436
 msgid "Save"
 msgstr "Kaydet"
 
-#: nospamnx.php:399
+#: nospamnx.php:397
 msgid "Blacklist"
 msgstr "Karaliste"
 
-#: nospamnx.php:404
-msgid "Match Substrings"
+#: nospamnx.php:399
+msgid "By default the Entries in the Blacklist will match Substrings (e.g. 'foobar' will match, if you have 'foo' in your Blacklist). Uncheck the following Option to only match exact words."
 msgstr ""
+
+#: nospamnx.php:403
+msgid "Match Substrings"
+msgstr "Alt dizelerle Eşleştir"
+
+#: nospamnx.php:406
+msgid "Local Blacklist"
+msgstr "Yerel Karaliste"
 
 #: nospamnx.php:407
-msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive."
-msgstr ""
+msgid "Global Blacklist"
+msgstr "Genel Karaliste"
 
-#: nospamnx.php:408
+#: nospamnx.php:410
+msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive."
+msgstr "Yerel Karaliste WordPress Karalistesi ile kıyaslanabilir. Ancak, Yerel Karaliste belirlenmiş değerleri içeren bir yorumu, moderasyon kuyruğuna eklemek yerine engellemenizi sağlar. Bu nedenle, yerel karaliste sadece NoSpamNX Blok modunda kullanıldığında mantıklıdır. Yerel Karaliste, bir yorumun ip adresi, yazarı, E-posta adresi, yorum ve url alanlarını kontrol eder. Eğer şablonlar eşleşirse, yorum bloke edilecektir. Lütfen her satır için bir değer girin. Yerel Karaliste büyük-küçük harfe duyarlı değildir."
+
+#: nospamnx.php:411
 msgid ""
 "The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
 "\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive."
 msgstr ""
+"Genel Karaliste birden fazla WordPress Bloğu için tek Karaliste kullanma imkanı verir. Karalistenizi barındırmak istediğiniz bir yer ayarlamalısınız (örn. Webspace, Dropbox, vs. fakat sadece HTTP olmalı) ve sonra \"Güncelleme Linki\" alanı içine yazınız. Karalisteyi (örn. Veritabanlı PHP-Script, basit Metin belgesi vs.) nasıl oluşturacağınız kadar Güncelleme Linkinizin her satır için \"\\n"
+"\" ile ayrılmış bir değer verdiğinden ayrıca emin olmalısınız. Karalistenizin tüm bloglarınız için nerede olmasını istiyorsanız Güncelleme Linkinizi oraya koyun, ve istediğiz gibi bir güncelleme aralığı ayarlayın. Genel Karalisteniz Güncelleme Linkiniz eklendiğinde aktif hale gelecektir."
 
-#: nospamnx.php:411
-msgid "Local Blacklist"
-msgstr "Yerel Karaliste"
-
-#: nospamnx.php:412
-msgid "Global Blacklist"
-msgstr "Genel Karaliste"
-
-#: nospamnx.php:420
-#: nospamnx.php:422
+#: nospamnx.php:419
+#: nospamnx.php:421
 msgid "Last update"
 msgstr "Son Güncelleme"
 
-#: nospamnx.php:429
+#: nospamnx.php:428
 msgid "Update URL (e.g. http://www.mydomain.com/myblacklist.txt)"
-msgstr "Güncelleme URL (örn. http://www.mydomain.com/myblacklist.txt)"
+msgstr "Güncelleme Linki (örn. http://www.mydomain.com/myblacklist.txt)"
 
-#: nospamnx.php:433
+#: nospamnx.php:432
 msgid "Update every"
 msgstr "Her Güncelleme"
 
-#: nospamnx.php:433
+#: nospamnx.php:432
 msgid "minutes."
 msgstr "dakika."
 
-#: nospamnx.php:448
+#: nospamnx.php:447
 msgid "Security-Check failed."
 msgstr "Güvenlik-Kontrolü başarısız."
 
-#: nospamnx.php:582
+#: nospamnx.php:581
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX henüz hiç kuşbeyinli Spambot engellemedi."
 
-#: nospamnx.php:585
+#: nospamnx.php:584
 #, php-format
 msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
 msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."

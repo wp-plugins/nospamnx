@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 08:36+0100\n"
+"POT-Creation-Date: 2012-03-30 14:15+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Sven Kubiak <mail@svenkubiak.de>\n"
@@ -21,88 +21,100 @@ msgstr ""
 msgid "Your WordPress is to old. NoSpamNX requires at least WordPress 3.0!"
 msgstr "Dein WordPress ist zu alt. NoSpamNX ben&ouml;tigt mind. WordPress 3.0!"
 
-#: nospamnx.php:270
+#: nospamnx.php:268
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: nospamnx.php:278
+#: nospamnx.php:276
 msgid "FAQ"
 msgstr "FAQ"
 
-#: nospamnx.php:279
+#: nospamnx.php:277
 msgid "Donate"
 msgstr "Flattr"
 
-#: nospamnx.php:288
+#: nospamnx.php:286
 msgid "Sorry, but you have no permissions to change settings."
 msgstr "Sorry, aber Du hast keine Berechtigung um Einstellungen zu &auml;ndern."
 
-#: nospamnx.php:308
+#: nospamnx.php:306
 msgid "NoSpamNX settings were saved successfully."
 msgstr "NoSpamNX Einstellungen wurden erfolgreich gespeichert."
 
-#: nospamnx.php:313
+#: nospamnx.php:311
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "NoSpamNX Z&auml;hler wurde erfolgreich zur&uuml;ckgesetzt."
 
-#: nospamnx.php:320
+#: nospamnx.php:318
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "NoSpamNX Blacklist wurde erfolgreich aktualisiert."
 
-#: nospamnx.php:336
+#: nospamnx.php:334
 msgid "Are you sure you want to reset the counter?"
 msgstr "Bist du sicher, dass du den Z&auml;hler zur&uuml;cksetzen m&ouml;chtest?"
 
-#: nospamnx.php:343
+#: nospamnx.php:341
 msgid "NoSpamNX Settings"
 msgstr "NoSpamNX Einstellungen"
 
-#: nospamnx.php:347
+#: nospamnx.php:345
 msgid "Statistic"
 msgstr "Statistik"
 
-#: nospamnx.php:371
+#: nospamnx.php:369
 msgid "Reset"
 msgstr "Zur&uuml;cksetzen"
 
-#: nospamnx.php:377
+#: nospamnx.php:375
 msgid "Operating mode"
 msgstr "Funktionsweise"
 
-#: nospamnx.php:379
+#: nospamnx.php:377
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "Standardm&auml;ßig werden alle Spambots als Spam markiert, aber die empfohlene Einstellung ist \"blockieren\". Wenn Du unsicher bist was blockiert werden k&ouml;nnnte, w&auml;hle zun&auml;chst \"Als Spam markieren\" und wechsle dann sp&auml;ter zu \"blockieren\"."
 
-#: nospamnx.php:383
+#: nospamnx.php:381
 msgid "Mode"
 msgstr "Modus"
 
-#: nospamnx.php:386
+#: nospamnx.php:384
 msgid "Block (recommended)"
 msgstr "Blockieren (empfohlen)"
 
-#: nospamnx.php:388
+#: nospamnx.php:386
 msgid "Mark as Spam"
 msgstr "Als Spam markieren"
 
-#: nospamnx.php:393
-#: nospamnx.php:437
+#: nospamnx.php:391
+#: nospamnx.php:436
 msgid "Save"
 msgstr "Speichern"
 
-#: nospamnx.php:399
+#: nospamnx.php:397
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: nospamnx.php:404
+#: nospamnx.php:399
+msgid "By default the Entries in the Blacklist will match Substrings (e.g. 'foobar' will match, if you have 'foo' in your Blacklist). Uncheck the following Option to only match exact words."
+msgstr "Standardm&auml;&szlig;ig pr&uuml;ft die Blacklist auf Teilstrings (\"foobar\" stimmt &uuml;berein, wenn du \"foo\" in der Blacklist hast). Deaktiviere die folgende Option damit nur exakte W&ouml;rter &uuml;bereinstimmen."
+
+#: nospamnx.php:403
 msgid "Match Substrings"
-msgstr "Pr%uuml;fe Teilstrings"
+msgstr "Pr&uuml;fe Teilstrings"
+
+#: nospamnx.php:406
+msgid "Local Blacklist"
+msgstr "Lokale Blacklist"
 
 #: nospamnx.php:407
+msgid "Global Blacklist"
+msgstr "Globale Blacklist"
+
+#: nospamnx.php:410
 msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive."
 msgstr "Die lokale Blacklist ist vergleichbar mit der WordPress Blacklist. Allerdings ist es mit der lokalen Blacklist m&ouml;glich, Kommentare mit bestimmten Werten zu blockieren, anstatt diese in die Moderation zu verschieben. Die lokale Blacklist macht also nur Sinn, wenn NoSpamNX im Modus 'blockieren' arbeitet. Die lokale Blacklist pr&uuml;ft die eigegebenen Werte gegen die IP-Adresse, den Autor, die E-Mail-Adresse, den Kommentar und das URL-Feld. Wenn eine &Uuml;bereinstimmung gefunden wird, wird der Kommentar blockiert. Bitte benutze einen Wert pro Zeile. Groß-und Kleinschreibung wird bei der lokalen Blacklist nicht ber&uuml;cksichtigt."
 
-#: nospamnx.php:408
+#: nospamnx.php:411
 msgid ""
 "The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
 "\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive."
@@ -110,40 +122,32 @@ msgstr ""
 "Die globale Blacklist erm&ouml;glicht es dir eine Blacklist f&uuml;r mehrere WordPress Blogs zu benutzen. Du musst einen Ort festlegen, an dem du die Blacklist speichern m&ouml;chtest (z.B. Webspace, Dropbox, etc. - aber nur HTTP!), und diesen Ort in das Feld \"Update URL\" eintragen. Wie du deine Blacklist aufbaust (z.B. PHP-Skript mit Datenbank, einfache Textdatei, etc.) ist dir &uuml;berlassen. Du musst allerdings sicherstellen, dass die Update URL einen Wert pro Zeile separiert durch \"\\n"
 "\" zur&uuml;ckliefert. F&uuml;ge deine Update URL in alle Blogs ein, in denen du damit arbeiten m&ouml;chtest und setze den Aktualisierungszeitraum entsprechend deinen Anforderungen. Die globale Blacklist wird durch das Hinzuf&uuml;gen einer Update URL aktiviert. Groß-und Kleinschreibung wird bei der globalen Blacklist nicht ber&uuml;cksichtigt."
 
-#: nospamnx.php:411
-msgid "Local Blacklist"
-msgstr "Lokale Blacklist"
-
-#: nospamnx.php:412
-msgid "Global Blacklist"
-msgstr "Globale Blacklist"
-
-#: nospamnx.php:420
-#: nospamnx.php:422
+#: nospamnx.php:419
+#: nospamnx.php:421
 msgid "Last update"
 msgstr "Letzte Aktualisierung"
 
-#: nospamnx.php:429
+#: nospamnx.php:428
 msgid "Update URL (e.g. http://www.mydomain.com/myblacklist.txt)"
 msgstr "Update URL (z.B. http://www.meinedomain.de/meineblacklist.txt)"
 
-#: nospamnx.php:433
+#: nospamnx.php:432
 msgid "Update every"
 msgstr "Aktualisere alle"
 
-#: nospamnx.php:433
+#: nospamnx.php:432
 msgid "minutes."
 msgstr "Minuten."
 
-#: nospamnx.php:448
+#: nospamnx.php:447
 msgid "Security-Check failed."
 msgstr "Sicherheitscheck gescheitert."
 
-#: nospamnx.php:582
+#: nospamnx.php:581
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX hat bisher keine dummen Spambots aufgehalten."
 
-#: nospamnx.php:585
+#: nospamnx.php:584
 #, php-format
 msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
 msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."

@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
-Stable tag: 5.1.1
+Stable tag: 5.1.2
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -108,6 +108,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.2 =
+* Updated Settings
+* Updated translations
 
 = 5.1.1 =
 * Added Option to Block full-string or sub-string in Blacklists

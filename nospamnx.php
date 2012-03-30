@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.1.1
+Version: 5.1.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -396,19 +396,20 @@ if (!class_exists('NoSpamNX'))
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
+							<p><?php echo __('By default the Entries in the Blacklist will match Substrings (e.g. \'foobar\' will match, if you have \'foo\' in your Blacklist). Uncheck the following Option to only match exact words.','nospamnx'); ?></p>
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">
 								<tr>
 									<td colspan="2"><b><?php echo __('Match Substrings','nospamnx'); ?></b>&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="blacklist_part" <?php if ($this->nospamnx_blacklist_part == 1) {echo "checked";}?>/></td>
 								</tr>
 								<tr>
+									<td width="50%"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></td>
+									<td width="50%"><b><?php echo __('Global Blacklist','nospamnx'); ?></b></td>
+								</tr>									
+								<tr>
 									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive.','nospamnx'); ?></td>
 									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive.','nospamnx'); ?>
 								</tr>								
-								<tr>
-									<td width="50%"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></td>
-									<td width="50%"><b><?php echo __('Global Blacklist','nospamnx'); ?></b></td>
-								</tr>												    
 								<tr>
 									<td width="50%" valign="top"><textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea></td>
 									<td width="50%" valign="top"><textarea name="blacklist_global" readonly class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist_global; ?></textarea>
