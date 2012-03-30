@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.1.0
+Version: 5.1.1
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -36,6 +36,7 @@ if (!class_exists('NoSpamNX'))
 		var $nospamnx_count;
 		var $nospamnx_operate;
 		var $nospamnx_blacklist;
+		var $nospamnx_blacklist_part;
 		var $nospamnx_blacklist_global;		
 		var $nospamnx_blacklist_global_url;			
 		var $nospamnx_blacklist_global_update;
@@ -106,19 +107,20 @@ if (!class_exists('NoSpamNX'))
 					}
 				}
 				
-				//second line of defense -> local and global blacklist
+				//re-arange post vars for blacklist check (by Marcel Bokhorst)
 				$author = isset($_POST['author']) 	? $_POST['author'] : null;
 				$email = isset($_POST['email']) 	? $_POST['email'] : null;
 				$url = isset($_POST['url']) 		? $_POST['url'] : null;
 				$comment = isset($_POST['comment']) ? $_POST['comment'] : null;
 				
-				//bbPress check (by Marcel Bokhorst)
+				//re-arange post vars for bbPress (by Marcel Bokhorst)
 				$author = isset($_POST['bbp_anonymous_name']) ? $_POST['bbp_anonymous_name'] : $author;
 				$email = isset($_POST['bbp_anonymous_email']) ? $_POST['bbp_anonymous_email'] : $email;
 				$url = isset($_POST['bbp_anonymous_website']) ? $_POST['bbp_anonymous_website'] : $url;
 				$comment = isset($_POST['bbp_topic_content']) ? $_POST['bbp_topic_content'] : $comment;
 				$comment = isset($_POST['bbp_reply_content']) ? $_POST['bbp_reply_content'] : $comment;
 
+				//second line of defense -> local and global blacklist
 				$this->blacklistCheck($author, $email, $url, $comment, $_SERVER['REMOTE_ADDR']);
 				
 				//third line of defense -> hidden fields and timestamp
@@ -141,7 +143,7 @@ if (!class_exists('NoSpamNX'))
 			}
 		}
 
-		//by Marcel Bokhorst
+		//replace comment form by Marcel Bokhorst
 		function replaceCommentField($field) {
 			if (!empty($this->nospamnx_commentid)) {
 				$new_field = preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2comment-" . $this->nospamnx_commentid . "$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $field, 1);
@@ -200,14 +202,20 @@ if (!class_exists('NoSpamNX'))
 					}
 	
 					$word = strtolower($word);
-					$word = preg_quote($word, '#');
-					$pattern = "#$word#i";
-					if (preg_match($pattern, $author)   ||
-						preg_match($pattern, $email)    ||
-						preg_match($pattern, $url)      ||
-						preg_match($pattern, $remoteip) ||
-						preg_match($pattern, $comment)) {
-							$this->birdbrained();	
+					if ($this->nospamnx_blacklist_part == 1) {
+						$word = preg_quote($word, '#');
+						$pattern = "#$word#i";
+						if (preg_match($pattern, $author)  	||
+							preg_match($pattern, $email)    ||
+							preg_match($pattern, $url)      ||
+							preg_match($pattern, $remoteip) ||
+							preg_match($pattern, $comment)) {
+							$this->birdbrained();
+						}
+					} else {
+						if ($word == $author || $word == $email || $word == $url || $word == $remoteip || $word == $comment) {
+							$this->birdbrained();
+						}						
 					}
 				}
 			}
@@ -223,7 +231,7 @@ if (!class_exists('NoSpamNX'))
 			return $nospamnx;
 		}	
 		
-		//from http://php.net/manual/de/ref.network.php
+		//check if ip is in cidr (from http://php.net/manual/de/ref.network.php)
 		function checkIP ($ip, $cidr) {
 		    list ($net, $mask) = split ("/", $cidr);
 		    $ip_net = ip2long ($net);
@@ -231,9 +239,7 @@ if (!class_exists('NoSpamNX'))
 		    $ip_ip = ip2long ($ip);
 		    $ip_ip_net = $ip_ip & $ip_mask;
 			
-			if ($ip_ip_net == $ip_net) {
-				return 1;
-			}
+			if ($ip_ip_net == $ip_net) { return 1; }
 			return 0;
 		}
 		
@@ -305,6 +311,7 @@ if (!class_exists('NoSpamNX'))
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));
 			} else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
 				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
+				$this->nospamnx_blacklist_part = $_POST['blacklist_part'];
 				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
 				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
 				$this->setOptions();
@@ -392,11 +399,11 @@ if (!class_exists('NoSpamNX'))
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
 							<table class="form-table">
 								<tr>
-									<td colspan="2" valign="top"><b><?php echo __('Both local and global Blacklist are case-insensitive and match substrings!','nospamnx'); ?></b></td>
-								</tr>	
+									<td colspan="2"><b><?php echo __('Match Substrings','nospamnx'); ?></b>&nbsp;&nbsp;&nbsp;<input type="checkbox" value="1" name="blacklist_part" <?php if ($this->nospamnx_blacklist_part == 1) {echo "checked";}?>/></td>
+								</tr>
 								<tr>
-									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line.','nospamnx'); ?></td>
-									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL.','nospamnx'); ?>
+									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive.','nospamnx'); ?></td>
+									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive.','nospamnx'); ?>
 								</tr>								
 								<tr>
 									<td width="50%"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></td>
@@ -446,6 +453,7 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_names' 					=> $this->generateNames(),
 					'nospamnx_count'					=> 0,
 					'nospamnx_operate'					=> 'mark',
+					'nospamnx_blacklist_part'			=> 1,
 					'nospamnx_blacklist_global_url'		=> '',
 					'nospmanx_blacklist_global_update'	=> '',	
 					'nospamnx_blacklist_global_lu'		=> 0,				
@@ -474,6 +482,9 @@ if (!class_exists('NoSpamNX'))
 				if (!array_key_exists('nospamnx_blacklist_global_lu',$options) || empty($options['nospamnx_blacklist_global_lu'])) {
 					$options['nospamnx_blacklist_global_lu'] = 0;
 				}
+				if (!array_key_exists('nospamnx_blacklist_part',$options) || empty($options['nospamnx_blacklist_part'])) {
+					$options['nospamnx_blacklist_part'] = 1;
+				}				
 				if (!array_key_exists('nospamnx_activated',$options) || empty($options['nospamnx_activated'])) {
 					$options['nospamnx_activated'] = time();
 				}	
@@ -494,6 +505,7 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_names 					= $options['nospamnx_names'];
 			$this->nospamnx_count					= $options['nospamnx_count'];
 			$this->nospamnx_operate					= $options['nospamnx_operate'];
+			$this->nospamnx_blacklist_part			= $options['nospamnx_blacklist_part'];
 			$this->nospamnx_blacklist_global_url	= $options['nospamnx_blacklist_global_url'];
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
 			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
@@ -508,7 +520,8 @@ if (!class_exists('NoSpamNX'))
 			$options = array(
 				'nospamnx_names'					=> $this->nospamnx_names,
 				'nospamnx_count'					=> $this->nospamnx_count,
-				'nospamnx_operate'					=> $this->nospamnx_operate,	
+				'nospamnx_operate'					=> $this->nospamnx_operate,
+				'nospamnx_blacklist_part'			=> $this->nospamnx_blacklist_part,						
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
 				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu,	
