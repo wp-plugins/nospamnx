@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 14:18+0100\n"
+"POT-Creation-Date: 2012-04-15 17:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Samuel Aguilera <correo@samuelaguilera.com>\n"
@@ -144,6 +144,11 @@ msgstr "Comprobación de seguridad fallida."
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX todavía no ha parado ningún bot de spam."
 
+#: nospamnx.php:584
+#, php-format
+msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+msgstr "Desde el %s %s ha bloqueado %s bot de spam cabeza de chorlito (%s por día)."
+
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"
 #~ msgstr ""
@@ -158,16 +163,6 @@ msgstr "NoSpamNX todavía no ha parado ningún bot de spam."
 
 #~ msgid "Your PHP is to old. NoSpamNX requires at least PHP 5.0!"
 #~ msgstr "Tu PHP es muy antiguo. ¡NoSpamNX necesita al menos PHP 5.0!"
-
-#~ msgid "Since %s %s has stopped %s birdbrained Spambot (%s per Day)."
-
-#~ msgid_plural "Since %s %s has stopped %s birdbrained Spambots (%s per Day)."
-#~ msgstr[0] ""
-#~ "Desde el %s %s ha bloqueado %s bot de spam cabeza de chorlito (%s por "
-#~ "día)."
-#~ msgstr[1] ""
-#~ "Desde el %s %s ha bloqueado %s bots de spam cabezas de chorlito (%s por "
-#~ "día)."
 
 #~ msgid "Referer-Check successfull! You may turn on Referer-Check."
 #~ msgstr ""

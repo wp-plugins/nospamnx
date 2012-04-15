@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 14:18+0100\n"
-"PO-Revision-Date: 2012-03-30 14:18+0100\n"
+"POT-Creation-Date: 2012-04-15 17:30+0100\n"
+"PO-Revision-Date: 2012-04-15 17:30+0100\n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
@@ -150,13 +150,6 @@ msgstr "בדיקת אבטחה נכשלה."
 #: nospamnx.php:581
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX עדיין לא עצר בוטים טיפשים."
-
-#: nospamnx.php:584
-#, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
-msgstr[0] ""
-msgstr[1] ""
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"

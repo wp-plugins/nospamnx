@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yawasp de_DE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-30 14:15+0100\n"
+"POT-Creation-Date: 2012-04-15 17:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Sven Kubiak <mail@svenkubiak.de>\n"
@@ -147,12 +147,12 @@ msgstr "Sicherheitscheck gescheitert."
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX hat bisher keine dummen Spambots aufgehalten."
 
-#: nospamnx.php:584
-#, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
-msgstr[0] "Seit dem %s hat %s %s dummen Spambot gestoppt (ca. %s pro Tag)."
-msgstr[1] "Seit dem %s hat %s %s dumme Spambots gestoppt (%s pro Tag)."
+#~ msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+
+#~ msgid_plural ""
+#~ "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
+#~ msgstr[0] "Seit dem %s hat %s %s dummen Spambot gestoppt (ca. %s pro Tag)."
+#~ msgstr[1] "Seit dem %s hat %s %s dumme Spambots gestoppt (%s pro Tag)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"
