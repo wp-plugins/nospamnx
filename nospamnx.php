@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.1.2
+Version: 5.1.3
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -47,7 +47,7 @@ if (!class_exists('NoSpamNX'))
 		
 		function nospamnx() {		
 			if (function_exists('load_plugin_textdomain')) {
-				load_plugin_textdomain('nospamnx', false, dirname(plugin_basename(__FILE__)));
+				load_plugin_textdomain('nospamnx', dirname(plugin_basename(__FILE__)));
 			}
 			if (!NXISWP30) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
@@ -57,7 +57,7 @@ if (!class_exists('NoSpamNX'))
 				register_activation_hook(__FILE__, array(&$this, 'activate'));
 			}
 			if (function_exists('register_uninstall_hook')) {
-				register_uninstall_hook(__FILE__, array('NoSpamNX', 'uninstall'));
+				register_uninstall_hook(__FILE__, 'uninstall');
 			}
 				
 			$this->getOptions();
@@ -580,7 +580,7 @@ if (!class_exists('NoSpamNX'))
 			if ($this->nospamnx_count <= 0) {
 				echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 			} else {
-				printf(__ngettext(
+				printf(_n(
 					"Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day).",
 					"Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day).",
 					$this->nospamnx_count, 'nospamnx'),

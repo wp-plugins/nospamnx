@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.1
-Stable tag: 5.1.2
+Stable tag: 5.1.3
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -22,13 +22,10 @@ NoSpamNX automaticly adds additional formfields to your comment form, invisible 
 Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex - see http://is.gd/1lezf - otherwise NoSpamNX will not work properly! 
 
 
-= Features in a nutshell =
+= Features in a Nutshell =
 
 * Easy installation (just activate the plugin)
 * Easy configuration (only two options)
-* Compatible with bbPress
-* Compatible with WPtouch (Mobile Theme)
-* Compatible with WordPress Multi-Site feature (see FAQ)
 * Local Blacklist to block specific Phrases, URLs, Domains, IP-Ranges, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
 * Does not require JavaScript, Cookies or Sessions
@@ -36,6 +33,19 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * No need to manage spambot comments (if you don't want to)
 * No Database queries except for a few WordPress Options
 * False-positives are nearly impossible
+
+
+= Compatibility =
+
+* Compatible with bbPress
+* Compatible with WPtouch (Mobile Theme)
+* Compatible with WordPress Multi-Site feature (see FAQ)
+
+
+= Known Issues =
+
+* Does not work with OpenID
+* Does not work with BuddyPress
 
 
 = Available Languages  =
@@ -48,12 +58,6 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 * Hebrew (Thanks to Amiad)
 * Belarusian (Thanks to Alexander Ovsov)
 * Turkish (Thanks to Hakan Er)
-
-
-= Known Issues =
-
-* Does not work with OpenID
-* Does not work with BuddyPress
 
 
 == Installation ==
@@ -108,6 +112,11 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.3 =
+* Fixed Debug-Errors
+* Updated readme
+* Updated translations
 
 = 5.1.2 =
 * Updated Settings
