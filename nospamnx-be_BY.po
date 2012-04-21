@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX ru_RU\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-15 17:30+0100\n"
+"POT-Creation-Date: 2012-04-21 08:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Web Geeks\n"
@@ -45,103 +45,103 @@ msgstr "Параметры NoSpamNX былі паспяхова захаваны
 msgid "NoSpamNX Counter was reseted successfully."
 msgstr "Сведчанні лічыльніка NoSpamNX былі паспяхова скінуты."
 
-#: nospamnx.php:318
+#: nospamnx.php:322
 msgid "NoSpamNX Blacklist was updated successfully."
 msgstr "Чорны спіс NoSpamNX быў паспяхова захаваны."
 
-#: nospamnx.php:334
+#: nospamnx.php:338
 msgid "Are you sure you want to reset the counter?"
 msgstr "Вы ўпэўнены, што жадаеце скінуць сведчанні лічыльніка?"
 
-#: nospamnx.php:341
+#: nospamnx.php:345
 msgid "NoSpamNX Settings"
 msgstr "Параметры NoSpamNX"
 
-#: nospamnx.php:345
+#: nospamnx.php:349
 msgid "Statistic"
 msgstr "Статыстыка"
 
-#: nospamnx.php:369
+#: nospamnx.php:373
 msgid "Reset"
 msgstr "Скінуць"
 
-#: nospamnx.php:375
+#: nospamnx.php:379
 msgid "Operating mode"
 msgstr "Рэжым апрацоўкі"
 
-#: nospamnx.php:377
+#: nospamnx.php:381
 msgid "By default all Spambots are marked as Spam, but the recommended Mode is \"block\". If you are uncertain what will be blocked, select \"Mark as Spam\" at first and switch to \"block\" later on."
 msgstr "Па змаўчанні ўсё спам-боты, пазначаюцца як спам, аднак рэжым \"Блакаванне\" больш пераважны. Калі вы не ўпэўнены, што менавіта будзе заблакавана, для пачатку абярыце пункт \"Пазначыць як спам\", Вы заўсёды можаце перайсці на рэжым \"Блакаванне\" у будучыні."
 
-#: nospamnx.php:381
+#: nospamnx.php:385
 msgid "Mode"
 msgstr "Рэжым"
 
-#: nospamnx.php:384
+#: nospamnx.php:388
 msgid "Block (recommended)"
 msgstr "Блакаванне (рэкамендуецца)"
 
-#: nospamnx.php:386
+#: nospamnx.php:390
 msgid "Mark as Spam"
 msgstr "Пазначыць як спам"
 
-#: nospamnx.php:391
-#: nospamnx.php:436
+#: nospamnx.php:395
+#: nospamnx.php:440
 msgid "Save"
 msgstr "Захаваць"
 
-#: nospamnx.php:397
+#: nospamnx.php:401
 msgid "Blacklist"
 msgstr "Чорны спіс"
 
-#: nospamnx.php:399
+#: nospamnx.php:403
 msgid "By default the Entries in the Blacklist will match Substrings (e.g. 'foobar' will match, if you have 'foo' in your Blacklist). Uncheck the following Option to only match exact words."
 msgstr ""
 
-#: nospamnx.php:403
+#: nospamnx.php:407
 msgid "Match Substrings"
 msgstr ""
 
-#: nospamnx.php:406
+#: nospamnx.php:410
 msgid "Local Blacklist"
 msgstr "Лакальны Чорны Спіс"
 
-#: nospamnx.php:407
+#: nospamnx.php:411
 msgid "Global Blacklist"
 msgstr "Глабальны Чорны спіс"
 
-#: nospamnx.php:410
+#: nospamnx.php:414
 msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive."
 msgstr ""
 
-#: nospamnx.php:411
+#: nospamnx.php:415
 msgid ""
 "The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
 "\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive."
 msgstr ""
 
-#: nospamnx.php:419
-#: nospamnx.php:421
+#: nospamnx.php:423
+#: nospamnx.php:425
 msgid "Last update"
 msgstr "Апошняе абнаўленне"
 
-#: nospamnx.php:428
+#: nospamnx.php:432
 msgid "Update URL (e.g. http://www.mydomain.com/myblacklist.txt)"
 msgstr "URL абнаўленні (напрыклад: http://www.mydomain.com/myblacklist.txt)"
 
-#: nospamnx.php:432
+#: nospamnx.php:436
 msgid "Update every"
 msgstr "Абнаўляць кожныя"
 
-#: nospamnx.php:432
+#: nospamnx.php:436
 msgid "minutes."
 msgstr "мінуць."
 
-#: nospamnx.php:447
+#: nospamnx.php:451
 msgid "Security-Check failed."
 msgstr "Праверка бяспекі не атрымалася."
 
-#: nospamnx.php:581
+#: nospamnx.php:585
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX пакуль не спыніў ніводнага спамбота."
 

@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.1.4
+Version: 5.1.5
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -310,10 +310,14 @@ if (!class_exists('NoSpamNX'))
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Counter was reseted successfully.','nospamnx'));
 			} else if ($update_blacklist == 1 && $this->verifyNonce($nonce)) {
-				$this->nospamnx_blacklist = $this->sortBlacklist($_POST['blacklist']);
-				$this->nospamnx_blacklist_part = $_POST['blacklist_part'];
-				$this->nospamnx_blacklist_global_url = $_POST['blacklist_global_url'];
-				$this->nospamnx_blacklist_global_update = $_POST['blacklist_global_update'];
+				(isset($_POST['blacklist'])) 				? $blacklist 		= $_POST['blacklist'] : $blacklist = '';
+				(isset($_POST['blacklist_part'])) 			? $blacklist_part 	= $_POST['blacklist_part'] : $blacklist_part = '';
+				(isset($_POST['blacklist_global_url'])) 	? $blacklist_url 	= $_POST['blacklist_global_url'] : $blacklist_url = '';
+				(isset($_POST['blacklist_global_update'])) 	? $blacklist_update = $_POST['blacklist_global_update'] : $blacklist_update = '';
+				$this->nospamnx_blacklist = $this->sortBlacklist($blacklist);
+				$this->nospamnx_blacklist_part = $blacklist_part;
+				$this->nospamnx_blacklist_global_url = $blacklist_url;
+				$this->nospamnx_blacklist_global_update = $blacklist_update;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
 			}				
