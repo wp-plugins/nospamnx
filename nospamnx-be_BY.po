@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX ru_RU\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-21 08:36+0100\n"
+"POT-Creation-Date: 2012-04-25 18:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Web Geeks\n"
@@ -141,21 +141,17 @@ msgstr "мінуць."
 msgid "Security-Check failed."
 msgstr "Праверка бяспекі не атрымалася."
 
-#: nospamnx.php:585
+#: nospamnx.php:586
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX пакуль не спыніў ніводнага спамбота."
 
-#~ msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-
-#~ msgid_plural ""
-#~ "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
-#~ msgstr[0] ""
-#~ "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (approx. %s у "
-#~ "дзень)."
-#~ msgstr[1] ""
-#~ "З моманту апошняй актывацыі %s %s было спынена %s спамбота (%s у дзень)."
-#~ msgstr[2] ""
-#~ "З моманту апошняй актывацыі %s %s было спынена %s спамботов (%s у дзень)."
+#: nospamnx.php:589
+#, php-format
+msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
+msgstr[0] "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (approx. %s у дзень)."
+msgstr[1] "З моманту апошняй актывацыі %s %s было спынена %s спамбота (%s у дзень)."
+msgstr[2] "З моманту апошняй актывацыі %s %s было спынена %s спамботов (%s у дзень)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"

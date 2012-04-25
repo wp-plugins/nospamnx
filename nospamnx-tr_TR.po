@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX in Turkish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-21 08:35+0100\n"
+"POT-Creation-Date: 2012-04-25 18:41+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: kazancexpert.com <kazancexpert@gmail.com>\n"
@@ -143,20 +143,16 @@ msgstr "dakika."
 msgid "Security-Check failed."
 msgstr "Güvenlik-Kontrolü başarısız."
 
-#: nospamnx.php:585
+#: nospamnx.php:586
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX henüz hiç kuşbeyinli Spambot engellemedi."
 
-#~ msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-
-#~ msgid_plural ""
-#~ "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
-#~ msgstr[0] ""
-#~ "%s tarihinden beri %s eklentisi %s kuşbeyinli Spambot engelledi (ort. "
-#~ "günde %s)."
-#~ msgstr[1] ""
-#~ "%s tarihinden beri %s eklentisi %s kuşbeyinli Spambot engelledi (ort. "
-#~ "günde %s)."
+#: nospamnx.php:589
+#, php-format
+msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
+msgstr[0] "%s tarihinden beri %s eklentisi %s kuşbeyinli Spambot engelledi (ort. günde %s)."
+msgstr[1] "%s tarihinden beri %s eklentisi %s kuşbeyinli Spambot engelledi (ort. günde %s)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"

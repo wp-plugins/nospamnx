@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-21 08:36+0100\n"
+"POT-Creation-Date: 2012-04-25 18:41+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
 "Language-Team: Samuel Aguilera <correo@samuelaguilera.com>\n"
@@ -140,14 +140,14 @@ msgstr "minutos."
 msgid "Security-Check failed."
 msgstr "Comprobación de seguridad fallida."
 
-#: nospamnx.php:585
+#: nospamnx.php:586
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX todavía no ha parado ningún bot de spam."
 
-#: nospamnx.php:588
-#, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-msgstr "Desde el %s %s ha bloqueado %s bot de spam cabeza de chorlito (%s por día)."
+#~ msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+#~ msgstr ""
+#~ "Desde el %s %s ha bloqueado %s bot de spam cabeza de chorlito (%s por "
+#~ "día)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"
