@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NoSpamNX ru_RU\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 18:40+0100\n"
+"POT-Creation-Date: 2012-04-21 08:36+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sven Kubiak <sk@svenkubiak.de>\n"
+"Last-Translator: \n"
 "Language-Team: Web Geeks\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr "Параметры NoSpamNX"
 
 #: nospamnx.php:276
 msgid "FAQ"
-msgstr ""
+msgstr "Въпроси и отговори"
 
 #: nospamnx.php:277
 msgid "Donate"
@@ -96,11 +96,11 @@ msgstr "Чорны спіс"
 
 #: nospamnx.php:403
 msgid "By default the Entries in the Blacklist will match Substrings (e.g. 'foobar' will match, if you have 'foo' in your Blacklist). Uncheck the following Option to only match exact words."
-msgstr ""
+msgstr "По подразбиране вписванията в черния списък ще да съвпадат поднизовете (напр. \"Foobar\" ще съвпадне, ако имате \"Foo във вашата Blacklist). Махнете отметката от следната опция само да съответстват на точните думи."
 
 #: nospamnx.php:407
 msgid "Match Substrings"
-msgstr ""
+msgstr "Съвпадение поднизове"
 
 #: nospamnx.php:410
 msgid "Local Blacklist"
@@ -112,13 +112,13 @@ msgstr "Глабальны Чорны спіс"
 
 #: nospamnx.php:414
 msgid "The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive."
-msgstr ""
+msgstr "Местната Blacklist е сравнима с WordPress Blacklist. Въпреки това, местните Черен списък ви позволява да блокирате коментари, съдържащи определени ценности, вместо да ги поставя в опашката за модериране. По този начин, на местния \"черен списък\" има смисъл само при използване NoSpamNX в блокирането на режим. Местната Черен списък проверява дадените стойности срещу IP адрес, на автора, E-Mail адрес, коментар и областта URL на коментар. Ако един модел мача, коментарът ще бъде блокиран. Моля, използвайте една стойност на ред. Местната Blacklist е нечувствителни към регистъра."
 
 #: nospamnx.php:415
 msgid ""
 "The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field \"Update URL\". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by \"\\n"
 "\". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive."
-msgstr ""
+msgstr "Глобалната Blacklist ви дава възможност да се използва един Черен списък за множество блогове на WordPress. Трябва да настроите място, където да съхранявате Черен списък (например уеб пространство, Dropbox, и т.н. - но HTTP само) и го поставете в полето \"Актуализация на URL\". Как да изгради Черен списък (например PHP-Script с база данни, прост текстов файл и др.), но вие трябва да се уверите, актуализацията URL връща една стойност на ред, разделени с \"\\ n\". Поставете URL актуализация в блоговете си, където искате да ви Blacklist и настроите въртенето актуализация според вашите нужди. Глобалната Черен списък ще бъде активиран чрез добавяне на актуализация URL Глобалната Blacklist е нечувствително към регистъра."
 
 #: nospamnx.php:423
 #: nospamnx.php:425
@@ -141,17 +141,21 @@ msgstr "мінуць."
 msgid "Security-Check failed."
 msgstr "Праверка бяспекі не атрымалася."
 
-#: nospamnx.php:586
+#: nospamnx.php:585
 msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX пакуль не спыніў ніводнага спамбота."
 
-#: nospamnx.php:589
-#, php-format
-msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
-msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
-msgstr[0] "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (approx. %s у дзень)."
-msgstr[1] "З моманту апошняй актывацыі %s %s было спынена %s спамбота (%s у дзень)."
-msgstr[2] "З моманту апошняй актывацыі %s %s было спынена %s спамботов (%s у дзень)."
+#~ msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
+
+#~ msgid_plural ""
+#~ "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
+#~ msgstr[0] ""
+#~ "З моманту апошняй актывацыі %s %s быў спынены %s спамбот (approx. %s у "
+#~ "дзень)."
+#~ msgstr[1] ""
+#~ "З моманту апошняй актывацыі %s %s было спынена %s спамбота (%s у дзень)."
+#~ msgstr[2] ""
+#~ "З моманту апошняй актывацыі %s %s было спынена %s спамботов (%s у дзень)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"
@@ -459,9 +463,6 @@ msgstr[2] "З моманту апошняй актывацыі %s %s было с
 
 #~ msgid "Undo changes"
 #~ msgstr "Anderungen ruckgangig machen"
-
-#~ msgid "Manual template change"
-#~ msgstr "Manuelle Anderung des Templates"
 
 #~ msgid ""
 #~ "Manual instructions for changing your comments.php are available in "
