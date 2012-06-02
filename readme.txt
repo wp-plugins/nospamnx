@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.3.2
-Stable tag: 5.1.6
+Stable tag: 5.1.7
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -10,16 +10,16 @@ To protect your Blog from automated spambots, this plugin adds invisible formfie
 
 == Description ==
 
-There have been many new good ideas of fighting automated Spam in WordPress. Most of these Plugins (like the antecessor of NoSpamNX: Yawasp) change the name of one (or more) of your comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. Therefore, NoSpamNX does not change any of your comment fields, but still claims to be very effective. 
+There have been many new good ideas of fighting automated Spam in WordPress. Most of these Plugins (like the antecessor of NoSpamNX: Yawasp) change the name of one (or more) of your comment field. On the one hand, this is indeed more effective, but on the other hand, this goes to the expense of compatibility. Therefore, NoSpamNX does not change any of your comment fields, but still claims to be very effective.
 
 Many Antispam Plugins focus on user interaction, e.g. captcha or calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions. NoSpamNX intend to handle automated comment-spam-protection without these measures. It does not require JavaScript, Cookies or Sessions. It does not change any of your comment template fields, given you more compatibility with other WordPress- or Browser Plugins.
 
 NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which most of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a local Blacklist or (if you have multiple Blogs) on a global Blacklist. This comes very handy when fighting againt "handmade" Spam.
-	
+
 
 = Requirements =
 
-Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex - see http://is.gd/1lezf - otherwise NoSpamNX will not work properly! 
+Make sure your theme loads <code>comment_form</code> in the Comment-Template (comments.php) according to the WordPress Codex - see http://is.gd/1lezf - otherwise NoSpamNX will not work properly!
 
 
 = Features in a Nutshell =
@@ -72,7 +72,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 = After I updated to a new Version all comments are marked as Spam! =
 
-The best way to deal with this Problem, is to uninstall the Plugin via the WordPress Backend and re-install the Plugin. 
+The best way to deal with this Problem, is to uninstall the Plugin via the WordPress Backend and re-install the Plugin.
 
 = After I updated to a new Version the Options are reseted! =
 
@@ -100,7 +100,7 @@ No, the plugin focus on automated Spambots only and I have no plans of changing 
 
 = What about false-positives? =
 
-Due to the functionality of NoSpamNX false-positives are nearly impossible. There 'might' be problems when using WordPress Cache-Plugins, but none have ever been reported. If you are uncertain, mark Spambots as Spam instead of blocking them. 
+Due to the functionality of NoSpamNX false-positives are nearly impossible. There 'might' be problems when using WordPress Cache-Plugins, but none have ever been reported. If you are uncertain, mark Spambots as Spam instead of blocking them.
 
 
 == Screenshots ==
@@ -112,6 +112,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.7 =
+* Added License Tag
+* Updated translations
 
 = 5.1.6 =
 * Fixed Bug on Dashboard
@@ -201,10 +205,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 = 4.0.7 =
 * Fixed bug when Counter was reseted
 * Added more detailed messages when Spam is blocked or blacklisted
-* Updated language files  
+* Updated language files
 
 = 4.0.6 =
-* Removed DNSBL Check (temporarly) 
+* Removed DNSBL Check (temporarly)
 * Updated Italian Translation
 
 = 4.0.5 =
@@ -279,7 +283,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 * Added nonce fields
 * Added check, that options are only reseted if option-fields have changed
 * Updated language files
-* Updated readme 
+* Updated readme
 
 = 3.13 =
 * Fixed Bug that could mark first comment after Plugin Update as Spam
@@ -368,13 +372,13 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 = 2.6 =
 * Added optional check for Registration and Login Form
 * Updated language files
-* Updated readme 
+* Updated readme
 
 = 2.5 =
-* Fixed bug when displaying statistics 
+* Fixed bug when displaying statistics
 
 = 2.4 =
-* Plugin is now compatible with WordPress MU 
+* Plugin is now compatible with WordPress MU
 * Added Swedish Translation
 * Updated Chinese Translation
 * Updated readme
@@ -399,14 +403,14 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 * Changed default operating to mark as spam
 * Removed IP-Lock due to new Blacklist
 * Removed option to deactivate Plugin on certain pages/posts due to new placing
-* Requires now at least WordPress 2.7 
+* Requires now at least WordPress 2.7
 * Updated Screenshot
 * Updated readme
 * Updated language files
- 
+
 = 1.10 =
 * Removed referer check temporarily
- 
+
 = 1.9 =
 * Fixed bug with referer check
 
@@ -418,7 +422,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 = 1.7 =
 * Fixed Bug when disabling NoSpamNX on certain pages/posts
 * Optimized function that blocks the spambots
-    
+
 = 1.6 =
 * Added feature to disable NoSpamNX on certain pages/posts
 * Fixed Bug that displayed hidden fields in comments popup
@@ -442,7 +446,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 * Added Spanish translation
 * Akismet or similar is not require any more to mark comment as spam
 * Updated language files
-* Updated Screenshot  
+* Updated Screenshot
 * Updated readme.txt
 
 = 1.2 =
@@ -454,7 +458,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 = 1.1 =
 * Optimized function that adds the hidden fields
 * Removed all serialize/unserialize functions
-* Changed activate/deactivate to wp-hooks 
+* Changed activate/deactivate to wp-hooks
 * Completly changed handling of options
 * Updated language file
 

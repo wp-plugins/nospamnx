@@ -146,11 +146,11 @@ msgid "NoSpamNX has stopped no birdbrained Spambots yet."
 msgstr "NoSpamNX non ha ancora bloccato nessun Spambot."
 
 #: nospamnx.php:589
-#, fuzzy, php-format
+#, php-format
 msgid "Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day)."
 msgid_plural "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
 msgstr[0] "NoSpamNX non ha ancora bloccato nessun Spambot."
-msgstr[1] ""
+msgstr[1] "Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day)."
 
 #~ msgid ""
 #~ "Both local and global Blacklist are case-insensitive and match substrings!"

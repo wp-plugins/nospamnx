@@ -2,11 +2,13 @@
 /*
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
-Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form. 
-Version: 5.1.6
+Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
+Version: 5.1.7
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Copyright 2008-2012 Sven Kubiak
 
@@ -31,23 +33,23 @@ define('NXCURLTO', 5);
 if (!class_exists('NoSpamNX'))
 {
 	Class NoSpamNX
-	{	
+	{
 		var $nospamnx_names;
 		var $nospamnx_count;
 		var $nospamnx_operate;
 		var $nospamnx_blacklist;
 		var $nospamnx_blacklist_part;
-		var $nospamnx_blacklist_global;		
-		var $nospamnx_blacklist_global_url;			
+		var $nospamnx_blacklist_global;
+		var $nospamnx_blacklist_global_url;
 		var $nospamnx_blacklist_global_update;
 		var $nospamnx_blacklist_global_lu;
-		var $nospamnx_activated;	
+		var $nospamnx_activated;
 		var $nospamnx_commentid;
 		var $nospamnx_salt;
-		
-		function nospamnx() {		
+
+		function nospamnx() {
 			if (function_exists('load_plugin_textdomain')) {
-				load_plugin_textdomain('nospamnx', false, dirname( plugin_basename( __FILE__ ) ) ); 
+				load_plugin_textdomain('nospamnx', false, dirname( plugin_basename( __FILE__ ) ) );
 			}
 			if (!NXISWP30) {
 				add_action('admin_notices', array(&$this, 'wpVersionFail'));
@@ -59,17 +61,17 @@ if (!class_exists('NoSpamNX'))
 			if (function_exists('register_uninstall_hook')) {
 				register_uninstall_hook(__FILE__, 'uninstall');
 			}
-				
+
 			$this->getOptions();
-			$this->loadGlobalBlacklist();				
-			
-			add_action('init', array(&$this, 'checkCommentForm'));		
-			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));	
-			add_action('rightnow_end', array(&$this, 'nospamnxStats'));		
+			$this->loadGlobalBlacklist();
+
+			add_action('init', array(&$this, 'checkCommentForm'));
+			add_action('admin_menu', array(&$this, 'nospamnxAdminMenu'));
+			add_action('rightnow_end', array(&$this, 'nospamnxStats'));
 			add_action('comment_form', array(&$this, 'addHiddenFields'));
 			add_filter('comment_form_field_comment', array(&$this, 'replaceCommentField'));
 			add_filter('plugin_action_links', array('NoSpamNX', 'nospamnxSettingsLinks'),9999,2);
-			add_filter('plugin_row_meta', array('NoSpamNX', 'nospamnxPluginLinks'),9999,2);			
+			add_filter('plugin_row_meta', array('NoSpamNX', 'nospamnxPluginLinks'),9999,2);
 			add_action('bbp_theme_after_topic_form', array(&$this, 'addHiddenFields'));
 			add_action('bbp_theme_after_reply_form', array(&$this, 'addHiddenFields'));
 		}
@@ -77,8 +79,8 @@ if (!class_exists('NoSpamNX'))
 		function wpVersionFail() {
 			$this->displayError(__('Your WordPress is to old. NoSpamNX requires at least WordPress 3.0!','nospamnx'));
 		}
-		
-		function addHiddenFields() {	
+
+		function addHiddenFields() {
 			$time = time();
 			$nospamnx = $this->nospamnx_names;
 			echo '<p style="display:none;">';
@@ -90,11 +92,11 @@ if (!class_exists('NoSpamNX'))
 			} else {
 				echo '<input type="text" name="'.$nospamnx['nospamnx-2'].'" value="'.$nospamnx['nospamnx-2-value'].'" />';
 				echo '<input type="text" name="'.$nospamnx['nospamnx-1'].'" value="" />';
-			}						
+			}
 			echo '</p>';
 		}
-		
-		function checkCommentForm() {															
+
+		function checkCommentForm() {
 			if (basename($_SERVER['PHP_SELF']) == 'wp-comments-post.php' ||	(isset($_POST['action']) &&	($_POST['action'] == 'bbp-new-topic' ||	$_POST['action'] == 'bbp-new-reply'))) {
 				//first line of defense -> replaced comment field (by Marcel Bokhorst)
 				if (isset($_POST['comment-replaced'])) {
@@ -106,13 +108,13 @@ if (!class_exists('NoSpamNX'))
 						$this->birdbrained();
 					}
 				}
-				
+
 				//re-arange post vars for blacklist check (by Marcel Bokhorst)
 				$author = isset($_POST['author']) 	? $_POST['author'] : null;
 				$email = isset($_POST['email']) 	? $_POST['email'] : null;
 				$url = isset($_POST['url']) 		? $_POST['url'] : null;
 				$comment = isset($_POST['comment']) ? $_POST['comment'] : null;
-				
+
 				//re-arange post vars for bbPress (by Marcel Bokhorst)
 				$author = isset($_POST['bbp_anonymous_name']) ? $_POST['bbp_anonymous_name'] : $author;
 				$email = isset($_POST['bbp_anonymous_email']) ? $_POST['bbp_anonymous_email'] : $email;
@@ -122,7 +124,7 @@ if (!class_exists('NoSpamNX'))
 
 				//second line of defense -> local and global blacklist
 				$this->blacklistCheck($author, $email, $url, $comment, $_SERVER['REMOTE_ADDR']);
-				
+
 				//third line of defense -> hidden fields and timestamp
 				$nospamnx = $this->nospamnx_names;
 				if (!array_key_exists($nospamnx['nospamnx-1'],$_POST)) {
@@ -132,7 +134,7 @@ if (!class_exists('NoSpamNX'))
 				} else if (!array_key_exists($nospamnx['nospamnx-2'],$_POST)) {
 					$this->birdbrained();
 				} else if ($_POST[$nospamnx['nospamnx-2']] != $nospamnx['nospamnx-2-value']) {
-					$this->birdbrained();				
+					$this->birdbrained();
 				} else if (!array_key_exists('nxts',$_POST) || !array_key_exists('nxts_signed',$_POST)) {
 					$this->birdbrained();
 				} else if (sha1($_POST['nxts'] . $this->nospamnx_salt) != $_POST['nxts_signed']) {
@@ -156,7 +158,7 @@ if (!class_exists('NoSpamNX'))
 			}
 		}
 
-		function birdbrained() {		
+		function birdbrained() {
 			if ($this->nospamnx_operate == 'mark') {
 				add_filter('pre_comment_approved', create_function('$a', 'return \'spam\';'));
 			} else {
@@ -171,15 +173,15 @@ if (!class_exists('NoSpamNX'))
 		function delayed() {
 			$message = "<p>Sorry, but you are commenting to fast.</p>";
 			$message .= "<p><a href='javascript:history.back()'>Back</a></p>";
-			wp_die($message, '', array('response' => 403));			
+			wp_die($message, '', array('response' => 403));
 		}
 
 		function blacklistCheck($author, $email, $url, $comment, $remoteip) {
 			$blacklist = array(
 				0 => $this->nospamnx_blacklist,
-				1 => $this->nospamnx_blacklist_global												
+				1 => $this->nospamnx_blacklist_global
 			);
-			
+
 			$author		= trim($author);
 			$email 		= trim($email);
 			$url 		= trim($url);
@@ -196,11 +198,11 @@ if (!class_exists('NoSpamNX'))
 					if (empty($word)) {
 						continue;
 					}
-					
+
 					if ($this->checkCIDR($word) == 1 && $this->checkIP($remoteip, $word) == 1) {
-						$this->birdbrained();	
+						$this->birdbrained();
 					}
-	
+
 					$word = strtolower($word);
 					if ($this->nospamnx_blacklist_part == 1) {
 						$word = preg_quote($word, '#');
@@ -215,22 +217,22 @@ if (!class_exists('NoSpamNX'))
 					} else {
 						if ($word == $author || $word == $email || $word == $url || $word == $remoteip || $word == $comment) {
 							$this->birdbrained();
-						}						
+						}
 					}
 				}
 			}
 		}
-		
-		function generateNames() {		
+
+		function generateNames() {
 			$nospamnx = array(
 				'nospamnx-1'		=> $this->generateRandomString(),
 				'nospamnx-2'		=> $this->generateRandomString(),
-				'nospamnx-2-value'	=> $this->generateRandomString()		
+				'nospamnx-2-value'	=> $this->generateRandomString()
 			);
 
 			return $nospamnx;
-		}	
-		
+		}
+
 		//check if ip is in cidr (from http://php.net/manual/de/ref.network.php)
 		function checkIP ($ip, $cidr) {
 		    list ($net, $mask) = split ("/", $cidr);
@@ -238,15 +240,15 @@ if (!class_exists('NoSpamNX'))
 		    $ip_mask = ~((1 << (32 - $mask)) - 1);
 		    $ip_ip = ip2long ($ip);
 		    $ip_ip_net = $ip_ip & $ip_mask;
-			
+
 			if ($ip_ip_net == $ip_net) { return 1; }
 			return 0;
 		}
-		
+
 		function checkCIDR($word) {
 			return preg_match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(\d|[1-2]\d|3[0-2]))$^", $word);
 		}
-		
+
 		function generateRandomString() {
 			return substr(sha1(uniqid(rand(), true)), rand(8, 32));
 		}
@@ -254,15 +256,15 @@ if (!class_exists('NoSpamNX'))
 		function nospamnxAdminMenu() {
 			add_options_page('NoSpamNX', 'NoSpamNX', 'manage_options', 'nospamnx', array(&$this, 'nospamnxOptionPage'));
 		}
-		
+
 		function displayMessage($message) {
 			echo "<div id='message' class='updated'><p>".$message."</p></div>";
 		}
-		
+
 		function displayError($message) {
 			echo "<div id='message' class='error'><p>".$message."</p></div>";
 		}
-		
+
 		function nospamnxSettingsLinks($links, $file) {
 			if ($file == 'nospamnx/nospamnx.php' && function_exists("admin_url")) {
 				$settings_link = '<a href="' . admin_url('options-general.php?page=nospamnx' ). '">' . __('Settings') . '</a>';
@@ -270,7 +272,7 @@ if (!class_exists('NoSpamNX'))
 			}
 			return $links;
 		}
-		
+
 		function nospamnxPluginLinks($links, $file) {
 			if ($file == 'nospamnx/nospamnx.php' && function_exists("admin_url")) {
 				$faq_link = '<a href="http://wordpress.org/extend/plugins/nospamnx/faq/" target="_blank">' . __('FAQ') . '</a>';
@@ -279,9 +281,9 @@ if (!class_exists('NoSpamNX'))
 				array_push($links, $donate_link);
 			}
 			return $links;
-		}				
-		
-		function nospamnxOptionPage() {	
+		}
+
+		function nospamnxOptionPage() {
 			if (!current_user_can('manage_options')) {
 				wp_die(__('Sorry, but you have no permissions to change settings.','nospamnx'), '', array('response' => 403));
 			}
@@ -290,7 +292,7 @@ if (!class_exists('NoSpamNX'))
 			(isset($_POST['save_settings'])) 	? $save_settings = $_POST['save_settings'] : $save_settings = '';
 			(isset($_POST['reset_counter'])) 	? $reset_counter = $_POST['reset_counter'] : $reset_counter = '';
 			(isset($_POST['update_blacklist'])) ? $update_blacklist = $_POST['update_blacklist'] : $update_blacklist = '';
-			
+
 			if ($save_settings == 1 && $this->verifyNonce($nonce)) {
 				switch($_POST['nospamnx_operate']) {
 					case 'block':
@@ -320,7 +322,7 @@ if (!class_exists('NoSpamNX'))
 				$this->nospamnx_blacklist_global_update = $blacklist_update;
 				$this->setOptions();
 				$this->displayMessage(__('NoSpamNX Blacklist was updated successfully.','nospamnx'));
-			}				
+			}
 
 			$mark = '';
 			$block = '';
@@ -330,20 +332,20 @@ if (!class_exists('NoSpamNX'))
 				break;
 				case 'mark':
 					$mark = 'checked';
-				break;	
+				break;
 				default:
 					$block = 'checked';
 			}
 
-			$confirm = __('Are you sure you want to reset the counter?','nospamnx');		
+			$confirm = __('Are you sure you want to reset the counter?','nospamnx');
 			$nonce = wp_create_nonce('nospamnx-nonce');
 
 			?>
-			
+
 			<div class="wrap">
 				<div id="icon-options-general" class="icon32"></div>
 				<p><h2><?php echo __('NoSpamNX Settings','nospamnx'); ?></h2></p>
-			
+
 				<div id="poststuff">
 					<div class="postbox opened">
 						<h3><?php echo __('Statistic','nospamnx'); ?></h3>
@@ -367,36 +369,36 @@ if (!class_exists('NoSpamNX'))
 									</td>
 								</tr>
 							</table>
-										
+
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
-								<input type="hidden" value="1" name="reset_counter">			
+								<input type="hidden" value="1" name="reset_counter">
 								<p><input name="submit" class='button-primary' value="<?php echo __('Reset','nospamnx'); ?>" type="submit" /></p>
-							</form>				
+							</form>
 						</div>
 					</div>
-			
-					<div class="postbox opened">		
+
+					<div class="postbox opened">
 						<h3><?php echo __('Operating mode','nospamnx'); ?></h3>
-						<div class="inside">							
+						<div class="inside">
 							<p><?php echo __('By default all Spambots are marked as Spam, but the recommended Mode is "block". If you are uncertain what will be blocked, select "Mark as Spam" at first and switch to "block" later on.','nospamnx'); ?></p>
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post">
-							<table class="form-table">						
+							<table class="form-table">
 									<tr>
 										<th scope="row" valign="top"><b><?php echo __('Mode','nospamnx'); ?></b></th>
-										<td>					
+										<td>
 											<input type="hidden" value="true" name="nospamnx_mode">
 											<input type="radio" name="nospamnx_operate" <?php echo $block; ?> value="block"> <?php echo __('Block (recommended)','nospamnx'); ?>
 											<br />
 											<input type="radio" <?php echo $mark; ?> name="nospamnx_operate" value="mark"> <?php echo __('Mark as Spam','nospamnx'); ?>
-										</td>									
+										</td>
 									</tr>
 							</table>
 							<input type="hidden" value="1" name="save_settings">
-							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>							
+							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
 							</form>
-						</div>							
+						</div>
 					</div>
-				
+
 					<div class="postbox opened">
 						<h3><?php echo __('Blacklist','nospamnx'); ?></h3>
 						<div class="inside">
@@ -409,16 +411,16 @@ if (!class_exists('NoSpamNX'))
 								<tr>
 									<td width="50%"><b><?php echo __('Local Blacklist','nospamnx'); ?></b></td>
 									<td width="50%"><b><?php echo __('Global Blacklist','nospamnx'); ?></b></td>
-								</tr>									
+								</tr>
 								<tr>
 									<td width="50%" valign="top"><?php echo __('The local Blacklist is comparable to the WordPress Blacklist. However, the local Blacklist enables you to block comments containing certain values, instead of putting them in moderation queue. Thus, the local blacklist only makes sense when using NoSpamNX in blocking mode. The local Blacklist checks the given values against the ip address, the author, the E-Mail Address, the comment and the URL field of a comment. If a pattern matches, the comment will be blocked. Please use one value per line. The local Blacklist is case-insensitive.','nospamnx'); ?></td>
 									<td width="50%" valign="top"><?php echo __('The global Blacklist gives you the possibility to use one Blacklist for multiple WordPress Blogs. You need to setup a place where you store your Blacklist (e.g. Webspace, Dropbox, etc. - but HTTP only) and put it into the Field "Update URL". How you Built up your Blacklist (e.g. PHP-Script with Database, simple Textfile, etc.) is up to, but you need to make sure, your Update URL returns one value per line seperated by "\n". Put the Update URL in all your Blogs where you want your Blacklist, and setup the update rotation according to your needs. The global Blacklist will be activated by adding an Update URL. The global Blacklist is case-insensitive.','nospamnx'); ?>
-								</tr>								
+								</tr>
 								<tr>
 									<td width="50%" valign="top"><textarea name="blacklist" class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist; ?></textarea></td>
 									<td width="50%" valign="top"><textarea name="blacklist_global" readonly class="large-text code" cols="50" rows="10"><?php echo $this->nospamnx_blacklist_global; ?></textarea>
 									<br />
-									<?php 
+									<?php
 										if (empty($this->nospamnx_blacklist_global_lu)) {
 											echo __('Last update','nospamnx').": -";
 										} else {
@@ -430,28 +432,28 @@ if (!class_exists('NoSpamNX'))
 								<tr>
 									<td width="50%">&nbsp;</td>
 									<td width="50%"><b><?php echo __('Update URL (e.g. http://www.mydomain.com/myblacklist.txt)','nospamnx'); ?></b><br /><input type="text" name="blacklist_global_url" value="<?php echo $this->nospamnx_blacklist_global_url; ?>" class="large-text code" /></td>
-								</tr>							
+								</tr>
 								<tr>
 									<td width="50%">&nbsp;</td>
 									<td width="50%"><b><?php echo __('Update every','nospamnx'); ?>&nbsp;<input type="text" name="blacklist_global_update" value="<?php echo $this->nospamnx_blacklist_global_update; ?>" size="5"/>&nbsp;<?php echo __('minutes.','nospamnx'); ?></b></td>
-								</tr>															
-							</table>	
+								</tr>
+							</table>
 							<input type="hidden" value="1" name="update_blacklist">
 							<p><input name="submit" class='button-primary' value="<?php echo __('Save','nospamnx'); ?>" type="submit" /></p>
-							</form>									
+							</form>
 						</div>
 					</div>
-				</div>	
-			</div>	
-			
-			<?php		
-		}	
-		
+				</div>
+			</div>
+
+			<?php
+		}
+
 		function verifyNonce($nonce) {
 			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) { wp_die(__('Security-Check failed.','nospamnx'), '', array('response' => 403)); }
 			return true;
 		}
-	
+
 		function activate() {
 	    	if (!get_option('nospamnx')) {
 				$options = array(
@@ -460,51 +462,51 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_operate'					=> 'mark',
 					'nospamnx_blacklist_part'			=> 1,
 					'nospamnx_blacklist_global_url'		=> '',
-					'nospmanx_blacklist_global_update'	=> '',	
-					'nospamnx_blacklist_global_lu'		=> 0,				
+					'nospmanx_blacklist_global_update'	=> '',
+					'nospamnx_blacklist_global_lu'		=> 0,
 					'nospamnx_activated'				=> time(),
 					'nospamnx_commentid'				=> $this->generateRandomString(),
-					'nospamnx_salt'						=> $this->generateRandomString()												
+					'nospamnx_salt'						=> $this->generateRandomString()
 				);
 				add_option('nospamnx', $options);
 	    	} else {
 				$options = get_option('nospamnx');
 				$options['nospamnx_names'] = $this->generateNames();
 				$options['nospamnx_commentid'] = $this->generateRandomString();
-				$options['nospamnx_salt'] = $this->generateRandomString();				
+				$options['nospamnx_salt'] = $this->generateRandomString();
 				if (!array_key_exists('nospamnx_count',$options) || empty($options['nospamnx_count'])) {
 					$options['nospamnx_count'] = 0;
 				}
 				if (!array_key_exists('nospamnx_operate',$options) || empty($options['nospamnx_operate'])) {
-					$options['nospamnx_operate'] = 'mark';					
+					$options['nospamnx_operate'] = 'mark';
 				}
 				if (!array_key_exists('nospamnx_blacklist_global_url',$options)) {
 					$options['nospamnx_blacklist_global_url'] = '';
 				}
 				if (!array_key_exists('nospmanx_blacklist_global_update',$options)) {
-					$options['nospmanx_blacklist_global_update'] = '';	
+					$options['nospmanx_blacklist_global_update'] = '';
 				}
 				if (!array_key_exists('nospamnx_blacklist_global_lu',$options) || empty($options['nospamnx_blacklist_global_lu'])) {
 					$options['nospamnx_blacklist_global_lu'] = 0;
 				}
 				if (!array_key_exists('nospamnx_blacklist_part',$options) || empty($options['nospamnx_blacklist_part'])) {
 					$options['nospamnx_blacklist_part'] = 1;
-				}				
+				}
 				if (!array_key_exists('nospamnx_activated',$options) || empty($options['nospamnx_activated'])) {
 					$options['nospamnx_activated'] = time();
-				}	
-				update_option('nospamnx', $options);			
+				}
+				update_option('nospamnx', $options);
 			}
 			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist-global', ''); }
 			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist', ''); }
-		}	
+		}
 
 		static function uninstall() {
-			delete_option('nospamnx');	
+			delete_option('nospamnx');
 			delete_option('nospamnx-blacklist');
-			delete_option('nospamnx-blacklist-global');	
+			delete_option('nospamnx-blacklist-global');
 		}
-		
+
 		function getOptions() {
 			$options = get_option('nospamnx');
 			$this->nospamnx_names 					= $options['nospamnx_names'];
@@ -515,70 +517,70 @@ if (!class_exists('NoSpamNX'))
 			$this->nospamnx_blacklist_global_update	= $options['nospamnx_blacklist_global_update'];
 			$this->nospamnx_blacklist_global_lu		= $options['nospamnx_blacklist_global_lu'];
 			$this->nospamnx_activated				= $options['nospamnx_activated'];
-			$this->nospamnx_commentid				= $options['nospamnx_commentid'];						
-			$this->nospamnx_salt					= $options['nospamnx_salt'];		
-			$this->nospamnx_blacklist_global		= get_option('nospamnx-blacklist-global');													
-			$this->nospamnx_blacklist				= get_option('nospamnx-blacklist');	
+			$this->nospamnx_commentid				= $options['nospamnx_commentid'];
+			$this->nospamnx_salt					= $options['nospamnx_salt'];
+			$this->nospamnx_blacklist_global		= get_option('nospamnx-blacklist-global');
+			$this->nospamnx_blacklist				= get_option('nospamnx-blacklist');
 		}
-		
+
 		function setOptions() {
 			$options = array(
 				'nospamnx_names'					=> $this->nospamnx_names,
 				'nospamnx_count'					=> $this->nospamnx_count,
 				'nospamnx_operate'					=> $this->nospamnx_operate,
-				'nospamnx_blacklist_part'			=> $this->nospamnx_blacklist_part,						
+				'nospamnx_blacklist_part'			=> $this->nospamnx_blacklist_part,
 				'nospamnx_blacklist_global_url'		=> $this->nospamnx_blacklist_global_url,
 				'nospamnx_blacklist_global_update'	=> $this->nospamnx_blacklist_global_update,
-				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu,	
+				'nospamnx_blacklist_global_lu'		=> $this->nospamnx_blacklist_global_lu,
 				'nospamnx_activated'				=> $this->nospamnx_activated,
 				'nospamnx_commentid'				=> $this->nospamnx_commentid,
 				'nospamnx_salt'						=> $this->nospamnx_salt
-	
+
 			);
 			update_option('nospamnx-blacklist', $this->nospamnx_blacklist);
 		    update_option('nospamnx', $options);
 		}
-		
-		function nospamnxStats() {	
-			$this->displayStats(true);		
-		}	
-		
+
+		function nospamnxStats() {
+			$this->displayStats(true);
+		}
+
 		function getStatsPerDay() {
 			$secs = time() - $this->nospamnx_activated;
 			$days = ($secs / (24*3600));
 			($days <= 1) ? $days = 1 : $days = floor($days);
 			return ceil($this->nospamnx_count / $days);
 		}
-		
+
 		function loadGlobalBlacklist() {
 			if (!function_exists('curl_init') || empty($this->nospamnx_blacklist_global_url)) { return; }
 			$time = time();
-			if ((($time - $this->nospamnx_blacklist_global_lu)) < ($this->nospamnx_blacklist_global_update * 60)) { return; }	
-				
+			if ((($time - $this->nospamnx_blacklist_global_lu)) < ($this->nospamnx_blacklist_global_update * 60)) { return; }
+
 			$curl = curl_init();
 			curl_setopt($curl,CURLOPT_URL,$this->nospamnx_blacklist_global_url);
 			curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,NXCURLTO);
 			curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
 			$buffer = curl_exec($curl);
-			
+
 			if (curl_errno($curl) != 0) {
-				curl_close($curl);	
+				curl_close($curl);
 		    	return;
 			}
 			curl_close($curl);
-			
+
 			update_option('nospamnx-blacklist-global', $this->sortBlacklist($buffer));
 			$this->nospamnx_blacklist_global = $blacklist;
 			$this->nospamnx_blacklist_global_lu = $time;
 			$this->setOptions();
 		}
-		
+
 		function sortBlacklist($blacklist) {
 			$sortedBlacklist = explode("\n", $blacklist);
 			natcasesort($sortedBlacklist);
 			return implode("\n", $sortedBlacklist);
 		}
-			
+
 		function displayStats($dashboard=false) {
 			if (function_exists('__ngettext')) {
 				if ($dashboard) { echo "<p>"; }
@@ -595,8 +597,8 @@ if (!class_exists('NoSpamNX'))
 							$this->getStatsPerDay()
 					);
 				}
-				if ($dashboard) { echo "</p>"; }	
-			}		
+				if ($dashboard) { echo "</p>"; }
+			}
 		}
 	}
 	$nospamnx = new NoSpamNX();
