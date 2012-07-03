@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
-Tested up to: 3.3.2
+Tested up to: 3.4.1
 Stable tag: 5.1.7
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
