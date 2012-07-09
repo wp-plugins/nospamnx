@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.7
+Version: 5.1.8
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -139,7 +139,7 @@ if (!class_exists('NoSpamNX'))
 					$this->birdbrained();
 				} else if (sha1($_POST['nxts'] . $this->nospamnx_salt) != $_POST['nxts_signed']) {
 					$this->birdbrained();
-				} else if (time() < $_POST['nxts'] + 5) {
+				} else if (time() < $_POST['nxts'] + 10) {
 					$this->delayed();
 				}
 			}

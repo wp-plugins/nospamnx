@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.4.1
-Stable tag: 5.1.7
+Stable tag: 5.1.8
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -26,6 +26,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 * Easy installation (just activate the plugin)
 * Easy configuration (only two options)
+* Increased spam protection when using WordPress default Theme
 * Local Blacklist to block specific Phrases, URLs, Domains, IP-Ranges, etc. (use it to block "handmade" Spam)
 * Global Blacklist for multiple WordPress Blogs
 * Does not require JavaScript, Cookies or Sessions
@@ -112,6 +113,9 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.8 =
+* Increased wait time for post from 5 ot 10 seconds
 
 = 5.1.7 =
 * Added License Tag
