@@ -47,6 +47,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 * Does not work with OpenID
 * Does not work with BuddyPress
+* Does not work with Jetpack Comments
 
 
 = Available Languages  =
