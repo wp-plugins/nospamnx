@@ -14,7 +14,7 @@ There have been many new good ideas of fighting automated Spam in WordPress. Mos
 
 Many Antispam Plugins focus on user interaction, e.g. captcha or calculations to defend you against automated comment spambots. Some use JavaScript and/or Sessions. NoSpamNX intend to handle automated comment-spam-protection without these measures. It does not require JavaScript, Cookies or Sessions. It does not change any of your comment template fields, given you more compatibility with other WordPress- or Browser Plugins.
 
-NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which most of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a local Blacklist or (if you have multiple Blogs) on a global Blacklist. This comes very handy when fighting againt "handmade" Spam.
+NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which most of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a local Blacklist or (if you have multiple Blogs) on a global Blacklist. This comes very handy when fighting against "handmade" Spam.
 
 
 = Requirements =
@@ -47,6 +47,7 @@ Make sure your theme loads <code>comment_form</code> in the Comment-Template (co
 
 * Does not work with OpenID
 * Does not work with BuddyPress
+* Does not work with Jetpack Comments
 
 
 = Available Languages  =
@@ -115,7 +116,7 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 == Changelog ==
 
 = 5.1.8 =
-* Increased wait time for post from 5 ot 10 seconds
+* Increased wait time for post from 5 to 10 seconds
 
 = 5.1.7 =
 * Added License Tag
