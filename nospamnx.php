@@ -3,14 +3,14 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.8
+Version: 5.1.9
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Copyright 2008-2012 Sven Kubiak
+Copyright 2008-2013 Sven Kubiak
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -229,7 +229,6 @@ if (!class_exists('NoSpamNX'))
 				'nospamnx-2'		=> $this->generateRandomString(),
 				'nospamnx-2-value'	=> $this->generateRandomString()
 			);
-
 			return $nospamnx;
 		}
 
@@ -497,7 +496,7 @@ if (!class_exists('NoSpamNX'))
 				}
 				update_option('nospamnx', $options);
 			}
-			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist-global', ''); }
+			if (!get_option('nospamnx-blacklist-global')) { add_option('nospamnx-blacklist-global', ''); }
 			if (!get_option('nospamnx-blacklist')) { add_option('nospamnx-blacklist', ''); }
 		}
 
@@ -553,8 +552,9 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function loadGlobalBlacklist() {
-			if (!function_exists('curl_init') || empty($this->nospamnx_blacklist_global_url)) { return; }
 			$time = time();
+
+			if (!function_exists('curl_init') || empty($this->nospamnx_blacklist_global_url)) { return; }
 			if ((($time - $this->nospamnx_blacklist_global_lu)) < ($this->nospamnx_blacklist_global_update * 60)) { return; }
 
 			$curl = curl_init();
