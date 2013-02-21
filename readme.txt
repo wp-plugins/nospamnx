@@ -2,7 +2,7 @@
 Contributors: kubi23
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 Tested up to: 3.5.1
-Stable tag: 5.1.10
+Stable tag: 5.1.11
 Requires at least: 3.0
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
@@ -114,6 +114,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.11 =
+* Fixed typo in options array initialisation
+* Updated function for cidr check for PHP > 5.3 compatibility
 
 = 5.1.10 =
 * Added filter for comment delay (thanks to Johan Eenfeldt)

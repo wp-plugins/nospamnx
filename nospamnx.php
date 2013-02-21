@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.10
+Version: 5.1.11
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
 Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
@@ -232,16 +232,22 @@ if (!class_exists('NoSpamNX'))
 			return $nospamnx;
 		}
 
-		//check if ip is in cidr (from http://php.net/manual/de/ref.network.php)
+		//Check an IP adress against a CIDR (from http://framework.zend.com/svn/framework/extras/incubator/library/ZendX/Whois/Adapter/Cidr.php)
 		function checkIP ($ip, $cidr) {
-		    list ($net, $mask) = split ("/", $cidr);
-		    $ip_net = ip2long ($net);
-		    $ip_mask = ~((1 << (32 - $mask)) - 1);
-		    $ip_ip = ip2long ($ip);
-		    $ip_ip_net = $ip_ip & $ip_mask;
+	        list($base, $bits) = explode('/', $cidr);
+	        list($a, $b, $c, $d) = explode('.', $base);
+	        $i    = ($a << 24) + ($b << 16) + ($c << 8) + $d;
+	        $mask = $bits == 0 ? 0: (~0 << (32 - $bits));
+	        $low = $i & $mask;
+	        $high = $i | (~$mask & 0xFFFFFFFF);
+	        list($a, $b, $c, $d) = explode('.', $ip);
+	        $check = ($a << 24) + ($b << 16) + ($c << 8) + $d;
 
-			if ($ip_ip_net == $ip_net) { return 1; }
-			return 0;
+	        if ($check >= $low && $check <= $high) {
+	            return 1;
+	        } else {
+	            return 0;
+	        }
 		}
 
 		function checkCIDR($word) {
@@ -461,7 +467,7 @@ if (!class_exists('NoSpamNX'))
 					'nospamnx_operate'					=> 'mark',
 					'nospamnx_blacklist_part'			=> 1,
 					'nospamnx_blacklist_global_url'		=> '',
-					'nospmanx_blacklist_global_update'	=> '',
+					'nospamnx_blacklist_global_update'	=> '',
 					'nospamnx_blacklist_global_lu'		=> 0,
 					'nospamnx_activated'				=> time(),
 					'nospamnx_commentid'				=> $this->generateRandomString(),
