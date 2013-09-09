@@ -3,10 +3,9 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.11
+Version: 5.1.2
 Author: Sven Kubiak
 Author URI: http://www.svenkubiak.de
-Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -281,9 +280,7 @@ if (!class_exists('NoSpamNX'))
 		function nospamnxPluginLinks($links, $file) {
 			if ($file == 'nospamnx/nospamnx.php' && function_exists("admin_url")) {
 				$faq_link = '<a href="http://wordpress.org/extend/plugins/nospamnx/faq/" target="_blank">' . __('FAQ') . '</a>';
-				$donate_link = '<a href="https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin" target="_blank">' . __('Donate') . '</a>';
 				array_push($links, $faq_link);
-				array_push($links, $donate_link);
 			}
 			return $links;
 		}
@@ -358,20 +355,6 @@ if (!class_exists('NoSpamNX'))
 							<table>
 								<tr>
 									<td valign="top"><p><b><?php $this->nospamnxStats(); ?></b></p></td>
-									<td>
-										<script type="text/javascript">
-										/* <![CDATA[ */
-										    (function() {
-										        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-										        s.type = 'text/javascript';
-										        s.async = true;
-										        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-										        t.parentNode.insertBefore(s, t);
-										    })();
-										/* ]]> */
-										</script>
-										<a class="FlattrButton" style="display:none;" href="http://www.svenkubiak.de/nospamnx/"></a>
-									</td>
 								</tr>
 							</table>
 
