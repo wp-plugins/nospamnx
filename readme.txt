@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: kubi23
-Donate link: https://flattr.com/thing/7642/NoSpamNX-WordPress-Plugin
-Tested up to: 3.6.0
-Stable tag: 5.1.12
+Tested up to: 3.7.1
+Stable tag: 5.1.13
 Requires at least: 3.0
+
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
 
 To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
@@ -16,6 +16,7 @@ Many Antispam Plugins focus on user interaction, e.g. captcha or calculations to
 
 NoSpamNX automaticly adds additional formfields to your comment form, invisible to human users. If a spambot fills these fields blindly (which most of all spambots do), the comment will not be saved. You can decide if you want to block these spambots or mark them as spam. Furthermore, you can put common spam-phrases on a local Blacklist or (if you have multiple Blogs) on a global Blacklist. This comes very handy when fighting against "handmade" Spam.
 
+NoSpamNX works best with a wordpress default theme (e.g. TwentyEleven, TwentyTwelve, etc.)
 
 = Requirements =
 
@@ -114,6 +115,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.13 =
+* Updated readme
+* Re-added flattr button
 
 = 5.1.12 =
 * Removed Flattr Link

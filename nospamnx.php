@@ -3,9 +3,9 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.2
+Version: 5.1.13
 Author: Sven Kubiak
-Author URI: http://www.svenkubiak.de
+Author URI: http://svenkubiak.de
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -347,7 +347,6 @@ if (!class_exists('NoSpamNX'))
 			<div class="wrap">
 				<div id="icon-options-general" class="icon32"></div>
 				<p><h2><?php echo __('NoSpamNX Settings','nospamnx'); ?></h2></p>
-
 				<div id="poststuff">
 					<div class="postbox opened">
 						<h3><?php echo __('Statistic','nospamnx'); ?></h3>
@@ -355,9 +354,11 @@ if (!class_exists('NoSpamNX'))
 							<table>
 								<tr>
 									<td valign="top"><p><b><?php $this->nospamnxStats(); ?></b></p></td>
+									<td>
+										<script id='fbg2qtl'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=svenkubiak&url=http%3A%2F%2Fwordpress.org%2Fplugins%2Fnospamnx%2F';f.title='Flattr';f.height=62;f.width=55;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbg2qtl');</script>
+									</td>
 								</tr>
 							</table>
-
 							<form action="options-general.php?page=nospamnx&_wpnonce=<?php echo $nonce ?>" method="post" onclick="return confirm('<?php echo $confirm; ?>');">
 								<input type="hidden" value="1" name="reset_counter">
 								<p><input name="submit" class='button-primary' value="<?php echo __('Reset','nospamnx'); ?>" type="submit" /></p>
