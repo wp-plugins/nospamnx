@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: kubi23
 Tested up to: 3.7.1
-Stable tag: 5.1.13
+Stable tag: 5.1.14
 Requires at least: 3.0
 
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
@@ -115,6 +115,10 @@ Due to the functionality of NoSpamNX false-positives are nearly impossible. Ther
 
 
 == Changelog ==
+
+= 5.1.14 =
+* Changed deprecated function __ngettext to _n
+* Code cleanup
 
 = 5.1.13 =
 * Updated readme

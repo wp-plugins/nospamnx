@@ -3,7 +3,7 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your Blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.13
+Version: 5.1.14
 Author: Sven Kubiak
 Author URI: http://svenkubiak.de
 License: GPLv2 or later
@@ -439,7 +439,10 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function verifyNonce($nonce) {
-			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) { wp_die(__('Security-Check failed.','nospamnx'), '', array('response' => 403)); }
+			if (!wp_verify_nonce($nonce, 'nospamnx-nonce')) {
+				wp_die(__('Security-Check failed.','nospamnx'), '', array('response' => 403));
+			}
+			
 			return true;
 		}
 
@@ -538,6 +541,7 @@ if (!class_exists('NoSpamNX'))
 			$secs = time() - $this->nospamnx_activated;
 			$days = ($secs / (24*3600));
 			($days <= 1) ? $days = 1 : $days = floor($days);
+			
 			return ceil($this->nospamnx_count / $days);
 		}
 
@@ -555,14 +559,14 @@ if (!class_exists('NoSpamNX'))
 
 			if (curl_errno($curl) != 0) {
 				curl_close($curl);
-		    	return;
+			} else {
+				curl_close($curl);
+	
+				update_option('nospamnx-blacklist-global', $this->sortBlacklist($buffer));
+				$this->nospamnx_blacklist_global = $blacklist;
+				$this->nospamnx_blacklist_global_lu = $time;
+				$this->setOptions();
 			}
-			curl_close($curl);
-
-			update_option('nospamnx-blacklist-global', $this->sortBlacklist($buffer));
-			$this->nospamnx_blacklist_global = $blacklist;
-			$this->nospamnx_blacklist_global_lu = $time;
-			$this->setOptions();
 		}
 
 		function sortBlacklist($blacklist) {
@@ -572,12 +576,12 @@ if (!class_exists('NoSpamNX'))
 		}
 
 		function displayStats($dashboard=false) {
-			if (function_exists('__ngettext')) {
+			if (function_exists('_n')) {
 				if ($dashboard) { echo "<p>"; }
 				if ($this->nospamnx_count <= 0) {
 					echo __("NoSpamNX has stopped no birdbrained Spambots yet.", 'nospamnx');
 				} else {
-					printf(__ngettext(
+					printf(_n(
 							"Since %s %s has stopped %s birdbrained Spambot (approx. %s per Day).",
 							"Since %s %s has stopped %s birdbrained Spambots (approx. %s per Day).",
 							$this->nospamnx_count, 'nospamnx'),
