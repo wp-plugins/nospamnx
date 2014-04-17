@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: kubi23
-Tested up to: 3.8.0
+Tested up to: 3.9.0
 Stable tag: 5.1.15
 Requires at least: 3.0
 
