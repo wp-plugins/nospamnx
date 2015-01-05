@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: kubi23
-Tested up to: 3.9.0
-Stable tag: 5.1.15
+Tested up to: 4.1.0
+Stable tag: 5.1.16
 Requires at least: 3.0
 
 Tags: blog, wordpress, security, plugin, comment, comments, anti-spam, antispam, spam, spambot, spambots, protection, user, users, template, secure, hidden, yawasp, nospamnx, blacklist, blacklist, field, fields
