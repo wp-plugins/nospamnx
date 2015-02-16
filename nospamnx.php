@@ -3,13 +3,13 @@
 Plugin Name: NoSpamNX
 Plugin URI: http://wordpress.org/extend/plugins/nospamnx/
 Description: To protect your blog from automated spambots, this plugin adds invisible formfields to your comment form.
-Version: 5.1.16
+Version: 5.1.17
 Author: Sven Kubiak
 Author URI: http://svenkubiak.de
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Copyright 2008-2014 Sven Kubiak
+Copyright 2008-2015 Sven Kubiak
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
